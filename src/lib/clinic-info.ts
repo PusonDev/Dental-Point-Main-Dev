@@ -30,7 +30,11 @@ export const CLINIC_INFO = {
     line2: "Shobujbag, Dhaka-1214",
     full: "1/1, East Bashabo, Kodomtola, Shobujbag, Dhaka-1214",
     fullBangla: "১/১, ইস্ট বাসাবো, কদমতলা, শোভাগবাগ, ঢাকা-১২১৪",
-    googleMaps: "https://share.google/5aWMuv9lwt8dM5w9w",
+    googleMaps: "https://maps.app.goo.gl/9PXmsooiG3PAZfP38",
+    coordinates: {
+      lat: 23.738080371291566,
+      lng: 90.43519232721546,
+    },
   },
 
   hours: {
