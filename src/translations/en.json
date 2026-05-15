@@ -1,0 +1,76 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "book": "Book Appointment",
+    "login": "Login",
+    "signup": "Sign Up",
+    "dashboard": "Dashboard",
+    "logout": "Logout"
+  },
+  "home": {
+    "heroTitle": "Dr. Jarin's Dental Point",
+    "heroSubtitle": "Better Teeth Better Health",
+    "bookCta": "Book Your Appointment Today",
+    "bookSub": "It's free & takes 2 minutes",
+    "viewServices": "View All Services",
+    "readyTitle": "Ready to smile better?",
+    "readySub": "Book your appointment now"
+  },
+  "services": {
+    "title": "Our Services",
+    "bookFor": "Book for This Service",
+    "note": "All treatments are done with modern equipment",
+    "xray": "In-house dental X-ray with our own machine"
+  },
+  "landing": {
+    "headline": "Permanent solution for your dental problems",
+    "sub": "Expert dental care in East Bashabo, Dhaka",
+    "formTitle": "Get FREE Consultation",
+    "submit": "Get My Appointment",
+    "thanks": "Thank you! We will contact you soon. 😊"
+  },
+  "book": {
+    "title": "Book Appointment",
+    "name": "Full Name",
+    "phone": "Phone Number",
+    "email": "Email",
+    "date": "Preferred Date",
+    "time": "Preferred Time",
+    "reason": "Reason for Visit",
+    "note": "Special Note",
+    "submit": "Request Appointment",
+    "success": "Your appointment request has been sent!"
+  },
+  "auth": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "phone": "Phone Number",
+    "password": "Password",
+    "otp": "OTP Login",
+    "verify": "Verify OTP",
+    "sendOtp": "Send OTP",
+    "fullName": "Full Name",
+    "step": "Step"
+  },
+  "dashboard": {
+    "welcome": "Welcome back",
+    "history": "Visit History",
+    "reports": "My Reports",
+    "appointments": "Appointments",
+    "payments": "Payments",
+    "profile": "Profile",
+    "bookNew": "Book Appointment"
+  },
+  "footer": {
+    "rights": "All rights reserved"
+  },
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "search": "Search",
+    "back": "Back"
+  }
+}
