@@ -136,6 +136,9 @@ export default function SignupPage() {
             <button type="submit" disabled={loading} className="btn-primary w-full">
               {loading ? t.common.loading : t.auth.sendOtp}
             </button>
+            <p className="text-xs text-gray-500">
+              OTP delivery requires Supabase SMS authentication configured for your project.
+            </p>
           </form>
         )}
 

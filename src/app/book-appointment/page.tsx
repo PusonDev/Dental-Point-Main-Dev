@@ -32,7 +32,8 @@ export default function BookAppointmentPage() {
     });
     setLoading(false);
     if (!res.ok) {
-      setError("Could not submit request. Please try again.");
+      const body = await res.json().catch(() => null);
+      setError(body?.error || "Could not submit request. Please try again.");
       return;
     }
     setDone(true);
