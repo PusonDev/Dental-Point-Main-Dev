@@ -14,7 +14,7 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
         <div>
           <div className="flex items-center gap-2 mb-3">
-            <Image src="/logo.svg" alt="Logo" width={40} height={40} />
+            <Image src="/logo.jpg" alt="Prity Dental Logo" width={40} height={40} />
             <div>
               <p className="font-bold">{CLINIC_INFO.name}</p>
               <p className="text-accent text-sm">{CLINIC_INFO.tagline}</p>
