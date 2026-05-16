@@ -17,26 +17,34 @@ export default function BookAppointmentPage() {
     setLoading(true);
     setError("");
     const fd = new FormData(e.currentTarget);
-    const res = await fetch("/api/appointments", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        patient_name: fd.get("patient_name"),
-        patient_phone: fd.get("patient_phone"),
-        email: fd.get("email") || undefined,
-        requested_date: fd.get("requested_date"),
-        requested_time: fd.get("requested_time"),
-        reason: fd.get("reason"),
-        special_note: fd.get("special_note") || undefined,
-      }),
-    });
-    setLoading(false);
-    if (!res.ok) {
-      const body = await res.json().catch(() => null);
-      setError(body?.error || "Could not submit request. Please try again.");
-      return;
+    const payload = {
+      patient_name: String(fd.get("patient_name") || "").trim(),
+      patient_phone: String(fd.get("patient_phone") || "").trim(),
+      email: String(fd.get("email") || "").trim(),
+      requested_date: String(fd.get("requested_date") || ""),
+      requested_time: String(fd.get("requested_time") || ""),
+      reason: String(fd.get("reason") || ""),
+      special_note: String(fd.get("special_note") || "").trim() || undefined,
+    };
+
+    try {
+      const res = await fetch("/api/appointments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      setLoading(false);
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        setError(body?.error || "Could not submit request. Please try again.");
+        return;
+      }
+      setDone(true);
+    } catch (submitError) {
+      setLoading(false);
+      const message = submitError instanceof Error ? submitError.message : "Network error";
+      setError(`Could not submit request: ${message}`);
     }
-    setDone(true);
   }
 
   return (

@@ -69,7 +69,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true, id: appt.id });
   } catch (e) {
     console.error("Appointment creation error:", e);
-    const message = e instanceof Error ? e.message : "Failed to book appointment";
+    const message = e instanceof z.ZodError
+      ? e.errors.map((err) => `${err.path.join('.')}: ${err.message}`).join("; ")
+      : e instanceof Error
+      ? e.message
+      : "Failed to book appointment";
     return NextResponse.json({ error: message }, { status: 400 });
   }
 }
