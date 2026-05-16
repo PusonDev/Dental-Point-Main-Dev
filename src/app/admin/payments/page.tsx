@@ -15,6 +15,15 @@ export default function AdminPaymentsPage() {
   const [payments, setPayments] = useState<PaymentRow[]>([]);
   const [loading, setLoading] = useState(true);
 
+  async function archivePayment(id: string) {
+    await fetch("/api/admin/recovery", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ table: "payments", id, action: "delete" }),
+    });
+    setPayments((current) => current.filter((p) => p.id !== id));
+  }
+
   useEffect(() => {
     fetch("/api/admin/payments")
       .then((r) => r.json())
@@ -37,6 +46,13 @@ export default function AdminPaymentsPage() {
                 Total ৳{p.total_amount} · Paid ৳{p.paid_amount} · Due ৳{p.due_amount}
               </p>
               <span className="text-primary capitalize text-xs">{p.payment_status}</span>
+              <button
+                type="button"
+                onClick={() => archivePayment(p.id)}
+                className="btn-secondary mt-2 py-1 px-3 text-xs"
+              >
+                Archive
+              </button>
             </li>
           ))}
         </ul>

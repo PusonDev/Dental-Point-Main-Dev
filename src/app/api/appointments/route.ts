@@ -23,6 +23,7 @@ export async function GET() {
     .from("appointments")
     .select("*")
     .eq("patient_id", user.id)
+    .eq("is_deleted", false)
     .order("created_at", { ascending: false });
   return NextResponse.json({ appointments: data || [] });
 }

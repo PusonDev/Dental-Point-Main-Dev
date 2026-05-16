@@ -15,6 +15,8 @@ CREATE TABLE IF NOT EXISTS profiles (
   emergency_contact TEXT,
   show_payment    BOOLEAN DEFAULT TRUE,
   is_active       BOOLEAN DEFAULT TRUE,
+  is_deleted      BOOLEAN DEFAULT FALSE,
+  deleted_at      TIMESTAMPTZ,
   created_at      TIMESTAMPTZ DEFAULT NOW(),
   updated_at      TIMESTAMPTZ DEFAULT NOW()
 );
@@ -71,6 +73,8 @@ CREATE TABLE IF NOT EXISTS appointments (
   reason          TEXT,
   special_note    TEXT,
   status          TEXT DEFAULT 'pending' CHECK (status IN ('pending','confirmed','cancelled','completed')),
+  is_deleted      BOOLEAN DEFAULT FALSE,
+  deleted_at      TIMESTAMPTZ,
   confirmed_date  DATE,
   confirmed_time  TEXT,
   notes           TEXT,
@@ -91,6 +95,8 @@ CREATE TABLE IF NOT EXISTS payments (
   transaction_id  TEXT,
   payment_date    DATE,
   notes           TEXT,
+  is_deleted      BOOLEAN DEFAULT FALSE,
+  deleted_at      TIMESTAMPTZ,
   recorded_by     UUID REFERENCES staff(id),
   created_at      TIMESTAMPTZ DEFAULT NOW()
 );
@@ -106,6 +112,8 @@ CREATE TABLE IF NOT EXISTS leads (
   notes           TEXT,
   converted_to    UUID REFERENCES profiles(id),
   whatsapp_sent   BOOLEAN DEFAULT FALSE,
+  is_deleted      BOOLEAN DEFAULT FALSE,
+  deleted_at      TIMESTAMPTZ,
   created_at      TIMESTAMPTZ DEFAULT NOW()
 );
 

@@ -11,6 +11,7 @@ export async function GET() {
   const { data, error } = await admin
     .from("payments")
     .select("*, profiles(full_name, phone)")
+    .eq("is_deleted", false)
     .order("created_at", { ascending: false })
     .limit(200);
 

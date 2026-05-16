@@ -27,6 +27,15 @@ export default function AdminLeadsPage() {
     load();
   }
 
+  async function archiveLead(id: string) {
+    await fetch("/api/admin/recovery", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ table: "leads", id, action: "delete" }),
+    });
+    load();
+  }
+
   return (
     <div>
       <h1 className="text-xl font-bold text-primary mb-4">Leads</h1>
@@ -52,6 +61,13 @@ export default function AdminLeadsPage() {
                   <option value="converted">Converted</option>
                   <option value="lost">Lost</option>
                 </select>
+                <button
+                  type="button"
+                  onClick={() => archiveLead(l.id)}
+                  className="btn-secondary py-1 px-3 text-xs"
+                >
+                  Archive
+                </button>
               </div>
             </li>
           ))}

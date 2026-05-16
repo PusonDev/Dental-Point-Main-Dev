@@ -9,6 +9,7 @@ const adminNav: NavItem[] = [
   { href: "/admin/leads", label: "Leads", icon: "📋" },
   { href: "/admin/appointments", label: "Appointments", icon: "📅" },
   { href: "/admin/payments", label: "Payments", icon: "💰" },
+  { href: "/admin/recovery", label: "Recovery", icon: "🗑️" },
   { href: "/admin/whatsapp", label: "WhatsApp", icon: "💬" },
   { href: "/admin/settings", label: "Settings", icon: "⚙️" },
 ];

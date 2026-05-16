@@ -21,6 +21,8 @@ export interface Profile {
   emergency_contact?: string | null;
   show_payment: boolean;
   is_active: boolean;
+  is_deleted?: boolean;
+  deleted_at?: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -76,6 +78,8 @@ export interface Appointment {
   confirmed_date?: string | null;
   confirmed_time?: string | null;
   notes?: string | null;
+  is_deleted?: boolean;
+  deleted_at?: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -93,6 +97,8 @@ export interface Payment {
   payment_date?: string | null;
   notes?: string | null;
   recorded_by?: string | null;
+  is_deleted?: boolean;
+  deleted_at?: string | null;
   created_at: string;
 }
 
@@ -106,6 +112,8 @@ export interface Lead {
   notes?: string | null;
   converted_to?: string | null;
   whatsapp_sent: boolean;
+  is_deleted?: boolean;
+  deleted_at?: string | null;
   created_at: string;
 }
 

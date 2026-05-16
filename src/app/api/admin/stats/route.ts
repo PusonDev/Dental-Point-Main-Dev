@@ -8,10 +8,10 @@ export async function GET() {
 
   const admin = createAdminClient();
   const [patients, leads, appointments, payments, whatsapp] = await Promise.all([
-    admin.from("profiles").select("id", { count: "exact", head: true }),
-    admin.from("leads").select("id", { count: "exact", head: true }).eq("status", "new"),
-    admin.from("appointments").select("id", { count: "exact", head: true }).eq("status", "pending"),
-    admin.from("payments").select("due_amount").eq("payment_status", "due"),
+    admin.from("profiles").select("id", { count: "exact", head: true }).eq("is_deleted", false),
+    admin.from("leads").select("id", { count: "exact", head: true }).eq("status", "new").eq("is_deleted", false),
+    admin.from("appointments").select("id", { count: "exact", head: true }).eq("status", "pending").eq("is_deleted", false),
+    admin.from("payments").select("due_amount").eq("payment_status", "due").eq("is_deleted", false),
     admin.from("whatsapp_queue").select("id", { count: "exact", head: true }).eq("status", "pending"),
   ]);
 

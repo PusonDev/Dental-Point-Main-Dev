@@ -21,6 +21,7 @@ export async function GET() {
   const { data, error } = await supabase
     .from("profiles")
     .select("*")
+    .eq("is_deleted", false)
     .eq("id", user.id)
     .single();
 

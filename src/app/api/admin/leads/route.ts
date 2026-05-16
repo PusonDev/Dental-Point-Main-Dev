@@ -11,6 +11,7 @@ export async function GET() {
   const { data, error } = await admin
     .from("leads")
     .select("*")
+    .eq("is_deleted", false)
     .order("created_at", { ascending: false })
     .limit(200);
 

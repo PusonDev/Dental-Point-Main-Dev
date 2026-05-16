@@ -11,7 +11,7 @@ export async function GET(request: Request) {
   const q = searchParams.get("q")?.trim();
 
   const admin = createAdminClient();
-  let query = admin.from("profiles").select("*").order("created_at", { ascending: false }).limit(100);
+  let query = admin.from("profiles").select("*").eq("is_deleted", false).order("created_at", { ascending: false }).limit(100);
 
   if (q) {
     query = query.or(`full_name.ilike.%${q}%,phone.ilike.%${q}%`);

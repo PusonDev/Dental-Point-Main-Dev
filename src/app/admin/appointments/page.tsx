@@ -27,6 +27,15 @@ export default function AdminAppointmentsPage() {
     load();
   }
 
+  async function archiveAppointment(id: string) {
+    await fetch("/api/admin/recovery", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ table: "appointments", id, action: "delete" }),
+    });
+    load();
+  }
+
   return (
     <div>
       <h1 className="text-xl font-bold text-primary mb-4">Appointments</h1>
@@ -49,6 +58,13 @@ export default function AdminAppointmentsPage() {
                 <option value="cancelled">Cancelled</option>
                 <option value="completed">Completed</option>
               </select>
+              <button
+                type="button"
+                onClick={() => archiveAppointment(a.id)}
+                className="btn-secondary mt-2 py-1 px-3 text-xs"
+              >
+                Archive
+              </button>
             </li>
           ))}
         </ul>

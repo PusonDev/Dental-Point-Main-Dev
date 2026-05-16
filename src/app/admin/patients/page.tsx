@@ -8,6 +8,15 @@ export default function AdminPatientsPage() {
   const [q, setQ] = useState("");
   const [loading, setLoading] = useState(true);
 
+  async function archivePatient(id: string) {
+    await fetch("/api/admin/recovery", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ table: "profiles", id, action: "delete" }),
+    });
+    setPatients((current) => current.filter((p) => p.id !== id));
+  }
+
   function load(search = q) {
     setLoading(true);
     fetch(`/api/admin/patients?q=${encodeURIComponent(search)}`)
@@ -45,6 +54,7 @@ export default function AdminPatientsPage() {
                 <th className="p-2">Name</th>
                 <th className="p-2">Phone</th>
                 <th className="p-2">Joined</th>
+                <th className="p-2">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -53,6 +63,15 @@ export default function AdminPatientsPage() {
                   <td className="p-2 font-medium">{p.full_name}</td>
                   <td className="p-2">{p.phone}</td>
                   <td className="p-2 text-gray-500">{new Date(p.created_at).toLocaleDateString()}</td>
+                  <td className="p-2">
+                    <button
+                      type="button"
+                      onClick={() => archivePatient(p.id)}
+                      className="btn-secondary text-xs py-1 px-2"
+                    >
+                      Archive
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
