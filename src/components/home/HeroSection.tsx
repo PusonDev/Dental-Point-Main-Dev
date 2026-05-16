@@ -13,7 +13,7 @@ export default function HeroSection() {
     <section className="relative min-h-screen bg-gradient-to-b from-primary to-primary-dark flex flex-col items-center justify-center text-center px-4 overflow-hidden">
       <DentalAnimation />
       <div className="relative z-10 flex flex-col items-center gap-4 max-w-lg">
-        <Image src="/logo.png" alt="Prity Dental Logo" width={100} height={100} className="mb-2 rounded-full" />
+        <Image src="/logo.png" alt="Prity Dental Logo" width={160} height={160} className="mb-2 rounded-full shadow-xl" />
         <h1 className="text-3xl md:text-5xl font-extrabold text-white">
           {locale === "bn" ? CLINIC_INFO.nameBangla : t.home.heroTitle}
         </h1>
