@@ -41,6 +41,27 @@ export async function PATCH(request: Request) {
       .select()
       .single();
     if (error) throw error;
+
+    // Auto-WhatsApp on confirmation
+    if (updates.status === "confirmed" && data.patient_phone) {
+      const { enqueueMessage } = await import("@/lib/whatsapp");
+      try {
+        await enqueueMessage({
+          recipientPhone: data.patient_phone,
+          recipientName: data.patient_name || "Patient",
+          triggerType: "reminder",
+          templateName: "appointment_confirm", // Using the Meta template
+          patientId: data.patient_id,
+          extra: { 
+            date: data.confirmed_date || data.requested_date || "", 
+            time: data.confirmed_time || data.requested_time || "" 
+          },
+        });
+      } catch (msgErr) {
+        console.warn("Auto-WhatsApp enqueue failed:", msgErr);
+      }
+    }
+
     return NextResponse.json({ appointment: data });
   } catch (e) {
     console.error(e);

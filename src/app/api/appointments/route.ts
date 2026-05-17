@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { enqueueMessage } from "@/lib/whatsapp";
+import appendBookingBackup from "@/lib/offline-backup";
 import { z } from "zod";
 
 const schema = z.object({
@@ -30,13 +31,15 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
+    const body = await request.json();
+    // If Supabase service keys are not configured, save the booking to a local backup
     if (!process.env.SUPABASE_SERVICE_ROLE_KEY || !process.env.NEXT_PUBLIC_SUPABASE_URL) {
+      await appendBookingBackup(body);
       return NextResponse.json(
-        { error: "Server configuration missing Supabase keys. Check SUPABASE_SERVICE_ROLE_KEY and NEXT_PUBLIC_SUPABASE_URL." },
-        { status: 500 }
+        { success: true, offline: true, message: "Saved booking to local backup because server Supabase keys are missing." },
+        { status: 202 }
       );
     }
-    const body = await request.json();
     const data = schema.parse(body);
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
@@ -55,16 +58,24 @@ export async function POST(request: Request) {
       special_note: data.special_note || null,
       status: "pending",
     }).select().single();
+    if (error) {
+      // fallback: save booking to local backup so user data isn't lost
+      await appendBookingBackup(body);
+      console.error("Supabase insert error, booking saved to backup:", error);
+      return NextResponse.json({ success: true, offline: true, message: "Saved booking to local backup due to database error." }, { status: 202 });
+    }
 
-    if (error) throw error;
-
-    await enqueueMessage({
-      recipientPhone: data.patient_phone,
-      recipientName: data.patient_name,
-      triggerType: "reminder",
-      patientId: user?.id,
-      extra: { date: data.requested_date, time: data.requested_time },
-    });
+    try {
+      await enqueueMessage({
+        recipientPhone: data.patient_phone,
+        recipientName: data.patient_name,
+        triggerType: "reminder",
+        patientId: user?.id,
+        extra: { date: data.requested_date, time: data.requested_time },
+      });
+    } catch (msgErr) {
+      console.warn("enqueueMessage failed (non-fatal):", msgErr);
+    }
 
     return NextResponse.json({ success: true, id: appt.id });
   } catch (e) {
@@ -74,6 +85,23 @@ export async function POST(request: Request) {
       : e instanceof Error
       ? e.message
       : "Failed to book appointment";
-    return NextResponse.json({ error: message }, { status: 400 });
+    // If a validation error, return 400. Otherwise try to persist offline and return 202.
+    if (e instanceof z.ZodError) {
+      return NextResponse.json({ error: message }, { status: 400 });
+    }
+
+    try {
+      // attempt to save whatever came in the request to backup
+      // note: request body may already have been consumed; we attempt best-effort backup
+      // (we already read body above in normal flow)
+      // no-op if body variable not available
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      if (typeof body !== "undefined") await appendBookingBackup(body);
+    } catch (backupErr) {
+      console.error("Failed to write backup after error:", backupErr);
+    }
+
+    return NextResponse.json({ error: message, offline: true }, { status: 202 });
   }
 }

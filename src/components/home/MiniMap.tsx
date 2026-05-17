@@ -6,8 +6,7 @@ import { useLanguage } from "@/context/LanguageContext";
 export default function MiniMap() {
   const { locale } = useLanguage();
 
-  const embedQuery = encodeURIComponent(`${CLINIC_INFO.name}, ${CLINIC_INFO.address.full}`);
-  const mapUrl = `https://www.google.com/maps?q=${embedQuery}&z=17&output=embed`;
+  const mapUrl = `https://www.google.com/maps?q=${CLINIC_INFO.address.coordinates.lat},${CLINIC_INFO.address.coordinates.lng}&z=17&output=embed`;
 
   return (
     <section className="py-16 px-4 bg-white">

@@ -45,6 +45,12 @@ export default function Header({ minimal = false }: HeaderProps) {
           >
             {t.nav.signup}
           </Link>
+          <Link
+            href="/admin"
+            className="text-white/70 hover:text-white text-xs ml-2 border border-white/30 px-2 py-1 rounded"
+          >
+            Admin
+          </Link>
         </nav>
       </div>
     </header>

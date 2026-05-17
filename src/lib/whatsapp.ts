@@ -24,11 +24,25 @@ export async function enqueueMessage(params: {
   patientId?: string;
   extra?: Record<string, string>;
   customBody?: string;
+  templateName?: string; // Optional: specify a Meta template
 }) {
   const admin = createAdminClient();
-  const body =
-    params.customBody ||
-    TEMPLATES[params.triggerType](params.recipientName, params.extra);
+  
+  // If templateName is provided, we store a JSON structure in message_body
+  // Otherwise we use the legacy string-based body
+  let body = params.customBody || TEMPLATES[params.triggerType](params.recipientName, params.extra);
+  
+  if (params.templateName) {
+    body = JSON.stringify({
+      isTemplate: true,
+      template: params.templateName,
+      variables: [
+        params.recipientName,
+        params.extra?.date || "",
+        params.extra?.time || ""
+      ]
+    });
+  }
 
   const { error } = await admin.from("whatsapp_queue").insert({
     recipient_phone: params.recipientPhone,
@@ -42,25 +56,93 @@ export async function enqueueMessage(params: {
   if (error) throw error;
 }
 
-/** Meta WhatsApp Cloud API — DEFERRED until WHATSAPP_ACCESS_TOKEN is set */
+/**
+ * Meta WhatsApp Cloud API — Template Messages (Official)
+ */
+export async function sendWhatsAppTemplate({
+  to,
+  template,
+  variables = [],
+  language = "en",
+}: {
+  to: string;
+  template: string;
+  variables?: string[];
+  language?: string;
+}) {
+  const version = process.env.WHATSAPP_API_VERSION || "v19.0";
+  const phoneId = process.env.WHATSAPP_PHONE_NUMBER_ID;
+  const token = process.env.WHATSAPP_ACCESS_TOKEN;
+
+  if (!phoneId || !token) {
+    return { ok: false, error: "WhatsApp API not configured" };
+  }
+
+  const formattedPhone = to.replace(/^\+/, "").replace(/^0/, "880").replace(/\D/g, "");
+  const url = `https://graph.facebook.com/${version}/${phoneId}/messages`;
+
+  const body = {
+    messaging_product: "whatsapp",
+    to: formattedPhone,
+    type: "template",
+    template: {
+      name: template,
+      language: { code: language },
+      components: [
+        {
+          type: "body",
+          parameters: variables.map((v) => ({
+            type: "text",
+            text: String(v),
+          })),
+        },
+      ],
+    },
+  };
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      return { ok: false, error: JSON.stringify(data) };
+    }
+    return { ok: true, data };
+  } catch (err) {
+    return { ok: false, error: err instanceof Error ? err.message : "Network error" };
+  }
+}
+
+/** Meta WhatsApp Cloud API — Session Messages (Standard Text) */
 export async function sendWhatsAppMessage(
   phone: string,
   message: string
 ): Promise<{ ok: boolean; error?: string }> {
-  if (!process.env.WHATSAPP_ACCESS_TOKEN || !process.env.WHATSAPP_PHONE_NUMBER_ID) {
+  const version = process.env.WHATSAPP_API_VERSION || "v19.0";
+  const phoneId = process.env.WHATSAPP_PHONE_NUMBER_ID;
+  const token = process.env.WHATSAPP_ACCESS_TOKEN;
+
+  if (!token || !phoneId) {
     return {
       ok: false,
       error: "WhatsApp API not configured. Message queued only.",
     };
   }
 
-  const formattedPhone = phone.replace(/^\+/, "").replace(/^0/, "880");
-  const url = `https://graph.facebook.com/v18.0/${process.env.WHATSAPP_PHONE_NUMBER_ID}/messages`;
+  const formattedPhone = phone.replace(/^\+/, "").replace(/^0/, "880").replace(/\D/g, "");
+  const url = `https://graph.facebook.com/${version}/${phoneId}/messages`;
 
   const response = await fetch(url, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${process.env.WHATSAPP_ACCESS_TOKEN}`,
+      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({

@@ -13,8 +13,8 @@ export default function HeroSection() {
     <section className="relative min-h-screen bg-gradient-to-b from-primary to-primary-dark flex flex-col items-center justify-center text-center px-4 overflow-hidden">
       <DentalAnimation />
       <div className="relative z-10 flex flex-col items-center gap-4 max-w-lg">
-        <div className="mb-4 p-6 bg-white rounded-2xl shadow-lg flex items-center justify-center">
-          <Image src="/logo.png" alt="Prity Dental Logo" width={160} height={160} className="rounded-full" />
+        <div className="mb-6 flex items-center justify-center">
+          <Image src="/logo.png" alt="Prity Dental Logo" width={180} height={180} className="rounded-full" style={{ mixBlendMode: 'multiply' }} />
         </div>
         <h1 className="text-3xl md:text-5xl font-extrabold text-white">
           {locale === "bn" ? CLINIC_INFO.nameBangla : t.home.heroTitle}

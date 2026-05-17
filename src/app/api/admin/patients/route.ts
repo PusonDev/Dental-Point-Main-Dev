@@ -4,7 +4,7 @@ import { requireStaff } from "@/lib/auth-helpers";
 import { z } from "zod";
 
 export async function GET(request: Request) {
-  const auth = await requireStaff("admin");
+  const auth = await requireStaff();
   if (auth.error) return NextResponse.json({ error: auth.error }, { status: auth.status });
 
   const { searchParams } = new URL(request.url);
