@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-type Column = { key: string; title: string };
+type Column = { key: string; title: string; render?: (val: any, row: any) => React.ReactNode };
 
 export default function DataTable({ columns, rows }: { columns: Column[]; rows: any[] }) {
   return (
@@ -21,7 +21,7 @@ export default function DataTable({ columns, rows }: { columns: Column[]; rows: 
             <tr key={r.id || i} className="border-t hover:bg-gray-50">
               {columns.map((c) => (
                 <td key={c.key} className="px-4 py-3 text-sm">
-                  {String(r[c.key] ?? "")}
+                  {c.render ? c.render(r[c.key], r) : String(r[c.key] ?? "")}
                 </td>
               ))}
             </tr>

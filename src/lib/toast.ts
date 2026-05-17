@@ -1,4 +1,4 @@
-export function showToast(message: string, duration = 4000) {
+export function showToast(message: string, durationOrType: number | string = 4000) {
   try {
     const id = `toast-${Date.now()}`;
     const el = document.createElement("div");
@@ -19,7 +19,7 @@ export function showToast(message: string, duration = 4000) {
       el.style.transition = "opacity 300ms";
       el.style.opacity = "0";
       setTimeout(() => el.remove(), 350);
-    }, duration);
+    }, typeof durationOrType === "number" ? durationOrType : 4000);
   } catch (e) {
     try { alert(message); } catch { /* ignore */ }
   }
