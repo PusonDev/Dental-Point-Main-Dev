@@ -95,7 +95,6 @@ export async function POST(request: Request) {
       // note: request body may already have been consumed; we attempt best-effort backup
       // (we already read body above in normal flow)
       // no-op if body variable not available
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       if (typeof body !== "undefined") await appendBookingBackup(body);
     } catch (backupErr) {
