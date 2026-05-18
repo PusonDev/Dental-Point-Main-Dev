@@ -30,7 +30,8 @@ export default function AdminDashboardPage() {
       ]);
 
       const apptJson = await apptRes.json();
-      if (apptJson.data) setLatest(apptJson.data.slice(0, 8));
+      const apptList = apptJson.appointments || apptJson.data || [];
+      if (apptList.length) setLatest(apptList.slice(0, 8));
 
       const statsJson = await statsRes.json();
       setStats(statsJson || null);
@@ -52,7 +53,7 @@ export default function AdminDashboardPage() {
     // Refresh stats when new appointment arrives
     fetch('/api/admin/stats')
       .then(r => r.json())
-      .then(setStats)
+      .then(data => { if (data && !data.error) setStats(data); })
       .catch(() => {});
   });
 

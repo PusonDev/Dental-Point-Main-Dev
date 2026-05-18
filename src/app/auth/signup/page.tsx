@@ -11,185 +11,189 @@ import { normalizePhone, phoneToEmail } from "@/lib/phone";
 export default function SignupPage() {
   const { t } = useLanguage();
   const router = useRouter();
-  const [step, setStep] = useState(1);
-  const [phone, setPhone] = useState("");
-  const [otp, setOtp] = useState("");
+
   const [fullName, setFullName] = useState("");
-  const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  async function sendOtp(e: React.FormEvent) {
+  async function handleSignup(e: React.FormEvent) {
     e.preventDefault();
-    setLoading(true);
     setError("");
-    const supabase = createClient();
-    const { error: err } = await supabase.auth.signInWithOtp({ phone: normalizePhone(phone) });
-    setLoading(false);
-    if (err) {
-      setError(err.message);
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
       return;
     }
-    setStep(2);
-  }
-
-  async function verifyOtp(e: React.FormEvent) {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
-    const supabase = createClient();
-    const { error: err } = await supabase.auth.verifyOtp({
-      phone: normalizePhone(phone),
-      token: otp,
-      type: "sms",
-    });
-    setLoading(false);
-    if (err) {
-      setError(err.message);
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters");
       return;
     }
-    setStep(3);
-  }
+    if (!phone.trim()) {
+      setError("Phone number is required");
+      return;
+    }
 
-  async function completeProfile(e: React.FormEvent) {
-    e.preventDefault();
     setLoading(true);
-    setError("");
     const supabase = createClient();
-    const normalized = normalizePhone(phone);
     const authEmail = phoneToEmail(phone);
+    const normalized = normalizePhone(phone);
 
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      const { error: signErr } = await supabase.auth.signUp({
-        email: authEmail,
-        password,
-        phone: normalized,
-        options: { data: { full_name: fullName } },
-      });
-      if (signErr) {
-        setLoading(false);
-        setError(signErr.message);
-        return;
-      }
-    } else if (password) {
-      await supabase.auth.updateUser({ password });
-    }
+    // Sign up with email+password (phone mapped to email)
+    const { data, error: signErr } = await supabase.auth.signUp({
+      email: authEmail,
+      password,
+      options: {
+        data: { full_name: fullName, phone: normalized },
+      },
+    });
 
-    const { data: { user: finalUser } } = await supabase.auth.getUser();
-    if (!finalUser) {
+    if (signErr) {
       setLoading(false);
-      setError("Account creation failed. Try logging in.");
+      // If user already exists, try signing in and then profile create
+      if (signErr.message.toLowerCase().includes("already registered")) {
+        setError("Phone number already registered. Please login instead.");
+      } else {
+        setError(signErr.message);
+      }
       return;
     }
 
+    const userId = data.user?.id;
+    if (!userId) {
+      setLoading(false);
+      setError("Signup failed. Please try again.");
+      return;
+    }
+
+    // Create profile
     const { error: profileErr } = await supabase.from("profiles").upsert({
-      id: finalUser.id,
+      id: userId,
       full_name: fullName,
       phone: normalized,
       email: email || null,
     });
 
     setLoading(false);
+
     if (profileErr) {
       setError(profileErr.message);
       return;
     }
 
-    router.push("/dashboard");
-    router.refresh();
+    // Auto sign in after signup
+    const { error: loginErr } = await supabase.auth.signInWithPassword({
+      email: authEmail,
+      password,
+    });
+
+    if (loginErr) {
+      // Signup worked but auto-login failed — send to login page
+      router.push("/auth/login");
+    } else {
+      router.push("/dashboard");
+      router.refresh();
+    }
   }
 
   return (
     <PublicLayout minimalHeader>
       <div className="max-w-md mx-auto px-4 py-10">
-        <h1 className="text-2xl font-bold text-primary text-center mb-2">{t.auth.signup}</h1>
-        <p className="text-center text-sm text-gray-500 mb-6">
-          {t.auth.step} {step} / 3
+        <h1 className="text-2xl font-bold text-primary text-center mb-2">
+          {t.auth.signup}
+        </h1>
+        <p className="text-center text-sm text-gray-500 mb-8">
+          Create your patient account to book appointments
         </p>
 
-        <div className="flex gap-2 mb-6">
-          {[1, 2, 3].map((s) => (
-            <div
-              key={s}
-              className={`h-1 flex-1 rounded ${s <= step ? "bg-primary" : "bg-gray-200"}`}
+        {error && (
+          <div className="bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg px-4 py-3 mb-4">
+            {error}
+          </div>
+        )}
+
+        <form onSubmit={handleSignup} className="card space-y-4">
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              {t.auth.fullName} *
+            </label>
+            <input
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              required
+              className="input-field"
+              placeholder="Your full name"
             />
-          ))}
-        </div>
+          </div>
 
-        {error && <p className="text-red-500 text-sm mb-4 text-center">{error}</p>}
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              {t.auth.phone} *
+            </label>
+            <input
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              type="tel"
+              required
+              className="input-field"
+              placeholder="01XXXXXXXXX"
+            />
+          </div>
 
-        {step === 1 && (
-          <form onSubmit={sendOtp} className="card space-y-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">{t.auth.phone} *</label>
-              <input
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                type="tel"
-                required
-                className="input-field"
-                placeholder="01XXXXXXXXX"
-              />
-            </div>
-            <button type="submit" disabled={loading} className="btn-primary w-full">
-              {loading ? t.common.loading : t.auth.sendOtp}
-            </button>
-            <p className="text-xs text-gray-500">
-              OTP delivery requires Supabase SMS authentication configured for your project.
-            </p>
-          </form>
-        )}
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              Email (Optional)
+            </label>
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              className="input-field"
+              placeholder="your@email.com"
+            />
+          </div>
 
-        {step === 2 && (
-          <form onSubmit={verifyOtp} className="card space-y-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">OTP Code *</label>
-              <input value={otp} onChange={(e) => setOtp(e.target.value)} required className="input-field" />
-            </div>
-            <button type="submit" disabled={loading} className="btn-primary w-full">
-              {loading ? t.common.loading : t.auth.verify}
-            </button>
-          </form>
-        )}
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              {t.auth.password} *
+            </label>
+            <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              required
+              minLength={6}
+              className="input-field"
+              placeholder="Minimum 6 characters"
+            />
+          </div>
 
-        {step === 3 && (
-          <form onSubmit={completeProfile} className="card space-y-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">{t.auth.fullName} *</label>
-              <input
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                required
-                className="input-field"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">{t.auth.password} *</label>
-              <input
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                type="password"
-                required
-                minLength={6}
-                className="input-field"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">{t.book.email}</label>
-              <input
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                type="email"
-                className="input-field"
-              />
-            </div>
-            <button type="submit" disabled={loading} className="btn-primary w-full">
-              {loading ? t.common.loading : t.common.submit}
-            </button>
-          </form>
-        )}
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              Confirm Password *
+            </label>
+            <input
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              type="password"
+              required
+              minLength={6}
+              className="input-field"
+              placeholder="Repeat your password"
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="btn-primary w-full"
+          >
+            {loading ? t.common.loading : "Create Account"}
+          </button>
+        </form>
 
         <p className="text-center text-sm mt-6 text-gray-600">
           Already registered?{" "}
@@ -201,4 +205,3 @@ export default function SignupPage() {
     </PublicLayout>
   );
 }
-

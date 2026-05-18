@@ -16,7 +16,7 @@ export default function Header({ minimal = false }: HeaderProps) {
     return (
       <header className="bg-primary py-4 px-6">
         <div className="max-w-6xl mx-auto flex items-center gap-3">
-                        <Image src="/logo.png" alt="Prity Dental Logo" width={40} height={40} className="rounded-full" />
+                        <Image src="/logo-new.png" alt="Prity Dental Logo" width={40} height={40} className="rounded-full" />
           <span className="text-white font-bold">{CLINIC_INFO.name}</span>
         </div>
       </header>
@@ -27,7 +27,7 @@ export default function Header({ minimal = false }: HeaderProps) {
     <header className="bg-primary sticky top-0 z-40 shadow-md">
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-                        <Image src="/logo.png" alt="Prity Dental Logo" width={36} height={36} className="rounded-full" />
+                        <Image src="/logo-new.png" alt="Prity Dental Logo" width={36} height={36} className="rounded-full" />
           <span className="text-white font-bold text-sm md:text-base hidden sm:block">
             {CLINIC_INFO.name}
           </span>

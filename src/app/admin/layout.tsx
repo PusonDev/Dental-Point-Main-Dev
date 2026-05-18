@@ -1,4 +1,4 @@
-import AdminLayout from '@/components/dashboard/AdminLayout';
+import AdminLayoutClient from '@/components/dashboard/AdminLayoutClient';
 
 export const metadata = {
   title: 'Admin - Dental Point',
@@ -6,8 +6,8 @@ export const metadata = {
 
 export default function AdminRootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <AdminLayout>
+    <AdminLayoutClient>
       {children}
-    </AdminLayout>
+    </AdminLayoutClient>
   );
 }

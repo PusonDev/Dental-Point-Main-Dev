@@ -6,9 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import PublicLayout from "@/components/shared/PublicLayout";
 import { useLanguage } from "@/context/LanguageContext";
 import { createClient } from "@/lib/supabase/client";
-import { normalizePhone, phoneToEmail } from "@/lib/phone";
-
-type Tab = "password" | "otp";
+import { phoneToEmail } from "@/lib/phone";
 
 function LoginForm() {
   const { t } = useLanguage();
@@ -16,61 +14,38 @@ function LoginForm() {
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect") || "/dashboard";
 
-  const [tab, setTab] = useState<Tab>("password");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const [otp, setOtp] = useState("");
-  const [otpSent, setOtpSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  async function loginPassword(e: React.FormEvent) {
+  async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
     setError("");
+
     const supabase = createClient();
     const email = phoneToEmail(phone);
-    const { error: err } = await supabase.auth.signInWithPassword({ email, password });
-    setLoading(false);
-    if (err) {
-      setError(err.message);
-      return;
-    }
-    router.push(redirect);
-    router.refresh();
-  }
 
-  async function sendOtp(e: React.FormEvent) {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
-    const supabase = createClient();
-    const { error: err } = await supabase.auth.signInWithOtp({
-      phone: normalizePhone(phone),
+    const { error: err } = await supabase.auth.signInWithPassword({
+      email,
+      password,
     });
-    setLoading(false);
-    if (err) {
-      setError(err.message);
-      return;
-    }
-    setOtpSent(true);
-  }
 
-  async function verifyOtp(e: React.FormEvent) {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
-    const supabase = createClient();
-    const { error: err } = await supabase.auth.verifyOtp({
-      phone: normalizePhone(phone),
-      token: otp,
-      type: "sms",
-    });
     setLoading(false);
+
     if (err) {
-      setError(err.message);
+      if (
+        err.message.toLowerCase().includes("invalid") ||
+        err.message.toLowerCase().includes("credentials")
+      ) {
+        setError("Invalid phone number or password. Please try again.");
+      } else {
+        setError(err.message);
+      }
       return;
     }
+
     router.push(redirect);
     router.refresh();
   }
@@ -78,91 +53,56 @@ function LoginForm() {
   return (
     <PublicLayout minimalHeader>
       <div className="max-w-md mx-auto px-4 py-10">
-        <h1 className="text-2xl font-bold text-primary text-center mb-6">{t.auth.login}</h1>
+        <h1 className="text-2xl font-bold text-primary text-center mb-2">
+          {t.auth.login}
+        </h1>
+        <p className="text-center text-sm text-gray-500 mb-8">
+          Sign in to your patient account
+        </p>
 
-        <div className="flex rounded-lg overflow-hidden border border-primary/30 mb-6">
-          <button
-            type="button"
-            onClick={() => setTab("password")}
-            className={`flex-1 py-2 text-sm font-medium ${tab === "password" ? "bg-primary text-white" : "bg-white text-primary"}`}
-          >
-            {t.auth.password}
-          </button>
-          <button
-            type="button"
-            onClick={() => setTab("otp")}
-            className={`flex-1 py-2 text-sm font-medium ${tab === "otp" ? "bg-primary text-white" : "bg-white text-primary"}`}
-          >
-            {t.auth.otp}
-          </button>
-        </div>
-
-        {error && <p className="text-red-500 text-sm mb-4 text-center">{error}</p>}
-
-        {tab === "password" ? (
-          <form onSubmit={loginPassword} className="card space-y-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">{t.auth.phone} *</label>
-              <input
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                type="tel"
-                required
-                className="input-field"
-                placeholder="01XXXXXXXXX"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">{t.auth.password} *</label>
-              <input
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                type="password"
-                required
-                className="input-field"
-              />
-            </div>
-            <button type="submit" disabled={loading} className="btn-primary w-full">
-              {loading ? t.common.loading : t.auth.login}
-            </button>
-          </form>
-        ) : !otpSent ? (
-          <form onSubmit={sendOtp} className="card space-y-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">{t.auth.phone} *</label>
-              <input
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                type="tel"
-                required
-                className="input-field"
-                placeholder="01XXXXXXXXX"
-              />
-            </div>
-            <button type="submit" disabled={loading} className="btn-primary w-full">
-              {loading ? t.common.loading : t.auth.sendOtp}
-            </button>
-            <p className="text-xs text-gray-500">
-              OTP delivery requires Supabase SMS authentication configured for your project.
-            </p>
-          </form>
-        ) : (
-          <form onSubmit={verifyOtp} className="card space-y-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">OTP Code *</label>
-              <input
-                value={otp}
-                onChange={(e) => setOtp(e.target.value)}
-                required
-                className="input-field"
-                placeholder="6-digit code"
-              />
-            </div>
-            <button type="submit" disabled={loading} className="btn-primary w-full">
-              {loading ? t.common.loading : t.auth.verify}
-            </button>
-          </form>
+        {error && (
+          <div className="bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg px-4 py-3 mb-4">
+            {error}
+          </div>
         )}
+
+        <form onSubmit={handleLogin} className="card space-y-4">
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              {t.auth.phone} *
+            </label>
+            <input
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              type="tel"
+              required
+              className="input-field"
+              placeholder="01XXXXXXXXX"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              {t.auth.password} *
+            </label>
+            <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              required
+              className="input-field"
+              placeholder="Your password"
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="btn-primary w-full"
+          >
+            {loading ? t.common.loading : t.auth.login}
+          </button>
+        </form>
 
         <p className="text-center text-sm mt-6 text-gray-600">
           New patient?{" "}
