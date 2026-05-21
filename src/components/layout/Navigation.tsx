@@ -4,8 +4,10 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Navigation() {
+  const { t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -44,19 +46,19 @@ export default function Navigation() {
               href="/"
               className="text-[#f0f6ff]/80 hover:text-white transition-colors"
             >
-              Home
+              {t.nav.home}
             </Link>
             <Link
               href="/services"
               className="text-[#f0f6ff]/80 hover:text-white transition-colors"
             >
-              Services
+              {t.nav.services}
             </Link>
             <Link
               href="/book-appointment"
               className="text-[#f0f6ff]/80 hover:text-white transition-colors"
             >
-              About
+              {t.nav.book}
             </Link>
             <Link
               href="/#contact"
@@ -68,7 +70,7 @@ export default function Navigation() {
               href="/book-appointment"
               className="bg-[#1d4ed8] hover:bg-[#2563eb] text-white px-5 py-2 rounded-full font-medium transition-all shadow-lg shadow-blue-500/30"
             >
-              Book Now
+              {t.nav.book}
             </Link>
           </div>
 
@@ -116,21 +118,21 @@ export default function Navigation() {
                 className="block text-[#f0f6ff]/80 hover:text-white py-2"
                 onClick={() => setMobileOpen(false)}
               >
-                Home
+                {t.nav.home}
               </Link>
               <Link
                 href="/services"
                 className="block text-[#f0f6ff]/80 hover:text-white py-2"
                 onClick={() => setMobileOpen(false)}
               >
-                Services
+                {t.nav.services}
               </Link>
               <Link
                 href="/book-appointment"
                 className="block text-[#f0f6ff]/80 hover:text-white py-2"
                 onClick={() => setMobileOpen(false)}
               >
-                About
+                {t.nav.book}
               </Link>
               <Link
                 href="/#contact"
@@ -144,7 +146,7 @@ export default function Navigation() {
                 className="block bg-[#1d4ed8] hover:bg-[#2563eb] text-white px-5 py-2 rounded-full font-medium text-center mt-4"
                 onClick={() => setMobileOpen(false)}
               >
-                Book Now
+                {t.nav.book}
               </Link>
             </div>
           </motion.div>
