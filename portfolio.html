@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Puson.Dev — Md. Wahidur Rahman Puson</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Sora:wght@200;300;400;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --acc:#7c6dff;--acc2:#b89dff;--acc3:#38d9f8;--acc4:#f472b6;
+  --bg:#06060f;--bg2:#0d0d18;--bg3:#13131f;--bg4:#1a1a28;
+  --text:#f4f0ff;--muted:#9490ba;--muted2:#5e5a82;
+  --border:rgba(124,109,255,0.13);--border2:rgba(124,109,255,0.3);
+  --green:#22c55e;--amber:#f59e0b;--red:#ef4444;
+  --farm-acc:#c49a5a;--farm-acc2:#8fbc6e;
+  --wood-acc:#d4b07a;--wood-bg:#130f08;
+  --glow:rgba(124,109,255,.18);
+  --mono:'Space Mono',monospace;--sans:'Sora',sans-serif;--disp:'Bebas Neue',cursive;
+  --r4:4px;--r8:8px;--r12:12px;--r16:16px;--r20:20px;
+  --shadow-card:0 4px 32px rgba(0,0,0,.45),0 1px 0 rgba(124,109,255,.06) inset;
+  --shadow-glow:0 0 40px rgba(124,109,255,.15);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.7;overflow-x:hidden}
+
+/* ═══ ANIMATED BACKGROUND ═══ */
+body::before{content:'';position:fixed;inset:0;background:
+  radial-gradient(ellipse 80% 60% at 110% 20%,rgba(124,109,255,.07) 0%,transparent 60%),
+  radial-gradient(ellipse 60% 50% at -10% 80%,rgba(56,217,248,.05) 0%,transparent 60%),
+  radial-gradient(ellipse 40% 40% at 50% 50%,rgba(244,114,182,.03) 0%,transparent 70%);
+  pointer-events:none;z-index:0}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.5}
+
+/* ═══ SCROLLBAR ═══ */
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--acc),var(--acc3));border-radius:2px}
+
+/* ═══ NAV ═══ */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:.9rem 4rem;backdrop-filter:blur(28px) saturate(200%);background:rgba(6,6,15,.82);border-bottom:1px solid rgba(124,109,255,.1)}
+nav::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(124,109,255,.4),rgba(56,217,248,.3),transparent)}
+.nav-logo{font-family:var(--disp);font-size:22px;color:var(--text);letter-spacing:.1em;text-decoration:none;display:flex;align-items:center;gap:.5rem;position:relative}
+.nav-logo .accent-dot{color:var(--acc);font-size:2rem;line-height:0;position:relative;top:2px}
+.nav-logo .dev-suffix{font-family:var(--mono);font-size:11px;color:var(--acc3);letter-spacing:.15em;align-self:flex-end;margin-bottom:3px}
+.nav-links{display:flex;gap:0;list-style:none}
+.nav-links a{font-family:var(--mono);font-size:10px;color:var(--muted);text-decoration:none;letter-spacing:.12em;padding:.45rem 1rem;border-radius:var(--r4);transition:color .2s,background .2s,box-shadow .2s;position:relative}
+.nav-links a:hover{color:var(--acc2);background:rgba(124,109,255,.08);box-shadow:0 0 12px rgba(124,109,255,.1)}
+.nav-badge{font-family:var(--mono);font-size:9px;background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.3);padding:3px 10px;border-radius:20px;letter-spacing:.1em;margin-left:1rem;box-shadow:0 0 10px rgba(34,197,94,.1)}
+
+/* ═══ HERO ═══ */
+.hero{min-height:100vh;display:flex;align-items:center;padding:8rem 4rem 5rem;position:relative;overflow:hidden}
+.hero-bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(124,109,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(124,109,255,.035) 1px,transparent 1px);background-size:64px 64px;pointer-events:none;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 0%,transparent 100%)}
+.hero-orb{position:absolute;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(124,109,255,.1) 0%,rgba(124,109,255,.03) 40%,transparent 70%);right:-200px;top:50%;transform:translateY(-50%);pointer-events:none;animation:pulse 8s ease-in-out infinite}
+.hero-orb2{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(56,217,248,.06) 0%,transparent 70%);left:0%;bottom:0%;pointer-events:none;animation:pulse 10s ease-in-out infinite reverse}
+.hero-orb3{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(244,114,182,.06) 0%,transparent 70%);left:38%;top:10%;pointer-events:none;animation:pulse 7s ease-in-out infinite 2s}
+@keyframes pulse{0%,100%{transform:translateY(-50%) scale(1);opacity:.8}50%{transform:translateY(-50%) scale(1.08);opacity:1}}
+.hero-content{max-width:800px;position:relative;z-index:1}
+.hero-eyebrow{font-family:var(--mono);font-size:10px;color:var(--acc3);letter-spacing:.3em;text-transform:uppercase;margin-bottom:2rem;display:flex;align-items:center;gap:1rem;animation:fadeUp .6s .1s both}
+.hero-eyebrow::before{content:'';display:inline-block;width:32px;height:1px;background:linear-gradient(90deg,var(--acc3),transparent)}
+.hero-eyebrow::after{content:'';display:inline-block;width:32px;height:1px;background:linear-gradient(90deg,transparent,var(--acc3))}
+.hero-name{font-family:var(--disp);font-size:clamp(4rem,9vw,8rem);line-height:.92;letter-spacing:.04em;margin-bottom:.6rem;animation:fadeUp .6s .2s both}
+.hero-name .acc{background:linear-gradient(135deg,var(--acc),var(--acc3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-name .acc2{background:linear-gradient(135deg,var(--acc2),var(--acc4));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-brandline{font-family:var(--mono);font-size:13px;color:var(--acc);letter-spacing:.3em;margin-bottom:1rem;animation:fadeUp .6s .22s both;display:flex;align-items:center;gap:.8rem}
+.hero-brandline::before{content:'[ ';color:var(--muted2)}.hero-brandline::after{content:' ]';color:var(--muted2)}
+.hero-title{font-size:clamp(.95rem,1.8vw,1.2rem);font-weight:300;color:var(--muted);margin-bottom:1.2rem;letter-spacing:.02em;animation:fadeUp .6s .25s both}
+.hero-title strong{color:var(--text);font-weight:600}
+.hero-bio{font-size:.95rem;color:var(--muted);max-width:600px;margin-bottom:2rem;line-height:2;font-weight:300;animation:fadeUp .6s .3s both;border-left:2px solid rgba(124,109,255,.25);padding-left:1.2rem}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp .6s .35s both}
+.btn{padding:.75rem 2rem;border-radius:var(--r4);font-family:var(--mono);font-size:11px;letter-spacing:.12em;cursor:pointer;transition:all .25s;text-decoration:none;display:inline-flex;align-items:center;gap:.6rem}
+.btn-primary{background:linear-gradient(135deg,var(--acc),rgba(124,109,255,.8));color:#fff;border:1px solid rgba(124,109,255,.5);box-shadow:0 4px 20px rgba(124,109,255,.3),0 0 0 0 rgba(124,109,255,.4)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(124,109,255,.45),0 0 0 4px rgba(124,109,255,.1)}
+.btn-ghost{background:rgba(124,109,255,.05);color:var(--muted);border:1px solid var(--border2)}
+.btn-ghost:hover{color:var(--acc2);border-color:var(--acc);background:rgba(124,109,255,.1);transform:translateY(-2px)}
+.hero-stats{display:flex;gap:3rem;margin-top:3.5rem;padding-top:2.5rem;border-top:1px solid rgba(124,109,255,.12);animation:fadeUp .6s .45s both;flex-wrap:wrap;position:relative}
+.hero-stats::before{content:'';position:absolute;top:0;left:0;width:60px;height:2px;background:linear-gradient(90deg,var(--acc),transparent)}
+.stat{text-align:left}
+.stat-num{font-family:var(--disp);font-size:3rem;line-height:1;background:linear-gradient(135deg,var(--text),var(--acc2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-label{font-family:var(--mono);font-size:9px;color:var(--muted2);letter-spacing:.12em;margin-top:5px;text-transform:uppercase}
+
+/* ═══ SECTIONS COMMON ═══ */
+section{padding:7rem 4rem;position:relative;z-index:1}
+.s-eyebrow{font-family:var(--mono);font-size:10px;color:var(--acc3);letter-spacing:.25em;text-transform:uppercase;margin-bottom:.8rem;display:flex;align-items:center;gap:.7rem}
+.s-eyebrow::before{content:'';display:inline-block;width:20px;height:1px;background:var(--acc3)}
+h2.s-title{font-family:var(--disp);font-size:clamp(2.2rem,5vw,4rem);letter-spacing:.05em;line-height:.95;margin-bottom:.8rem}
+.s-desc{color:var(--muted);font-size:.95rem;max-width:620px;font-weight:300;margin-bottom:3.5rem;line-height:2}
+.divider{width:48px;height:3px;background:linear-gradient(90deg,var(--acc),var(--acc3),transparent);border-radius:2px;margin-bottom:2.5rem}
+
+/* ═══ SECTION: IT / HARDWARE ═══ */
+#it{background:linear-gradient(180deg,var(--bg2) 0%,var(--bg) 100%)}
+.it-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.2rem}
+.skill-card{background:linear-gradient(135deg,var(--bg3) 0%,rgba(124,109,255,.03) 100%);border:1px solid var(--border);border-radius:var(--r16);padding:2rem;transition:border-color .3s,transform .3s,box-shadow .3s;position:relative;overflow:hidden;box-shadow:var(--shadow-card)}
+.skill-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(124,109,255,.3),transparent);opacity:0;transition:opacity .3s}
+.skill-card::after{content:'';position:absolute;inset:0;opacity:0;background:radial-gradient(circle at 50% 0%,rgba(124,109,255,.07),transparent 65%);transition:opacity .3s}
+.skill-card:hover::before,.skill-card:hover::after{opacity:1}
+.skill-card:hover{border-color:rgba(124,109,255,.45);transform:translateY(-5px);box-shadow:0 12px 40px rgba(0,0,0,.5),var(--shadow-glow)}
+.skill-card-icon{font-size:1.8rem;margin-bottom:1.2rem;display:block}
+.skill-card-name{font-size:.98rem;font-weight:700;margin-bottom:.5rem;letter-spacing:-.01em;color:var(--text)}
+.skill-card-desc{font-size:.84rem;color:var(--muted);line-height:1.85;margin-bottom:1.2rem;font-weight:300}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.tag{font-family:var(--mono);font-size:9px;background:rgba(124,109,255,.09);color:var(--acc2);padding:3px 9px;border-radius:3px;letter-spacing:.06em;border:1px solid rgba(124,109,255,.16);transition:background .2s,color .2s}
+.tag:hover{background:rgba(124,109,255,.18);color:var(--text)}
+.tag.green{background:rgba(34,197,94,.07);color:#4ade80;border-color:rgba(34,197,94,.18)}
+.tag.amber{background:rgba(245,158,11,.07);color:#fbbf24;border-color:rgba(245,158,11,.18)}
+.tag.blue{background:rgba(56,217,248,.07);color:#7dd3fc;border-color:rgba(56,217,248,.18)}
+
+/* Hardware crash log */
+.crash-log{background:linear-gradient(135deg,var(--bg4),rgba(245,158,11,.03));border:1px solid rgba(245,158,11,.2);border-left:3px solid var(--amber);border-radius:var(--r12);padding:1.8rem 2rem;margin-top:3rem;position:relative;box-shadow:0 4px 24px rgba(245,158,11,.06)}
+.crash-log-title{font-family:var(--mono);font-size:10px;color:var(--amber);letter-spacing:.18em;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}
+.crash-log-title::before{content:'⚠';font-size:12px}
+.crash-log pre{font-family:var(--mono);font-size:11.5px;color:var(--muted);line-height:2;white-space:pre-wrap}
+.crash-log pre span.ok{color:var(--green)}
+.crash-log pre span.warn{color:var(--amber)}
+.crash-log pre span.err{color:var(--red)}
+
+/* Spec table */
+.spec-table{width:100%;border-collapse:collapse;margin-top:2rem;font-size:.87rem}
+.spec-table th{font-family:var(--mono);font-size:9px;color:var(--muted2);letter-spacing:.14em;text-transform:uppercase;padding:.8rem 1.2rem;border-bottom:1px solid var(--border);text-align:left;font-weight:400}
+.spec-table td{padding:.8rem 1.2rem;border-bottom:1px solid rgba(124,109,255,.06);color:var(--muted);vertical-align:top}
+.spec-table td:first-child{color:var(--text);font-weight:600;font-size:.8rem;font-family:var(--mono);letter-spacing:.06em;white-space:nowrap}
+.spec-table tr:last-child td{border-bottom:none}
+.spec-table tr:hover td{background:rgba(124,109,255,.03)}
+.spec-table .acc-val{color:var(--acc3);font-weight:700}
+
+/* ═══ SECTION: PROJECTS ═══ */
+#projects{background:var(--bg)}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:1.6rem}
+.proj-card{background:linear-gradient(135deg,var(--bg3) 0%,rgba(124,109,255,.04) 100%);border:1px solid var(--border);border-radius:var(--r16);padding:2.2rem;position:relative;overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s;display:flex;flex-direction:column;gap:1rem;box-shadow:var(--shadow-card)}
+.proj-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc),var(--acc3),var(--acc4));transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.4,0,.2,1)}
+.proj-card:hover::before{transform:scaleX(1)}
+.proj-card:hover{border-color:rgba(124,109,255,.4);transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,0,0,.55),var(--shadow-glow)}
+.proj-card.flagship{border-color:rgba(124,109,255,.3);background:linear-gradient(135deg,var(--bg3) 0%,rgba(124,109,255,.07) 50%,rgba(56,217,248,.03) 100%)}
+.proj-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(124,109,255,.12);color:var(--acc2);font-family:var(--mono);font-size:9px;padding:4px 10px;border-radius:4px;letter-spacing:.1em;width:fit-content;border:1px solid rgba(124,109,255,.2)}
+.proj-badge.active{background:rgba(34,197,94,.1);color:#4ade80;border:1px solid rgba(34,197,94,.2)}
+.proj-badge.concept{background:rgba(245,158,11,.1);color:#fbbf24;border:1px solid rgba(245,158,11,.2)}
+.proj-badge.shipped{background:rgba(56,217,248,.1);color:#7dd3fc;border:1px solid rgba(56,217,248,.2)}
+.proj-badge.research{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.2)}
+.proj-title{font-size:1.15rem;font-weight:700;letter-spacing:-.01em;color:var(--text)}
+.proj-desc{font-size:.86rem;color:var(--muted);line-height:1.85;font-weight:300;flex:1}
+.proj-meta{font-family:var(--mono);font-size:10px;color:var(--muted2);letter-spacing:.07em}
+.flagship-label{position:absolute;top:1.2rem;right:1.2rem;font-family:var(--mono);font-size:9px;color:var(--acc3);letter-spacing:.18em;border:1px solid rgba(56,217,248,.3);background:rgba(56,217,248,.07);padding:2px 8px;border-radius:3px}
+
+/* Experience timeline */
+.exp-timeline{max-width:760px;margin-top:3rem}
+.exp-item{display:grid;grid-template-columns:140px 1fr;gap:2.5rem;padding:2.5rem 0;border-bottom:1px solid var(--border);position:relative}
+.exp-item::before{content:'';position:absolute;left:140px;top:0;bottom:0;width:1px;background:linear-gradient(180deg,var(--acc),transparent);opacity:.2}
+.exp-item:last-child{border-bottom:none}
+.exp-year{font-family:var(--mono);font-size:9px;color:var(--acc3);letter-spacing:.14em;padding-top:4px;line-height:1.8}
+.exp-year .dot{display:inline-block;width:6px;height:6px;background:var(--acc3);border-radius:50%;margin-right:8px;vertical-align:middle;box-shadow:0 0 8px var(--acc3)}
+.exp-role{font-size:1rem;font-weight:700;margin-bottom:.2rem;color:var(--text)}
+.exp-org{font-family:var(--mono);font-size:10px;color:var(--muted2);letter-spacing:.1em;margin-bottom:.9rem}
+.exp-body{font-size:.86rem;color:var(--muted);line-height:1.95;font-weight:300}
+.exp-body li{list-style:none;padding-left:1.4rem;position:relative;margin-bottom:.3rem}
+.exp-body li::before{content:'→';position:absolute;left:0;color:var(--acc);font-size:.75rem;top:2px}
+
+/* ═══ SECTION: PRICING ═══ */
+#pricing{background:linear-gradient(180deg,var(--bg2) 0%,var(--bg) 100%)}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.5rem;margin-bottom:3rem}
+.price-card{background:linear-gradient(160deg,var(--bg3),rgba(124,109,255,.04));border:1px solid var(--border);border-radius:var(--r16);padding:2.2rem;position:relative;transition:border-color .3s,transform .3s,box-shadow .3s;box-shadow:var(--shadow-card)}
+.price-card:hover{border-color:rgba(124,109,255,.4);transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,.5),var(--shadow-glow)}
+.price-card.featured{border-color:rgba(124,109,255,.35);background:linear-gradient(160deg,var(--bg3),rgba(124,109,255,.1))}
+.price-card.featured::before{content:'RECOMMENDED';position:absolute;top:-1px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:8px;background:linear-gradient(90deg,var(--acc),var(--acc3));color:#fff;padding:3px 14px;border-radius:0 0 5px 5px;letter-spacing:.18em}
+.price-tier{font-family:var(--mono);font-size:9px;color:var(--acc3);letter-spacing:.18em;text-transform:uppercase;margin-bottom:.8rem}
+.price-title{font-size:1.1rem;font-weight:700;margin-bottom:.5rem;color:var(--text)}
+.price-amount{font-family:var(--disp);font-size:3rem;background:linear-gradient(135deg,var(--text),var(--acc2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1;margin:.8rem 0}
+.price-amount .currency{font-family:var(--mono);font-size:1rem;-webkit-text-fill-color:var(--muted);vertical-align:top;margin-top:.8rem;display:inline-block}
+.price-amount .period{font-family:var(--mono);font-size:.8rem;-webkit-text-fill-color:var(--muted)}
+.price-desc{font-size:.84rem;color:var(--muted);line-height:1.85;margin-bottom:1.2rem;font-weight:300}
+.price-features{list-style:none;font-size:.84rem;color:var(--muted);line-height:2}
+.price-features li{padding-left:1.5rem;position:relative}
+.price-features li::before{content:'✓';position:absolute;left:0;color:var(--green)}
+.price-features li.no::before{content:'✗';color:var(--red)}
+.price-note{font-family:var(--mono);font-size:9px;color:var(--muted2);letter-spacing:.06em;margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid var(--border)}
+.maint-table-wrap{background:linear-gradient(135deg,var(--bg3),rgba(124,109,255,.03));border:1px solid var(--border);border-radius:var(--r16);overflow:hidden;margin-top:2rem;box-shadow:var(--shadow-card)}
+.maint-table-title{font-family:var(--mono);font-size:9px;color:var(--acc3);letter-spacing:.18em;padding:1.1rem 1.6rem;border-bottom:1px solid var(--border);background:rgba(124,109,255,.04)}
+.maint-table{width:100%;border-collapse:collapse;font-size:.84rem}
+.maint-table th{font-family:var(--mono);font-size:9px;color:var(--muted2);letter-spacing:.12em;text-transform:uppercase;padding:.9rem 1.6rem;border-bottom:1px solid var(--border);text-align:left;font-weight:400}
+.maint-table td{padding:.9rem 1.6rem;border-bottom:1px solid rgba(124,109,255,.05);color:var(--muted)}
+.maint-table td:first-child{color:var(--text);font-weight:600}
+.maint-table td.price-cell{color:var(--acc2);font-family:var(--mono);font-size:.87rem;font-weight:700}
+.maint-table tr:last-child td{border-bottom:none}
+.maint-table tr:hover td{background:rgba(124,109,255,.03)}
+
+/* ═══ SECTION: AGRO-SYSTEMS LAB ═══ */
+#agrilab{background:var(--bg);position:relative}
+#agrilab::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--farm-acc),var(--farm-acc2),transparent)}
+.farming-accent-bar{height:3px;background:linear-gradient(90deg,var(--farm-acc),var(--farm-acc2),transparent);margin-bottom:3rem;border-radius:2px}
+.farm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.2rem}
+.farm-card{background:linear-gradient(135deg,var(--bg2),rgba(196,154,90,.04));border:1px solid rgba(196,154,90,.15);border-radius:var(--r16);padding:2rem;transition:border-color .3s,transform .3s,box-shadow .3s;box-shadow:var(--shadow-card)}
+.farm-card:hover{border-color:rgba(196,154,90,.45);transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,.5),0 0 30px rgba(196,154,90,.08)}
+.farm-card-icon{font-size:1.6rem;margin-bottom:.9rem;display:block}
+.farm-card-name{font-size:.96rem;font-weight:700;margin-bottom:.4rem;color:var(--farm-acc)}
+.farm-card-desc{font-size:.84rem;color:var(--muted);line-height:1.9;font-weight:300;margin-bottom:1rem}
+.tag.farm{background:rgba(196,154,90,.09);color:var(--farm-acc);border:1px solid rgba(196,154,90,.22);font-family:var(--mono);font-size:9px}
+.tag.agri{background:rgba(143,188,110,.09);color:var(--farm-acc2);border:1px solid rgba(143,188,110,.22);font-family:var(--mono);font-size:9px}
+
+/* Infrastructure table */
+.infra-table-wrap{background:linear-gradient(135deg,var(--bg2),rgba(196,154,90,.03));border:1px solid rgba(196,154,90,.18);border-radius:var(--r16);overflow:hidden;margin:2rem 0;box-shadow:var(--shadow-card)}
+.infra-table-title{font-family:var(--mono);font-size:9px;color:var(--farm-acc);letter-spacing:.18em;padding:1rem 1.6rem;border-bottom:1px solid rgba(196,154,90,.15);background:rgba(196,154,90,.04)}
+.infra-table{width:100%;border-collapse:collapse;font-size:.84rem}
+.infra-table th{font-family:var(--mono);font-size:9px;color:var(--muted2);letter-spacing:.12em;text-transform:uppercase;padding:.8rem 1.6rem;border-bottom:1px solid rgba(196,154,90,.12);text-align:left;font-weight:400}
+.infra-table td{padding:.8rem 1.6rem;border-bottom:1px solid rgba(196,154,90,.07);color:var(--muted);vertical-align:top}
+.infra-table td:first-child{color:var(--farm-acc);font-weight:700;font-family:var(--mono);font-size:.8rem;white-space:nowrap}
+.infra-table tr:last-child td{border-bottom:none}
+
+/* BSF System */
+.bsf-flow{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;background:linear-gradient(135deg,var(--bg2),rgba(196,154,90,.04));border:1px solid rgba(196,154,90,.18);border-radius:var(--r16);padding:2rem;margin:2rem 0}
+.bsf-step{background:var(--bg3);border:1px solid rgba(196,154,90,.18);border-radius:var(--r12);padding:1.1rem 1.3rem;flex:1;min-width:135px;text-align:center;transition:border-color .25s,transform .25s}
+.bsf-step:hover{border-color:rgba(196,154,90,.4);transform:translateY(-3px)}
+.bsf-step-num{font-family:var(--mono);font-size:9px;color:var(--farm-acc);letter-spacing:.18em;margin-bottom:.4rem}
+.bsf-step-name{font-size:.82rem;font-weight:700;color:var(--text);margin-bottom:.3rem}
+.bsf-step-detail{font-size:.74rem;color:var(--muted);line-height:1.65}
+.bsf-arrow{color:var(--farm-acc);font-size:1.4rem;flex-shrink:0;opacity:.7}
+
+/* Compare table */
+.compare-wrap{background:linear-gradient(135deg,var(--bg2),rgba(124,109,255,.03));border:1px solid var(--border);border-radius:var(--r16);overflow:auto;margin:2rem 0;box-shadow:var(--shadow-card)}
+.compare-table{width:100%;border-collapse:collapse;font-size:.81rem;min-width:600px}
+.compare-table th{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:1.1rem 1.3rem;border-bottom:1px solid var(--border);text-align:left;font-weight:400;color:var(--muted2)}
+.compare-table th:nth-child(2){color:#4ade80}.compare-table th:nth-child(3){color:var(--acc2)}.compare-table th:nth-child(4){color:#fbbf24}
+.compare-table td{padding:.8rem 1.3rem;border-bottom:1px solid rgba(124,109,255,.05);color:var(--muted);vertical-align:top}
+.compare-table td:first-child{color:var(--text);font-weight:600;font-size:.79rem;font-family:var(--mono)}
+.compare-table tr:last-child td{border-bottom:none}
+.compare-table tr:hover td{background:rgba(124,109,255,.03)}
+.c-win{color:#4ade80;font-weight:600}.c-mid{color:#fbbf24}.c-no{color:var(--muted2)}
+
+/* Pest control */
+.pest-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;margin:2rem 0}
+.pest-card{background:linear-gradient(135deg,var(--bg2),rgba(239,68,68,.03));border:1px solid rgba(239,68,68,.13);border-left:3px solid var(--red);border-radius:var(--r8);padding:1.3rem 1.5rem}
+.pest-card-title{font-size:.88rem;font-weight:700;color:#f87171;margin-bottom:.5rem}
+.pest-card-body{font-size:.82rem;color:var(--muted);line-height:1.9;font-weight:300}
+.pest-card.solution{background:linear-gradient(135deg,var(--bg2),rgba(34,197,94,.03));border-color:rgba(34,197,94,.13);border-left-color:var(--green)}
+.pest-card.solution .pest-card-title{color:#4ade80}
+
+/* Feed comparison */
+.feed-comparison{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin:2rem 0}
+.feed-col{background:linear-gradient(135deg,var(--bg2),rgba(0,0,0,.3));border-radius:var(--r12);padding:1.6rem;border:1px solid var(--border)}
+.feed-col.bad{border-color:rgba(239,68,68,.18)}
+.feed-col.good{border-color:rgba(34,197,94,.18)}
+.feed-col-title{font-size:.88rem;font-weight:700;margin-bottom:.9rem;display:flex;align-items:center;gap:.5rem}
+.feed-col.bad .feed-col-title{color:#f87171}
+.feed-col.good .feed-col-title{color:#4ade80}
+.feed-col ul{list-style:none;font-size:.82rem;color:var(--muted);line-height:2.1}
+.feed-col ul li{padding-left:1.4rem;position:relative}
+.feed-col.bad ul li::before{content:'✗';position:absolute;left:0;color:var(--red)}
+.feed-col.good ul li::before{content:'✓';position:absolute;left:0;color:var(--green)}
+
+/* ═══ WOOD SECTION ═══ */
+.wood-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.2rem}
+.wood-card{background:linear-gradient(135deg,var(--bg3),rgba(212,176,122,.03));border:1px solid rgba(212,176,122,.15);border-radius:var(--r16);padding:2rem;transition:border-color .3s,transform .3s;box-shadow:var(--shadow-card)}
+.wood-card:hover{border-color:rgba(212,176,122,.45);transform:translateY(-4px)}
+.wood-card-icon{font-size:1.5rem;margin-bottom:.9rem;display:block}
+.wood-card-name{font-size:.96rem;font-weight:700;margin-bottom:.4rem;color:var(--wood-acc)}
+.wood-card-desc{font-size:.84rem;color:var(--muted);line-height:1.9;font-weight:300;margin-bottom:.9rem}
+.tag.wood{background:rgba(212,176,122,.09);color:var(--wood-acc);border:1px solid rgba(212,176,122,.22);font-family:var(--mono);font-size:9px}
+.cft-box{background:linear-gradient(135deg,var(--bg3),rgba(212,176,122,.04));border:1px solid rgba(212,176,122,.22);border-radius:var(--r16);padding:2rem;margin:2rem 0;font-family:var(--mono);font-size:.84rem;color:var(--muted);box-shadow:var(--shadow-card)}
+.cft-formula{font-size:1.1rem;color:var(--wood-acc);text-align:center;padding:1.4rem;background:rgba(212,176,122,.06);border-radius:var(--r8);margin:.8rem 0;letter-spacing:.05em;border:1px solid rgba(212,176,122,.15)}
+.cft-formula strong{color:var(--text)}
+
+/* ═══ SECTION: YOUTUBE ═══ */
+#youtube{background:linear-gradient(180deg,var(--bg2) 0%,var(--bg) 100%)}
+.yt-hero{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;margin-bottom:3rem}
+.yt-badge-row{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1rem}
+.yt-badge{font-family:var(--mono);font-size:9px;padding:4px 10px;border-radius:4px;letter-spacing:.1em;border:1px solid}
+.yt-badge.bangla{background:rgba(34,197,94,.07);color:#4ade80;border-color:rgba(34,197,94,.2)}
+.yt-badge.faceless{background:rgba(124,109,255,.09);color:var(--acc2);border-color:var(--border2)}
+.yt-badge.live{background:rgba(239,68,68,.09);color:#f87171;border-color:rgba(239,68,68,.2)}
+.yt-productions{display:flex;flex-direction:column;gap:1rem}
+.yt-prod-card{background:linear-gradient(135deg,var(--bg2),rgba(124,109,255,.03));border:1px solid var(--border);border-radius:var(--r12);padding:1.3rem 1.6rem;display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start;transition:border-color .25s,transform .25s;box-shadow:var(--shadow-card)}
+.yt-prod-card:hover{border-color:rgba(124,109,255,.3);transform:translateX(4px)}
+.yt-prod-num{font-family:var(--disp);font-size:2.8rem;background:linear-gradient(135deg,var(--border2),var(--acc));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.yt-prod-title{font-size:.9rem;font-weight:700;margin-bottom:.3rem;color:var(--text)}
+.yt-prod-desc{font-size:.8rem;color:var(--muted);line-height:1.75;font-weight:300}
+
+/* ═══ SECTION: CONTACT ═══ */
+#contact{background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%)}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;max-width:900px;margin-bottom:3rem}
+.contact-card{background:linear-gradient(135deg,var(--bg3),rgba(124,109,255,.04));border:1px solid var(--border);border-radius:var(--r12);padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem;transition:border-color .25s,transform .25s,box-shadow .25s;cursor:default;box-shadow:var(--shadow-card)}
+.contact-card:hover{border-color:rgba(124,109,255,.4);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.4),var(--shadow-glow)}
+.contact-icon{font-size:1.1rem;width:42px;height:42px;display:flex;align-items:center;justify-content:center;background:rgba(124,109,255,.1);border-radius:var(--r8);flex-shrink:0;border:1px solid var(--border)}
+.contact-label{font-family:var(--mono);font-size:9px;color:var(--muted2);letter-spacing:.12em;margin-bottom:3px}
+.contact-val{font-size:.88rem;font-weight:600;color:var(--text)}
+.availability-row{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.5rem}
+.avail-chip{font-family:var(--mono);font-size:10px;padding:6px 16px;border-radius:20px;letter-spacing:.08em;border:1px solid;transition:transform .2s}
+.avail-chip:hover{transform:translateY(-2px)}
+.avail-chip.open{background:rgba(34,197,94,.07);color:#4ade80;border-color:rgba(34,197,94,.25);box-shadow:0 0 12px rgba(34,197,94,.08)}
+.avail-chip.neutral{background:rgba(124,109,255,.07);color:var(--acc2);border-color:var(--border2)}
+.avail-chip.partial{background:rgba(245,158,11,.07);color:#fbbf24;border-color:rgba(245,158,11,.25)}
+
+/* ═══ AI AGENTS ═══ */
+.ai-agents-row{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:.8rem}
+.agent-chip{display:flex;align-items:center;gap:.6rem;background:linear-gradient(135deg,var(--bg3),rgba(124,109,255,.06));border:1px solid var(--border2);border-radius:var(--r8);padding:.7rem 1.2rem;font-family:var(--mono);font-size:10px;color:var(--text);transition:border-color .25s,transform .25s,box-shadow .25s}
+.agent-chip:hover{border-color:var(--acc);transform:translateY(-2px);box-shadow:0 4px 16px rgba(124,109,255,.15)}
+.agent-dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0;box-shadow:0 0 8px rgba(34,197,94,.6);animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.5}}
+
+/* ═══ FOOTER ═══ */
+footer{text-align:center;padding:4rem 2rem;border-top:1px solid var(--border);position:relative;overflow:hidden}
+footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--acc),var(--acc3),transparent)}
+footer::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 100%,rgba(124,109,255,.06),transparent);pointer-events:none}
+footer .footer-logo{font-family:var(--disp);font-size:3rem;background:linear-gradient(135deg,var(--acc),var(--acc3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:.06em;margin-bottom:.5rem}
+footer p{font-family:var(--mono);font-size:10px;color:var(--muted2);letter-spacing:.12em}
+footer p span{color:var(--muted)}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.fadeUp{animation:fadeUp .6s both}
+
+/* ═══ SECTION DIVIDERS ═══ */
+.section-sep{height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);margin:0 4rem}
+
+/* ═══ QUOTE BLOCKS ═══ */
+.blockquote{border-left:2px solid var(--acc);padding:1rem 1.6rem;font-style:italic;color:var(--muted);font-size:.93rem;margin:2rem 0;background:linear-gradient(135deg,rgba(124,109,255,.04),transparent);border-radius:0 var(--r8) var(--r8) 0}
+.blockquote.farm{border-left-color:var(--farm-acc);background:linear-gradient(135deg,rgba(196,154,90,.04),transparent)}
+.blockquote.wood{border-left-color:var(--wood-acc);background:linear-gradient(135deg,rgba(212,176,122,.04),transparent)}
+
+/* ═══ PILL LABELS ═══ */
+.pill{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:9px;padding:4px 10px;border-radius:20px;letter-spacing:.08em;border:1px solid;transition:transform .2s}
+.pill:hover{transform:translateY(-1px)}
+.pill.it{background:rgba(56,217,248,.07);color:#7dd3fc;border-color:rgba(56,217,248,.18)}
+.pill.dev{background:rgba(124,109,255,.09);color:var(--acc2);border-color:var(--border2)}
+.pill.farm{background:rgba(143,188,110,.07);color:var(--farm-acc2);border-color:rgba(143,188,110,.18)}
+.pill.wood{background:rgba(212,176,122,.07);color:var(--wood-acc);border-color:rgba(212,176,122,.18)}
+
+/* ═══ SECTION GLOW HEADERS ═══ */
+.section-title-glow{position:relative;display:inline-block}
+.section-title-glow::after{content:attr(data-text);position:absolute;inset:0;background:linear-gradient(135deg,var(--acc),var(--acc3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:blur(8px);opacity:.35;z-index:-1}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:900px){
+  nav{padding:.8rem 1.5rem}
+  .nav-links{display:none}
+  .hero{padding:6rem 1.5rem 3rem}
+  section{padding:4rem 1.5rem}
+  .section-sep{margin:0 1.5rem}
+  .hero-stats{gap:1.5rem}
+  .exp-item{grid-template-columns:1fr;gap:.5rem}
+  .yt-hero{grid-template-columns:1fr}
+  .feed-comparison{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════ NAV ═══════════════════════════════ -->
+<nav>
+  <a href="#" class="nav-logo">Puson<span class="accent-dot">.</span><span style="color:var(--acc3)">Dev</span></a>
+  <ul class="nav-links">
+    <li><a href="#it">IT & Hardware</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#agrilab">Agro-Systems Lab</a></li>
+    <li><a href="#youtube">Content</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <span class="nav-badge">● AVAILABLE FOR HIRE</span>
+</nav>
+
+<!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+<section class="hero" id="home">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-orb"></div>
+  <div class="hero-orb2"></div>
+  <div class="hero-orb3"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">DHAKA, BANGLADESH &nbsp;·&nbsp; BSc CSE, BIST &nbsp;·&nbsp; EST. 2023</div>
+    <h1 class="hero-name">MD. <span class="acc">WAHIDUR</span><br><span class="acc2">RAHMAN</span> PUSON</h1>
+    <div class="hero-brandline">Puson.Dev</div>
+    <p class="hero-title"><strong>IT Specialist & Consultant</strong> &nbsp;·&nbsp; <strong>Cross-Platform App Developer</strong> &nbsp;·&nbsp; <strong>Agro-Tech Practitioner</strong></p>
+    <p class="hero-bio">
+      B.Sc. CSE student at BIST building real cross-platform software products, providing PC hardware consultancy across Dhaka, and running a science-based rooftop farm. An <em>"Objective Truth-Seeker"</em> — zero-hallucination output in code, in hardware calls, and in every technical decision. Currently building out a full IT operation.
+    </p>
+    <!-- SOCIAL LINKS -->
+    <div style="display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1.8rem">
+      <a href="https://github.com/PusonDev" target="_blank" style="display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:10px;background:rgba(108,99,255,.1);color:var(--acc2);border:1px solid var(--border2);padding:5px 12px;border-radius:4px;text-decoration:none;letter-spacing:.08em">🐙 GitHub — PusonDev</a>
+      <a href="https://www.youtube.com/channel/UCBU8pRp3fF0WvENKOnvq4wQ" target="_blank" style="display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:10px;background:rgba(239,68,68,.08);color:#f87171;border:1px solid rgba(239,68,68,.2);padding:5px 12px;border-radius:4px;text-decoration:none;letter-spacing:.08em">▶ YouTube (Tech)</a>
+      <a href="https://www.youtube.com/channel/UCjcymvcNsJ5qGFgudLwRyCg" target="_blank" style="display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:10px;background:rgba(239,68,68,.08);color:#f87171;border:1px solid rgba(239,68,68,.2);padding:5px 12px;border-radius:4px;text-decoration:none;letter-spacing:.08em">▶ Gaming Channel</a>
+      <a href="https://discord.com/users/928661237577957396" target="_blank" style="display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:10px;background:rgba(88,101,242,.12);color:#a5b4fc;border:1px solid rgba(88,101,242,.25);padding:5px 12px;border-radius:4px;text-decoration:none;letter-spacing:.08em">💬 Discord</a>
+      <a href="https://wa.me/8801629944975" target="_blank" style="display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:10px;background:rgba(34,197,94,.08);color:#4ade80;border:1px solid rgba(34,197,94,.2);padding:5px 12px;border-radius:4px;text-decoration:none;letter-spacing:.08em">📲 WhatsApp / TG / IMO — 01629944975</a>
+    </div>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-primary">→ View Projects</a>
+      <a href="#pricing" class="btn btn-ghost">BDT Pricing</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">15+</div><div class="stat-label">PC BUILDS COMPLETED</div></div>
+      <div class="stat"><div class="stat-num">5+</div><div class="stat-label">TECH STACKS</div></div>
+      <div class="stat"><div class="stat-num">3+</div><div class="stat-label">PRODUCTS SHIPPED</div></div>
+      <div class="stat"><div class="stat-num">500+</div><div class="stat-label">FPS — VALORANT BUILD</div></div>
+      <div class="stat"><div class="stat-num">3</div><div class="stat-label">CAGE FARM UNITS</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ═══════════════════════════════ IT / HARDWARE ═══════════════════════════════ -->
+<section id="it">
+  <div class="s-eyebrow">01 — IT, Hardware & AI Engineering</div>
+  <h2 class="s-title">HARDWARE SPECIALIST<br>& AI INTEGRATOR</h2>
+  <div class="divider"></div>
+  <p class="s-desc">From bare-metal PC builds to Windows kernel-level game optimization — and autonomous AI agent workflows. This is the technical core, where hardware meets software and AI.</p>
+
+  <!-- SKILL CARDS -->
+  <div class="it-grid">
+
+    <div class="skill-card">
+      <div class="skill-card-icon">🖥️</div>
+      <div class="skill-card-name">Custom PC Assembly — AMD Ryzen Platform</div>
+      <div class="skill-card-desc">Specialist in high-performance builds with AMD Ryzen and MSI platforms. 15+ successful custom builds completed since 2023, ranging from budget gaming rigs to professional workstations. Deep knowledge of GPU/CPU performance tiers, PCIe Gen 5 compatibility, and hardware-level performance tuning.</div>
+      <div class="tags"><span class="tag">AMD Ryzen</span><span class="tag">MSI Platform</span><span class="tag">PCIe Gen 5</span><span class="tag">Custom Builds</span><span class="tag">GPU Diagnostics</span></div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-icon">🔧</div>
+      <div class="skill-card-name">Troubleshooting & System Recovery</div>
+      <div class="skill-card-desc">Expert diagnosis of hardware/software conflicts, thermal management, and component failures. Recovered a full system-wide hardware failure after a risky overclocking attempt — CPU and DRAM warning lights on the MSI MAG B850 Tomahawk — by performing a precise CMOS battery reset and BIOS re-configuration. Hands-on with DDU, GPU driver management, and POST error diagnosis.</div>
+      <div class="tags"><span class="tag">BIOS Tuning</span><span class="tag">CMOS Reset</span><span class="tag amber">OC Recovery</span><span class="tag">DDU (Display Driver Uninstaller)</span><span class="tag">POST Diagnostics</span></div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-icon">⚡</div>
+      <div class="skill-card-name">Windows Kernel-Level Optimization</div>
+      <div class="skill-card-desc">Achieved stable 500+ FPS on Valorant via Windows kernel-level customization, interrupt affinity pinning, timer resolution tweaking, and BIOS-level CPU power management. Deep understanding of input latency reduction and frame timing consistency — not just maximum FPS but frame pacing stability.</div>
+      <div class="tags"><span class="tag green">500+ FPS</span><span class="tag">Kernel Tweaks</span><span class="tag">Timer Resolution</span><span class="tag">Valorant</span><span class="tag">Input Latency</span></div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-icon">🤖</div>
+      <div class="skill-card-name">Autonomous AI Agent Workflows</div>
+      <div class="skill-card-desc">Operates and integrates multiple autonomous AI agent ecosystems into software development and content pipelines. Builds technical roadmaps and PRDs for AI-driven products. Educates Bangladeshi tech audiences on practical AI tool usage through Bengali-language content.</div>
+      <div class="tags"><span class="tag blue">Claude Code</span><span class="tag blue">Windsurf</span><span class="tag blue">Cursor AI</span><span class="tag blue">GitHub Copilot</span><span class="tag blue">Google Anti-Gravity</span><span class="tag blue">OpenHands</span><span class="tag blue">Cline</span><span class="tag blue">Devin</span><span class="tag blue">OpenAI Codex</span><span class="tag">LLM Prompting</span></div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-icon">🛒</div>
+      <div class="skill-card-name">Hardware Sourcing & Market Intelligence</div>
+      <div class="skill-card-desc">Expert knowledge of the Bangladeshi PC hardware market — identifying rebranded GPUs in the second-hand market, navigating Dhaka's PC component supply chain, and pricing hardware accurately for clients. Extensive experience in hardware reselling, including cross-border sourcing (China imports) and local marketplace sales with compelling, performance-focused listing copy.</div>
+      <div class="tags"><span class="tag">Dhaka Market</span><span class="tag">GPU Sourcing</span><span class="tag">Rebrand Detection</span><span class="tag amber">SSD / HDD Trade</span><span class="tag amber">China Import Sourcing</span></div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-icon">🖱️</div>
+      <div class="skill-card-name">OS Deployment & System Management</div>
+      <div class="skill-card-desc">On-call Windows and Linux OS deployment for local clients. Proficient in advanced system management utilities, Google Workspace power usage (Docs, Sheets, Drive), and WordPress site maintenance. AI-based workflow integration for digital business automation.</div>
+      <div class="tags"><span class="tag">Windows</span><span class="tag">Linux</span><span class="tag">Google Workspace</span><span class="tag">WordPress</span><span class="tag">AI Workflows</span></div>
+    </div>
+
+  </div>
+
+  <!-- SYSTEM SPEC TABLE -->
+  <h3 style="font-size:1rem;font-weight:700;margin:3rem 0 0;color:var(--muted2);font-family:var(--mono);letter-spacing:.1em;font-size:.85rem">// PERSONAL RIG SPECIFICATIONS</h3>
+  <table class="spec-table">
+    <thead><tr><th>Component</th><th>Model / Spec</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>CPU</td><td class="acc-val">AMD Ryzen 5 9600X</td><td>AM5 socket, Zen 5 architecture, primary workhorse for dev + content + gaming</td></tr>
+      <tr><td>Motherboard</td><td class="acc-val">MSI MAG B850 Tomahawk</td><td>PCIe Gen 5 support, AM5 platform, crashed and recovered — fully operational</td></tr>
+      <tr><td>Storage — OS Drive</td><td class="acc-val">500 GB SSD</td><td>Dedicated OS boot drive — clean, fast, isolated from work data</td></tr>
+      <tr><td>Storage — Work (×3)</td><td class="acc-val">3× 1 TB SSD</td><td>Active project storage, dev environments, assets, archives</td></tr>
+      <tr><td>Storage — Dump</td><td class="acc-val">4 TB HDD</td><td>Cold data, large media dumps, long-term bulk data storage</td></tr>
+      <tr><td>Gaming Target</td><td class="acc-val">Valorant — 500+ FPS</td><td>Achieved via Windows kernel tweaks, BIOS tuning, timer resolution + interrupt pinning</td></tr>
+      <tr><td>Platform</td><td>AM5 Ecosystem</td><td>PCIe Gen 5 ready, DDR5 compatible</td></tr>
+    </tbody>
+  </table>
+
+  <!-- HARDWARE CRASH LOG -->
+  <div class="crash-log">
+    <div class="crash-log-title">// INCIDENT LOG — EARLY 2026 — HARDWARE CRASH & RECOVERY</div>
+    <pre>
+[INCIDENT]   System-wide hardware failure post overclocking attempt (AMD Ryzen 5 9600X / MSI MAG B850 Tomahawk)
+[SYMPTOM]    <span class="err">CPU warning light ON</span> + <span class="err">DRAM warning light ON</span> — system failed to POST
+[DIAGNOSIS]  BIOS corrupt / CMOS data desync post aggressive voltage/frequency profile
+[ACTION 1]   Removed CMOS battery → waited full discharge cycle → reseated
+[ACTION 2]   Cold boot with cleared BIOS — XMP profile disabled
+[ACTION 3]   Re-applied conservative OC profile incrementally — stress tested 2hr
+[RESULT]     <span class="ok">System fully recovered.</span> All components operational. No hardware damage confirmed.
+[LESSON]     <span class="warn">Always save BIOS profile backup before OC attempts on new AM5 platform.</span>
+    </pre>
+  </div>
+
+  <!-- AI AGENTS -->
+  <h3 style="font-size:.85rem;font-weight:700;margin:3rem 0 1rem;color:var(--muted2);font-family:var(--mono);letter-spacing:.1em">// CODING TOOLS, IDEs & AI AGENTS IN ACTIVE USE</h3>
+  <div style="margin-bottom:1rem;font-family:var(--mono);font-size:10px;color:var(--muted2);letter-spacing:.08em">— Code Editors & IDEs</div>
+  <div class="ai-agents-row" style="margin-bottom:1.2rem">
+    <div class="agent-chip"><span class="agent-dot"></span>VS Code + GitHub Copilot</div>
+    <div class="agent-chip"><span class="agent-dot"></span>Windsurf</div>
+    <div class="agent-chip"><span class="agent-dot"></span>Cursor AI</div>
+    <div class="agent-chip"><span class="agent-dot"></span>OpenAI Codex</div>
+  </div>
+  <div style="margin-bottom:1rem;font-family:var(--mono);font-size:10px;color:var(--muted2);letter-spacing:.08em">— Agentic AI Coding Systems</div>
+  <div class="ai-agents-row" style="margin-bottom:1.2rem">
+    <div class="agent-chip"><span class="agent-dot"></span>Claude Code (Anthropic)</div>
+    <div class="agent-chip"><span class="agent-dot"></span>Google Anti-Gravity</div>
+    <div class="agent-chip"><span class="agent-dot"></span>OpenHands</div>
+    <div class="agent-chip"><span class="agent-dot"></span>Cline</div>
+    <div class="agent-chip"><span class="agent-dot"></span>Devin</div>
+    <div class="agent-chip"><span class="agent-dot"></span>Windsurf Agent</div>
+  </div>
+  <div style="margin-bottom:1rem;font-family:var(--mono);font-size:10px;color:var(--muted2);letter-spacing:.08em">— AI Models & Assistants</div>
+  <div class="ai-agents-row">
+    <div class="agent-chip"><span class="agent-dot"></span>Claude (Anthropic)</div>
+    <div class="agent-chip"><span class="agent-dot"></span>GPT-4o (OpenAI)</div>
+    <div class="agent-chip"><span class="agent-dot"></span>Gemini (Google)</div>
+    <div class="agent-chip"><span class="agent-dot"></span>ElevenLabs (Voice AI)</div>
+  </div>
+
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ═══════════════════════════════ PROJECTS / APP DEV ═══════════════════════════════ -->
+<section id="projects">
+  <div class="s-eyebrow">02 — Software & App Development</div>
+  <h2 class="s-title">CROSS-PLATFORM<br>PRODUCTS SHIPPED</h2>
+  <div class="divider"></div>
+  <p class="s-desc">Real products — not just side-project dust collectors. Multi-platform apps covering Windows desktop, Android mobile, and Next.js web. Full product lifecycle: PRD → UI → IPC bridging → monetization.</p>
+
+  <!-- TECH STACK STRIP -->
+  <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:3rem">
+    <span class="pill dev">Electron</span><span class="pill dev">React + Vite</span><span class="pill dev">Flutter / Dart</span><span class="pill dev">Next.js</span><span class="pill dev">Firebase</span><span class="pill dev">Firestore</span><span class="pill dev">AdMob</span><span class="pill dev">AdSense</span><span class="pill it">VS Code + GitHub Copilot</span><span class="pill it">Windsurf</span><span class="pill it">Cursor AI</span><span class="pill it">Claude Code</span><span class="pill it">OpenAI Codex</span><span class="pill it">PowerShell</span><span class="pill it">Python</span><span class="pill it">npm / Git</span><span class="pill it">yt-dlp</span><span class="pill it">ffmpeg</span><span class="pill it">WordPress</span>
+  </div>
+
+  <div class="projects-grid">
+
+    <div class="proj-card flagship">
+      <span class="flagship-label">FLAGSHIP</span>
+      <div class="proj-badge active">🚀 ACTIVE · THREE PLATFORMS</div>
+      <div class="proj-title">UltraSave</div>
+      <div class="proj-meta">Ecosystem · Windows + Android + Web</div>
+      <div class="proj-desc">A three-product social media video downloader ecosystem. Windows desktop EXE (Electron + React + Vite), Android APK (Flutter + Dart), and a Next.js landing & distribution website. Powered by yt-dlp + ffmpeg under the hood with halal ad category filters applied. Dark UI, AdMob monetization on Android. Handles full product lifecycle — PRD, UI design, IPC bridging, build/release, and monetization strategy.</div>
+      <div class="tags"><span class="tag">Electron</span><span class="tag">React + Vite</span><span class="tag">Flutter</span><span class="tag">Next.js</span><span class="tag">yt-dlp</span><span class="tag">ffmpeg</span><span class="tag green">AdMob</span><span class="tag">Halal Filters</span></div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-badge active">📱 ANDROID · SHIPPED</div>
+      <div class="proj-title">UltraSave Android APK</div>
+      <div class="proj-meta">Flutter · Play Store Distribution</div>
+      <div class="proj-desc">Flutter-based Android downloader with AdMob monetization. Designed from scratch for Play Store distribution with passive ad income as the primary revenue model. Handles full download pipeline: URL parsing → yt-dlp backend → file management → output. IPC architecture designed for offline-capable use.</div>
+      <div class="tags"><span class="tag">Flutter</span><span class="tag">Dart</span><span class="tag green">AdMob</span><span class="tag">Play Store</span><span class="tag blue">Offline Support</span></div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-badge concept">💡 CONCEPT · IN PROGRESS</div>
+      <div class="proj-title">Project Neural-Nexus</div>
+      <div class="proj-meta">AI Micro-SaaS · Affiliate Ecosystem</div>
+      <div class="proj-desc">An AI-driven "Commission Empire" — a Micro-SaaS and affiliate ecosystem exploring passive income streams through intelligent content and automation tools for the Bangladeshi digital market. Combines code generation, system development, and global marketing automation via multi-AI agents. Long-term passive income architecture.</div>
+      <div class="tags"><span class="tag blue">AI / LLM</span><span class="tag">Micro-SaaS</span><span class="tag">Affiliate</span><span class="tag blue">Automation</span><span class="tag amber">Passive Income</span></div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-badge research">🔐 RESEARCH · PIVOTED</div>
+      <div class="proj-title">SecureNexus AI</div>
+      <div class="proj-meta">Identity Vault · PRD Authored</div>
+      <div class="proj-desc">A decentralized identity vault concept — researched full PRD feasibility, documented core architectural issues, and pivoted toward a proactive identity monitoring product approach. PRD authored and shared with collaborators. Research covered zero-knowledge proof concepts, identity aggregation, and decentralized storage models. Authored on behalf of close collaborator Ismail.</div>
+      <div class="tags"><span class="tag">Identity Vault</span><span class="tag">Decentralized</span><span class="tag blue">AI</span><span class="tag">PRD</span><span class="tag research">Pivoted</span></div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-badge shipped">🌿 LIVE · NETLIFY</div>
+      <div class="proj-title">Natural Treatment</div>
+      <div class="proj-meta">Authority Blog · Natural Treatment & Holistic Health</div>
+      <div class="proj-desc">A natural wellness and holistic health authority blog hosted on Netlify. Covers nature-based approaches to physical well-being — lifestyle habits, natural practices, and sustainable health management. Content is grounded, research-backed, and structured fully for SEO and AEO (Answer Engine Optimization) so AI-powered search engines can directly extract and cite data.</div>
+      <div class="tags"><span class="tag green">Netlify</span><span class="tag">SEO</span><span class="tag blue">AEO</span><span class="tag">Natural Wellness</span><span class="tag">Holistic Health</span></div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-badge concept">📝 DOCUMENT · PUBLISHED</div>
+      <div class="proj-title">AI Video Ad Tools 2026</div>
+      <div class="proj-meta">Technical Document · Research Report</div>
+      <div class="proj-desc">A technical document covering the state of AI-powered video advertising production tools in 2026. Corrected, formatted, and published as a professionally styled Word document. Covers tool comparisons, production pipeline architecture, and practical integration strategies for solo content creators in the Bangladeshi digital market.</div>
+      <div class="tags"><span class="tag">Technical Writing</span><span class="tag blue">AI Tools</span><span class="tag">Research</span><span class="tag">Word Doc</span></div>
+    </div>
+
+  </div>
+
+  <!-- EXPERIENCE TIMELINE -->
+  <h3 style="font-family:var(--mono);font-size:.85rem;color:var(--muted2);letter-spacing:.12em;margin:4rem 0 0">// EXPERIENCE TIMELINE</h3>
+  <div class="exp-timeline">
+
+    <div class="exp-item">
+      <div class="exp-year"><span class="dot"></span>2023 → PRESENT</div>
+      <div>
+        <div class="exp-role">Independent IT Specialist & Consultant</div>
+        <div class="exp-org">FREELANCE · DHAKA, BANGLADESH</div>
+        <ul class="exp-body">
+          <li>Completed 15+ custom PC builds tailored to client-specific budgets and performance requirements</li>
+          <li>Hardware consulting, AMD Ryzen/MSI platform diagnostics, GPU sourcing guidance — including identifying rebranded GPUs in the Bangladeshi second-hand market</li>
+          <li>On-call hardware troubleshooting and OS deployment (Windows/Linux) for local Dhaka clients</li>
+          <li>Consulted on hardware selection for gaming and professional workstations</li>
+          <li>Digital product development across Electron, Flutter, and Next.js platforms</li>
+          <li>Managing full product lifecycle from PRD to monetization for UltraSave ecosystem</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-year"><span class="dot"></span>2022 → PRESENT</div>
+      <div>
+        <div class="exp-role">Cross-Platform App Developer</div>
+        <div class="exp-org">PERSONAL PROJECTS · ONGOING</div>
+        <ul class="exp-body">
+          <li>Building UltraSave ecosystem: Electron + React + Vite (Windows), Flutter + Dart (Android), Next.js (Web)</li>
+          <li>Full IPC bridge design between Electron main/renderer processes and yt-dlp backend</li>
+          <li>Monetization architecture: AdMob for Android, potential AdSense for web landing</li>
+          <li>UI/UX design in dark-themed interfaces with halal ad filtering systems</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-year"><span class="dot"></span>2022 → PRESENT</div>
+      <div>
+        <div class="exp-role">B.Sc. in Computer Science & Engineering</div>
+        <div class="exp-org">BIST · BANGLADESH INSTITUTE OF SCIENCE & TECHNOLOGY</div>
+        <ul class="exp-body">
+          <li>Undergraduate CSE studies at BIST, Dhaka</li>
+          <li>Applying academic CS fundamentals directly to real-world product development</li>
+          <li>Bridging theoretical knowledge with hands-on hardware and software engineering</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-year"><span class="dot"></span>COMPLETED</div>
+      <div>
+        <div class="exp-role">Higher Secondary Certificate (HSC)</div>
+        <div class="exp-org">KPB SCHOOL AND COLLEGE</div>
+        <ul class="exp-body">
+          <li>Science background — foundational studies before CSE undergraduate program</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ═══════════════════════════════ PRICING ═══════════════════════════════ -->
+<section id="pricing">
+  <div class="s-eyebrow">03 — Service Pricing</div>
+  <h2 class="s-title">TRANSPARENT<br>PRICING</h2>
+  <div class="divider"></div>
+  <div class="pricing-intro">
+    <p class="s-desc" style="margin-bottom:1rem">Two client tracks: premium full-service builds for businesses and serious clients, and budget-friendly builds for students and individuals with straightforward projects. All prices in BDT. Development charge and maintenance charge are always separate.</p>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+      <span class="pill dev">Development = One-time</span>
+      <span class="pill it">Maintenance = Monthly/Yearly</span>
+      <span class="pill farm">Student Track Available</span>
+    </div>
+  </div>
+
+  <!-- DEVELOPMENT PRICING -->
+  <h3 style="font-family:var(--mono);font-size:.85rem;color:var(--muted2);letter-spacing:.12em;margin-bottom:1.5rem">// DEVELOPMENT PRICING — ONE-TIME CHARGE</h3>
+  <div class="pricing-grid">
+
+    <div class="price-card">
+      <div class="price-tier">BASIC SITE</div>
+      <div class="price-title">Static / Landing Page</div>
+      <div class="price-amount"><span class="currency">৳</span>3,000–6,000</div>
+      <div class="price-desc">Simple HTML/CSS/JS or WordPress landing page. Business card site, portfolio, or single-page product showcase. Clean design, mobile responsive, basic contact form.</div>
+      <ul class="price-features">
+        <li>Up to 5 pages / sections</li>
+        <li>Mobile responsive layout</li>
+        <li>Contact form integration</li>
+        <li>Basic SEO setup</li>
+        <li class="no">Custom backend / DB</li>
+        <li class="no">User authentication</li>
+      </ul>
+      <div class="price-note">Delivery: 3–5 working days · Revisions: 2 rounds included</div>
+    </div>
+
+    <div class="price-card featured">
+      <div class="price-tier">FULL-STACK WEB APP</div>
+      <div class="price-title">Next.js / React App</div>
+      <div class="price-amount"><span class="currency">৳</span>12,000–35,000</div>
+      <div class="price-desc">Dynamic web application with Firebase/Firestore backend, user auth, dashboard, and custom functionality. AdSense integration optional. Includes deployment to Vercel/Netlify.</div>
+      <ul class="price-features">
+        <li>Full Next.js / React frontend</li>
+        <li>Firebase backend + Firestore DB</li>
+        <li>User authentication system</li>
+        <li>Admin dashboard (if required)</li>
+        <li>AdSense integration (if required)</li>
+        <li>SEO + AEO optimization</li>
+      </ul>
+      <div class="price-note">Delivery: 10–21 days · Revisions: 3 rounds · Hosting setup included</div>
+    </div>
+
+    <div class="price-card">
+      <div class="price-tier">ANDROID APP</div>
+      <div class="price-title">Flutter / Dart Mobile App</div>
+      <div class="price-amount"><span class="currency">৳</span>15,000–45,000</div>
+      <div class="price-desc">Cross-platform Android app built with Flutter. Covers UI design, backend integration (Firebase), AdMob monetization, and Play Store submission support. Complexity-based pricing.</div>
+      <ul class="price-features">
+        <li>Flutter cross-platform codebase</li>
+        <li>Firebase backend integration</li>
+        <li>AdMob monetization setup</li>
+        <li>Play Store submission support</li>
+        <li>Push notification setup</li>
+        <li>Offline capability (optional)</li>
+      </ul>
+      <div class="price-note">Delivery: 14–30 days · Revisions: 3 rounds · APK + source included</div>
+    </div>
+
+    <div class="price-card">
+      <div class="price-tier">WINDOWS APP</div>
+      <div class="price-title">Electron Desktop App</div>
+      <div class="price-amount"><span class="currency">৳</span>18,000–50,000</div>
+      <div class="price-desc">Windows desktop application using Electron + React/Vite. Covers IPC architecture, native OS integration, Python/Node.js backend bundling, NSIS installer build, and auto-update mechanism.</div>
+      <ul class="price-features">
+        <li>Electron + React + Vite stack</li>
+        <li>IPC bridge (main ↔ renderer)</li>
+        <li>Python/Node backend bundling</li>
+        <li>NSIS installer build</li>
+        <li>Auto-updater setup</li>
+        <li>Code signing (if supplied)</li>
+      </ul>
+      <div class="price-note">Delivery: 14–28 days · Full source code delivered · EXE installer</div>
+    </div>
+
+    <div class="price-card">
+      <div class="price-tier">BRANDING</div>
+      <div class="price-title">Logo & Brand Identity</div>
+      <div class="price-amount"><span class="currency">৳</span>1,500–4,000</div>
+      <div class="price-desc">Custom logo design with brand color palette. Delivered in PNG, SVG, and source file formats. Suitable for websites, social media, print, and app icons. 2–4 initial concepts provided.</div>
+      <ul class="price-features">
+        <li>4 initial logo concepts</li>
+        <li>PNG + SVG + source delivery</li>
+        <li>Color palette + typography guide</li>
+        <li>Social media size variants</li>
+        <li>App icon (1024×1024)</li>
+        <li class="no">Brand guidelines document</li>
+      </ul>
+      <div class="price-note">Delivery: 2–5 days · 2 revision rounds included</div>
+    </div>
+
+    <div class="price-card">
+      <div class="price-tier">STUDENT / BUDGET TRACK</div>
+      <div class="price-title">Academic & Small Projects</div>
+      <div class="price-amount"><span class="currency">৳</span>2,000–7,000</div>
+      <div class="price-desc">Affordable software projects for students, university assignments, or small individuals with simple needs. Covers small web tools, Python scripts, basic WordPress sites, data dashboards, or simple app prototypes.</div>
+      <ul class="price-features">
+        <li>Negotiable scope & timeline</li>
+        <li>Python scripts / automation</li>
+        <li>Simple web tools or dashboards</li>
+        <li>WordPress basic setup</li>
+        <li>University project support</li>
+        <li>Honest advice if out of budget</li>
+      </ul>
+      <div class="price-note">Price based on complexity — honest conversation first, then quote</div>
+    </div>
+
+  </div>
+
+  <!-- AI BRAND SERVICES -->
+  <h3 style="font-family:var(--mono);font-size:.85rem;color:var(--muted2);letter-spacing:.12em;margin:3rem 0 1.2rem">// AI-POWERED BRAND & UI SERVICES — AVAILABLE IN-HOUSE</h3>
+  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r12);padding:2rem;margin-bottom:2rem">
+    <p style="font-size:.88rem;color:var(--muted);line-height:1.9;margin-bottom:1.5rem;font-weight:300">Full AI-assisted visual brand asset production. Clients get production-ready deliverables without going to a separate design agency for the basics.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1.5rem">
+      <div style="background:var(--bg4);border:1px solid var(--border);border-radius:var(--r8);padding:1rem"><div style="font-size:.85rem;font-weight:700;margin-bottom:.3rem">🎨 Logo Design</div><div style="font-size:.8rem;color:var(--muted);font-weight:300">AI-assisted multi-concept logo — SVG + PNG delivery</div></div>
+      <div style="background:var(--bg4);border:1px solid var(--border);border-radius:var(--r8);padding:1rem"><div style="font-size:.85rem;font-weight:700;margin-bottom:.3rem">🖼️ Banner Design</div><div style="font-size:.8rem;color:var(--muted);font-weight:300">Web banners, social media covers, promotional headers</div></div>
+      <div style="background:var(--bg4);border:1px solid var(--border);border-radius:var(--r8);padding:1rem"><div style="font-size:.85rem;font-weight:700;margin-bottom:.3rem">🗂️ Footer & Side Panel</div><div style="font-size:.8rem;color:var(--muted);font-weight:300">UI-ready footer and sidebar panel design for websites and apps</div></div>
+      <div style="background:var(--bg4);border:1px solid var(--border);border-radius:var(--r8);padding:1rem"><div style="font-size:.85rem;font-weight:700;margin-bottom:.3rem">👤 Profile Picture (DP)</div><div style="font-size:.8rem;color:var(--muted);font-weight:300">Custom AI-generated profile and avatar visuals</div></div>
+      <div style="background:var(--bg4);border:1px solid var(--border);border-radius:var(--r8);padding:1rem"><div style="font-size:.85rem;font-weight:700;margin-bottom:.3rem">⚡ Angular UI Components</div><div style="font-size:.8rem;color:var(--muted);font-weight:300">Angular-based frontend component design and integration</div></div>
+      <div style="background:var(--bg4);border:1px solid var(--border);border-radius:var(--r8);padding:1rem"><div style="font-size:.85rem;font-weight:700;margin-bottom:.3rem">🎯 Brand Identity Kit</div><div style="font-size:.8rem;color:var(--muted);font-weight:300">Color palette, typography, icon set — consistent across all touchpoints</div></div>
+    </div>
+    <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.18);border-left:3px solid var(--amber);border-radius:var(--r8);padding:1rem 1.3rem;font-size:.82rem;color:var(--muted);font-family:var(--mono)">
+      ⚠ VIDEO PRODUCTION — NOT OFFERED: A dedicated video agency will always outperform a side-of-desk effort, and AI video generation burns through tokens fast. Clients get better ROI providing their own video assets for ad campaigns — everything around the video is handled in-house.
+    </div>
+  </div>
+
+  <!-- MAINTENANCE TABLE -->
+  <div class="maint-table-wrap">
+    <div class="maint-table-title">// MAINTENANCE & SUPPORT — SEPARATE MONTHLY / YEARLY CHARGE</div>
+    <table class="maint-table">
+      <thead>
+        <tr>
+          <th>Service Type</th>
+          <th>Monthly (BDT)</th>
+          <th>Yearly (BDT)</th>
+          <th>Includes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Static / Landing Page</td>
+          <td class="price-cell">৳ 500–1,000</td>
+          <td class="price-cell">৳ 5,000–10,000</td>
+          <td>Content updates, hosting support, uptime monitoring</td>
+        </tr>
+        <tr>
+          <td>WordPress Site</td>
+          <td class="price-cell">৳ 800–1,500</td>
+          <td class="price-cell">৳ 7,000–15,000</td>
+          <td>Plugin updates, security patches, backup, content changes</td>
+        </tr>
+        <tr>
+          <td>Full-Stack Web App</td>
+          <td class="price-cell">৳ 2,000–5,000</td>
+          <td class="price-cell">৳ 20,000–45,000</td>
+          <td>Bug fixes, Firebase rule updates, feature additions (minor), performance monitoring</td>
+        </tr>
+        <tr>
+          <td>Android App (AdMob)</td>
+          <td class="price-cell">৳ 1,500–3,500</td>
+          <td class="price-cell">৳ 15,000–35,000</td>
+          <td>SDK updates, AdMob policy compliance, crash monitoring, OS compatibility patches</td>
+        </tr>
+        <tr>
+          <td>Windows Electron App</td>
+          <td class="price-cell">৳ 1,500–3,000</td>
+          <td class="price-cell">৳ 14,000–28,000</td>
+          <td>Dependency updates, yt-dlp/ffmpeg updates (if applicable), installer re-build, auto-update push</td>
+        </tr>
+        <tr>
+          <td>Logo / Brand Only</td>
+          <td class="price-cell">N/A</td>
+          <td class="price-cell">৳ 1,000–2,000</td>
+          <td>Minor logo variant updates, colour profile adjustments — annual only</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="blockquote" style="margin-top:2rem">
+    <strong>Policy note:</strong> Development charge covers build, testing, and delivery. Maintenance is always a separate, optional agreement. No hidden fees. Emergency support (24hr response) is available as an add-on at ৳ 500–1,000/month depending on project type. Student track pricing is negotiated directly — reach out honestly and I'll match the budget if the project is reasonable.
+  </div>
+
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ═══════════════════════════════ AGRI-SYSTEMS LAB ═══════════════════════════════ -->
+<section id="agrilab">
+  <div class="farming-accent-bar"></div>
+  <div class="s-eyebrow">04 — Agro-Systems Lab & Applied Field Engineering</div>
+  <h2 class="s-title" style="color:var(--farm-acc)">AGRI-SYSTEMS<br>LAB</h2>
+  <div class="divider" style="background:linear-gradient(90deg,var(--farm-acc),var(--farm-acc2))"></div>
+  <p class="s-desc">A science-based applied systems operation — not a hobby. Urban farming model, BSF bioconversion, zero-waste feed engineering, full pest control framework, and precision timber work. All built and iterated hands-on in Dhaka.</p>
+
+  <!-- FARM SKILL CARDS -->
+  <div class="farm-grid">
+
+    <div class="farm-card">
+      <div class="farm-card-icon">🐓</div>
+      <div class="farm-card-name">Breed Selection — Sonali Classic</div>
+      <div class="farm-card-desc">After researching multiple local breeds, selected Sonali Classic as the optimal breed for homemade feed operations in Bangladesh. Offers the best balance of FCR, growth rate, disease resistance, and Dhaka market demand. Highly compatible with kitchen scrap + wet mash feeding systems. Adapts to deep litter flooring without specialized housing infrastructure.</div>
+      <div class="tags"><span class="tag farm">Sonali Classic</span><span class="tag agri">Best FCR</span><span class="tag agri">Local Market Fit</span><span class="tag farm">Disease Resistant</span></div>
+    </div>
+
+    <div class="farm-card">
+      <div class="farm-card-icon">🌾</div>
+      <div class="farm-card-name">Fermented Feed System (Winner)</div>
+      <div class="farm-card-desc">Developed a cost-efficient anaerobic fermentation system: kitchen waste, vegetable peels, rice, or bran sealed with small amounts of yeast or molasses in airtight buckets for 2–3 days. This destroys harmful bacteria, increases nutritional value by 3x, prevents spoilage, and results in birds eating more eagerly. Completely eliminates the risk of mold and fly contamination from open wet feed.</div>
+      <div class="tags"><span class="tag agri">Fermented Feed</span><span class="tag agri">3x Nutrition Boost</span><span class="tag farm">Anaerobic</span><span class="tag farm">Zero Waste</span></div>
+    </div>
+
+    <div class="farm-card">
+      <div class="farm-card-icon">🏗️</div>
+      <div class="farm-card-name">Deep Litter Floor Management</div>
+      <div class="farm-card-desc">Applied deep litter floor management for small flock housing — rice husk and sawdust blend as the base. Regular moisture monitoring, turning schedule management, and proper ventilation for ammonia control. Cost-effective flooring for small-scale urban operations without requiring concrete or tile flooring.</div>
+      <div class="tags"><span class="tag farm">Rice Husk</span><span class="tag farm">Sawdust Blend</span><span class="tag agri">Ammonia Control</span><span class="tag farm">Low Cost</span></div>
+    </div>
+
+    <div class="farm-card">
+      <div class="farm-card-icon">🔬</div>
+      <div class="farm-card-name">BSF Biconversion System — PRD v1.0</div>
+      <div class="farm-card-desc">Complete Black Soldier Fly (BSF) sack-based self-harvesting system. Upright 10–20kg sacks with 35–45° jute ramp leading to a 1.5–2L collection bottle wrapped in black cloth. Photophobic prepupae self-harvest by crawling upward in darkness. Leachate collected and diluted 1:10 with water for use as organic fertilizer. Fully bird-and-rat-resistant design.</div>
+      <div class="tags"><span class="tag agri">BSF Larvae</span><span class="tag agri">Self-Harvest</span><span class="tag farm">PRD v1.0</span><span class="tag agri">Leachate Fertilizer</span></div>
+    </div>
+
+    <div class="farm-card">
+      <div class="farm-card-icon">🛡️</div>
+      <div class="farm-card-name">Biosecurity Protocols (Dhaka Adapted)</div>
+      <div class="farm-card-desc">Practical biosecurity for small urban/semi-urban Dhaka operations. Entry control with footbath and restricted visitor access. Flock separation by age group to prevent disease cross-contamination. Early symptom identification and isolation. Vaccination schedule tracking for Newcastle disease and Gumboro (IBD). No expensive commercial systems required.</div>
+      <div class="tags"><span class="tag farm">Biosecure</span><span class="tag agri">Newcastle</span><span class="tag agri">Gumboro</span><span class="tag farm">Flock Separation</span></div>
+    </div>
+
+    <div class="farm-card">
+      <div class="farm-card-icon">💊</div>
+      <div class="farm-card-name">Veterinary Supplementation</div>
+      <div class="farm-card-desc">Neobion (নিওবিওন) tablet used as a veterinary supplement for duck hatchlings — monitored for effectiveness and dosage consistency. Tracks feed, supplement intake, and health markers on a per-batch basis. Knows when to escalate to a professional vet versus managing in-house based on symptom severity and flock behaviour.</div>
+      <div class="tags"><span class="tag farm">Neobion Tablet</span><span class="tag agri">Duck Care</span><span class="tag farm">In-house Mgmt</span><span class="tag agri">Vet Escalation</span></div>
+    </div>
+
+    <div class="farm-card">
+      <div class="farm-card-icon">🐛</div>
+      <div class="farm-card-name">Mealworm / Superworm Beetle Isolation</div>
+      <div class="farm-card-desc">Superworm larvae cannot pupate when housed in groups (hormonal suppression). Each individual is isolated in a separate smooth plastic cup — the stress forces rapid pupation. Smooth plastic walls prevent climbing; during the vulnerable pupa stage, isolation protects from cannibalism by other larvae. A precise biological intervention requiring no chemicals.</div>
+      <div class="tags"><span class="tag farm">Superworm</span><span class="tag agri">Solo Cup Method</span><span class="tag farm">Pupation Trigger</span><span class="tag agri">Anti-Cannibalism</span></div>
+    </div>
+
+    <div class="farm-card">
+      <div class="farm-card-icon">📊</div>
+      <div class="farm-card-name">Profitability Calculation System</div>
+      <div class="farm-card-desc">Bird cost + feed cost + mortality rate vs. live weight market price — calculates realistic profit margins before committing to a flock batch. Knows Dhaka live poultry market pricing dynamics and how to position Sonali Classic against broiler alternatives. Zero sentimental investment in unprofitable batches.</div>
+      <div class="tags"><span class="tag farm">FCR Math</span><span class="tag agri">Profit Per Bird</span><span class="tag farm">Dhaka Market</span><span class="tag agri">Mortality Calc</span></div>
+    </div>
+
+  </div>
+
+  <!-- INFRASTRUCTURE TABLE -->
+  <div class="infra-table-wrap">
+    <div class="infra-table-title">// FARM INFRASTRUCTURE — EXACT SPECIFICATIONS</div>
+    <table class="infra-table">
+      <thead><tr><th>Unit</th><th>Exact Dimensions</th><th>Purpose & Constraints</th></tr></thead>
+      <tbody>
+        <tr><td>Cage 1 — Medium</td><td>2.5 ft × 3.5 ft</td><td>Poultry/quail breeding or trial unit. Suitable for individual breed testing before scaling.</td></tr>
+        <tr><td>Cage 2 — Large</td><td>4 ft × 6 ft</td><td>Main housing unit for adult ducks or chickens. Primary production cage.</td></tr>
+        <tr><td>Cage 3 — Small</td><td>2.5 ft × 2.5 ft</td><td>Larva culture, beetle isolation, or specialized unit. Multi-purpose small operations.</td></tr>
+        <tr><td>Store Room</td><td>Separate dedicated room</td><td>Feed and supply storage only. Strictly no other use — reserved solely for farm supplies.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- BSF FLOW -->
+  <h3 style="font-family:var(--mono);font-size:.85rem;color:var(--farm-acc);letter-spacing:.12em;margin:3rem 0 1rem">// BSF SACK SELF-HARVEST SYSTEM — FLOW</h3>
+  <div class="bsf-flow">
+    <div class="bsf-step">
+      <div class="bsf-step-num">STEP 01</div>
+      <div class="bsf-step-name">Upright Sack</div>
+      <div class="bsf-step-detail">10–20kg jute/net sack standing vertical. Waste loaded from top. Must stay upright — prepupae crawl upward naturally.</div>
+    </div>
+    <div class="bsf-arrow">→</div>
+    <div class="bsf-step">
+      <div class="bsf-step-num">STEP 02</div>
+      <div class="bsf-step-name">Jute Ramp</div>
+      <div class="bsf-step-detail">35–45° rough jute ramp from waste level up to exit hole. Rough surface essential — smooth plastic blocks larva grip.</div>
+    </div>
+    <div class="bsf-arrow">→</div>
+    <div class="bsf-step">
+      <div class="bsf-step-num">STEP 03</div>
+      <div class="bsf-step-name">Exit Hole</div>
+      <div class="bsf-step-detail">1.5–2cm hole at sack top. Bird beak cannot enter. Prepupae crawl through into bottle.</div>
+    </div>
+    <div class="bsf-arrow">→</div>
+    <div class="bsf-step">
+      <div class="bsf-step-num">STEP 04</div>
+      <div class="bsf-step-name">Dark Bottle</div>
+      <div class="bsf-step-detail">1.5–2L bottle wrapped in black cloth. Photophobic prepupae rush into darkness. Self-collection — zero manual labor.</div>
+    </div>
+    <div class="bsf-arrow">→</div>
+    <div class="bsf-step">
+      <div class="bsf-step-num">STEP 05</div>
+      <div class="bsf-step-name">Leachate</div>
+      <div class="bsf-step-detail">Liquid from bin = 1:10 dilution with water. Direct application burns roots. Diluted = premium organic fertilizer.</div>
+    </div>
+  </div>
+
+  <!-- FEED COMPARISON -->
+  <h3 style="font-family:var(--mono);font-size:.85rem;color:var(--farm-acc);letter-spacing:.12em;margin:3rem 0 1rem">// FEED COMPARISON — WET OPEN vs FERMENTED</h3>
+  <div class="feed-comparison">
+    <div class="feed-col bad">
+      <div class="feed-col-title">✗ Open Wet Feed — Risky</div>
+      <ul>
+        <li>Bacteria and mold colonize within hours</li>
+        <li>Flies lay eggs — maggot contamination</li>
+        <li>Ferments badly in Dhaka heat → rotten smell</li>
+        <li>Severe diarrhea risk in ducklings</li>
+        <li>Cannot safely leave for full-day absence</li>
+        <li>Nutritional value degrades rapidly</li>
+      </ul>
+    </div>
+    <div class="feed-col good">
+      <div class="feed-col-title">✓ Fermented Feed — Optimal</div>
+      <ul>
+        <li>Anaerobic seal prevents all external contamination</li>
+        <li>Harmful bacteria destroyed during fermentation</li>
+        <li>Nutrition increases 3x — bioavailability maximized</li>
+        <li>Stable for full day without spoilage</li>
+        <li>Birds eat with much greater appetite</li>
+        <li>Compatible with 1-visit-per-day logistics</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PEST CONTROL -->
+  <h3 style="font-family:var(--mono);font-size:.85rem;color:var(--farm-acc);letter-spacing:.12em;margin:3rem 0 1rem">// PEST CONTROL — MECHANICAL & CHEMICAL SOLUTIONS</h3>
+  <div class="pest-grid">
+    <div class="pest-card">
+      <div class="pest-card-title">⚠ Rats — Attack Vector</div>
+      <div class="pest-card-body">Rats climb cage stands and steal larvae. Traditional wire netting is insufficient — rats chew through or squeeze past.</div>
+    </div>
+    <div class="pest-card solution">
+      <div class="pest-card-title">✓ Grease Barrier / Water Moat — Solution</div>
+      <div class="pest-card-body">Heavy grease or old motor oil applied to cage stand legs — rat paws get no grip on slippery surface, cannot climb. Alternatively: each cage leg sits inside a small water bowl. Rats refuse to wade through water. Island effect: BSF bottle surrounded by water basin.</div>
+    </div>
+    <div class="pest-card">
+      <div class="pest-card-title">⚠ Birds — Larva Theft</div>
+      <div class="pest-card-body">Birds dive for exposed BSF larvae from the collection bottle or open bins. Direct-landing theft occurs rapidly.</div>
+    </div>
+    <div class="pest-card solution">
+      <div class="pest-card-title">✓ Island Effect — Solution</div>
+      <div class="pest-card-body">Collection bottle surrounded by water basin at all sides. Birds cannot land directly on water surface — island effect prevents all access. 1.5cm bottle entry hole also bird-beak proof.</div>
+    </div>
+    <div class="pest-card">
+      <div class="pest-card-title">⚠ Cockroaches — Colony Infestation</div>
+      <div class="pest-card-body">Cockroach colonies breed rapidly in warm cage environments, contaminating feed and threatening flock health.</div>
+    </div>
+    <div class="pest-card solution">
+      <div class="pest-card-title">✓ Fipronil Gel + Boric Acid — Ninja Wipeout</div>
+      <div class="pest-card-body">Commercial Fipronil Gel Bait (syringe-applied in dots under cages). DIY alternative: 1 tsp boric acid powder + 1 tsp condensed milk/sugar + flour + water → shaped into small balls → placed under cage. Roaches eat, die inside colony — nest-mates cannibalize corpse → chain reaction wipes entire colony.</div>
+    </div>
+  </div>
+
+  <!-- SPECIES COMPARISON TABLE -->
+  <h3 style="font-family:var(--mono);font-size:.85rem;color:var(--farm-acc);letter-spacing:.12em;margin:3rem 0 1rem">// SPECIES COMPARISON — BSF vs EARTHWORM vs BEETLE</h3>
+  <div class="compare-wrap">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Characteristic</th>
+          <th>🪲 BSF Larvae (BSFL)</th>
+          <th>🪱 Earthworm (Kecho)</th>
+          <th>🐛 Beetle (Mealworm)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Cycle Speed</td><td class="c-win">14–21 days (fastest)</td><td class="c-no">2–3 months (slow)</td><td class="c-mid">8–10 weeks (medium)</td></tr>
+        <tr><td>Primary Output</td><td class="c-win">High-protein + fat larvae</td><td class="c-mid">Premium vermicompost</td><td class="c-mid">Fat-rich snack for birds</td></tr>
+        <tr><td>Self-Harvest</td><td class="c-win">Yes — ramp + dark bottle</td><td class="c-no">No — manual sieve</td><td class="c-no">No — manual cup isolation</td></tr>
+        <tr><td>Food Range</td><td class="c-win">Meat, citrus, all kitchen waste</td><td class="c-no">Only semi-composted veg + dung</td><td class="c-mid">Dry bran/oats only</td></tr>
+        <tr><td>Dhaka Heat (30–35°C+)</td><td class="c-win">Highly tolerant</td><td class="c-no">Extremely sensitive — dies in heat</td><td class="c-mid">Medium — fungus risk in humidity</td></tr>
+        <tr><td>Quail Compatible</td><td class="c-win">Yes — direct feed</td><td class="c-no">Not typical bird food</td><td class="c-win">Yes — favourite snack</td></tr>
+        <tr><td>Pigeon Compatible</td><td class="c-no">No — pigeons avoid larvae</td><td class="c-no">No</td><td class="c-no">No — pigeons are seed-only</td></tr>
+        <tr><td>Leachate Output</td><td class="c-win">Yes — use 1:10 diluted</td><td class="c-mid">Worm tea (milder)</td><td class="c-no">None</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="blockquote farm" style="margin-top:2rem">
+    "Focused on profitability per bird — not just the size of the flock. Rooftop farming in Dhaka demands zero waste, maximum information density, and a willingness to pivot fast when data says so."
+  </div>
+
+  <!-- ════ WOODCRAFT SUBSECTION ════ -->
+  <div style="height:1px;background:linear-gradient(90deg,var(--wood-acc),transparent);margin:4rem 0 3rem"></div>
+  <div class="s-eyebrow" style="color:var(--wood-acc)">— Wood Crafting & Timber Work</div>
+  <h3 style="font-family:var(--disp);font-size:clamp(1.5rem,3vw,2.5rem);letter-spacing:.04em;color:var(--wood-acc);margin-bottom:.6rem">PRECISION WOODWORK</h3>
+  <div class="divider" style="background:linear-gradient(90deg,var(--wood-acc),#9e7a45)"></div>
+  <p class="s-desc">Precision timber work using locally sourced Chambul wood from Dhaka's timber markets. CFT calculation, frame construction, custom shelf builds, and hand-tool proficiency — shaped without relying on power tools for every step.</p>
+
+  <div class="wood-grid">
+
+    <div class="wood-card">
+      <div class="wood-card-icon">🪵</div>
+      <div class="wood-card-name">Chambul Wood — Primary Material</div>
+      <div class="wood-card-desc">Specializes in Chambul (Chakua/Shimul) wood — a widely available, affordable hardwood in the Dhaka timber market. Known for straight grain, excellent workability, and sufficient structural strength for furniture frames and load-bearing shelf units. Primary choice for all Dhaka-sourced woodwork projects.</div>
+      <div class="tags"><span class="tag wood">Chambul / Chakua</span><span class="tag wood">Straight Grain</span><span class="tag wood">Dhaka Market</span><span class="tag wood">Structural Use</span></div>
+    </div>
+
+    <div class="wood-card">
+      <div class="wood-card-icon">📐</div>
+      <div class="wood-card-name">CFT Calculation Mastery</div>
+      <div class="wood-card-desc">Accurate cubic feet (CFT) calculation is the foundation of cost control in timber work. Before any project starts, exact volume of wood per piece is calculated — converting length × breadth × thickness into CFT — to get precise quotes from timber yards, avoid overpaying, and account for wastage percentage in final quantity estimates. Used to negotiate effectively with Dhaka timber suppliers.</div>
+      <div class="tags"><span class="tag wood">CFT Formula</span><span class="tag wood">Cost Control</span><span class="tag wood">Dhaka Timber Yards</span><span class="tag wood">Budget Accuracy</span></div>
+    </div>
+
+    <div class="wood-card">
+      <div class="wood-card-icon">🔨</div>
+      <div class="wood-card-name">Frame Construction & Joinery</div>
+      <div class="wood-card-desc">Structural frame building for shelf units and storage racks using mortise-and-tenon style joinery adapted for hand tools. Focus on load-bearing capacity and square alignment. Butt joints, dowel joints, and simple mortise-and-tenon — with proper glue and clamping sequence for strong, durable bonds.</div>
+      <div class="tags"><span class="tag wood">Mortise-Tenon</span><span class="tag wood">Butt Joint</span><span class="tag wood">Dowel Joint</span><span class="tag wood">Load-Bearing</span></div>
+    </div>
+
+    <div class="wood-card">
+      <div class="wood-card-icon">📦</div>
+      <div class="wood-card-name">Shelf Unit Design</div>
+      <div class="wood-card-desc">Custom shelf units designed to exact client dimensions — wall-mounted or free-standing. Proper back-brace design to prevent racking under sustained load. Designs account for floor level, wall structure, and the type of items being stored. All dimensions confirmed before cutting begins — no expensive mistakes.</div>
+      <div class="tags"><span class="tag wood">Wall-Mount</span><span class="tag wood">Free-Standing</span><span class="tag wood">Back-Brace</span><span class="tag wood">Client Dims</span></div>
+    </div>
+
+    <div class="wood-card">
+      <div class="wood-card-icon">🪚</div>
+      <div class="wood-card-name">Hand Tool Proficiency</div>
+      <div class="wood-card-desc">Skilled with hand saws, chisels, planes, and marking tools — precise cutting and fitting without relying on power tools for every step. Straight cuts, accurate tenon shoulders, and clean chisel work. Manual technique preserves control over cut quality in situations where power tool access is limited.</div>
+      <div class="tags"><span class="tag wood">Hand Saw</span><span class="tag wood">Chisel</span><span class="tag wood">Plane (Randa)</span><span class="tag wood">Marking Tools</span></div>
+    </div>
+
+    <div class="wood-card">
+      <div class="wood-card-icon">🎨</div>
+      <div class="wood-card-name">Surface Finishing & Supplier Knowledge</div>
+      <div class="wood-card-desc">Sanding, wood filler application, and primer-paint finishing for clean, durable surfaces on completed furniture. Hands-on experience sourcing timber from Dhaka yards — knows market price ranges, quality grading by eye, and identifying good vs. poor grain stock before purchasing. Identifies waste-prone cuts to minimize material loss.</div>
+      <div class="tags"><span class="tag wood">Sanding</span><span class="tag wood">Wood Filler</span><span class="tag wood">Paint Finish</span><span class="tag wood">Supplier Knowledge</span></div>
+    </div>
+
+  </div>
+
+  <!-- CFT FORMULA BOX -->
+  <div class="cft-box">
+    <div style="font-family:var(--mono);font-size:.82rem;color:var(--muted2);letter-spacing:.12em;margin-bottom:.8rem">// CFT CALCULATION FORMULA — COST CONTROL BEFORE CUTTING</div>
+    <div class="cft-formula">
+      ( <strong>Length (in)</strong> × <strong>Breadth (in)</strong> × <strong>Thickness (in)</strong> ) ÷ <strong>144</strong> = <strong>CFT per piece</strong>
+    </div>
+    <div style="margin-top:1rem;color:var(--muted);font-size:.82rem;line-height:1.9">
+      → Total CFT × market rate per CFT = <span style="color:var(--wood-acc)">accurate material budget</span> before a single cut is made<br>
+      → Add 10–15% wastage buffer on final quantity estimate — timber cuts always produce offcuts<br>
+      → Cross-reference with Dhaka timber yard current rate before finalizing quote for client<br>
+      → If client budget is fixed, back-calculate max CFT allowable → design within that constraint
+    </div>
+  </div>
+
+  <div class="blockquote wood">
+    "Every joint tells you if you measured right or wrong. The saw is honest — it has no memory of what you intended, only what you marked."
+  </div>
+
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ═══════════════════════════════ YOUTUBE ═══════════════════════════════ -->
+<section id="youtube">
+  <div class="s-eyebrow">05 — Bengali Tech Content</div>
+  <h2 class="s-title">BENGALI TECH<br>CHANNEL</h2>
+  <div class="divider"></div>
+
+  <div class="yt-hero">
+    <div>
+      <div class="yt-badge-row">
+        <span class="yt-badge bangla">বাংলা · BENGALI LANGUAGE</span>
+        <span class="yt-badge faceless">FACELESS FORMAT</span>
+        <span class="yt-badge live">● 2022 → PRESENT</span>
+      </div>
+      <p style="font-size:.95rem;color:var(--muted);line-height:1.9;font-weight:300;margin-bottom:1.5rem">
+        A faceless Bengali-language tech channel for Bangladeshi PC builders, gamers, and AI learners. Content focuses on what matters — GPU market analysis, consumer AI hardware breakdown, APU comparisons, PC build guides, and practical AI tool education in Bengali.
+      </p>
+      <p style="font-size:.95rem;color:var(--muted);line-height:1.9;font-weight:300;margin-bottom:1.5rem">
+        These topics are widely discussed in English but massively underserved in Bengali for the local Bangladeshi audience.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1.5rem">
+        <a href="https://www.youtube.com/channel/UCBU8pRp3fF0WvENKOnvq4wQ" target="_blank" style="display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:10px;background:rgba(239,68,68,.08);color:#f87171;border:1px solid rgba(239,68,68,.2);padding:5px 12px;border-radius:4px;text-decoration:none;letter-spacing:.08em">▶ YouTube — Tech Channel</a>
+        <a href="https://www.youtube.com/channel/UCjcymvcNsJ5qGFgudLwRyCg" target="_blank" style="display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:10px;background:rgba(239,68,68,.08);color:#f87171;border:1px solid rgba(239,68,68,.2);padding:5px 12px;border-radius:4px;text-decoration:none;letter-spacing:.08em">▶ Gaming Channel</a>
+      </div>
+      <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.18);border-left:3px solid var(--amber);border-radius:var(--r8);padding:.9rem 1.2rem;font-size:.82rem;color:var(--muted);font-family:var(--mono);margin-bottom:1rem">
+        ⚠ VIDEO PRODUCTION IS NOT A CLIENT SERVICE — Dedicated video agencies handle that better. AI video generation is token-heavy. Clients provide own video assets; everything around the video is handled in-house.
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem">
+        <span class="tag blue">ElevenLabs (Voice AI)</span><span class="tag">Script Writing</span><span class="tag">Bengali Audience</span><span class="tag">PC Hardware</span><span class="tag blue">AI Tools Education</span>
+      </div>
+    </div>
+
+    <div class="yt-productions">
+      <div class="yt-prod-card">
+        <div class="yt-prod-num">01</div>
+        <div>
+          <div class="yt-prod-title">"The Broken GPU Market" — Bengali Video</div>
+          <div class="yt-prod-desc">GPU tier list, consumer AI hardware gap analysis, APU comparison. Full production pipeline: ElevenLabs voiceover, Canva graphics, OBS screen capture, DaVinci Resolve edit. Targeted at Bangladeshi PC builders navigating a confusing second-hand GPU market.</div>
+        </div>
+      </div>
+      <div class="yt-prod-card">
+        <div class="yt-prod-num">02</div>
+        <div>
+          <div class="yt-prod-title">AI Video Ad Tools 2026 — Technical Document</div>
+          <div class="yt-prod-desc">Published technical document covering the state of AI-powered video advertising production tools in 2026. Corrected, formatted, and published as a styled Word document. Research + editorial format for content professionals.</div>
+        </div>
+      </div>
+      <div class="yt-prod-card">
+        <div class="yt-prod-num">03</div>
+        <div>
+          <div class="yt-prod-title">PC Build Guides — Ongoing Series</div>
+          <div class="yt-prod-desc">Budget-specific PC build guides for the Bangladeshi market — accounting for local hardware pricing, availability, and use cases (gaming, office, content creation). Practical advice rather than theoretical tier lists.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ═══════════════════════════════ CONTACT ═══════════════════════════════ -->
+<section id="contact">
+  <div class="s-eyebrow">06 — Contact & Availability</div>
+  <h2 class="s-title">LET'S<br>CONNECT</h2>
+  <div class="divider"></div>
+  <p class="s-desc">Open to IT consulting, custom PC builds, software development projects, and content collaboration. Based in Dhaka. Skilled motorcycle and bicycle rider — rapid field-service response across the Dhaka area.</p>
+
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="contact-icon">📧</div>
+      <div><div class="contact-label">EMAIL</div><div class="contact-val">Wahidur757@gmail.com</div></div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">📞</div>
+      <div><div class="contact-label">PHONE</div><div class="contact-val">01629944975</div></div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">📍</div>
+      <div><div class="contact-label">LOCATION</div><div class="contact-val">1/1 East Bashabo, Kodomtola, Dhaka-1214</div></div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">🎓</div>
+      <div><div class="contact-label">INSTITUTION</div><div class="contact-val">BIST, Bangladesh</div></div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">🔭</div>
+      <div><div class="contact-label">CURRENT FOCUS</div><div class="contact-val">IT Farm Build Up</div></div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">🌏</div>
+      <div><div class="contact-label">FUTURE TARGET</div><div class="contact-val">Australia — IT / Agro-Tech</div></div>
+    </div>
+    <div class="contact-card" style="cursor:pointer" onclick="window.open('https://github.com/PusonDev','_blank')">
+      <div class="contact-icon">🐙</div>
+      <div><div class="contact-label">GITHUB</div><div class="contact-val">github.com/PusonDev</div></div>
+    </div>
+    <div class="contact-card" style="cursor:pointer" onclick="window.open('https://discord.com/users/928661237577957396','_blank')">
+      <div class="contact-icon">💬</div>
+      <div><div class="contact-label">DISCORD</div><div class="contact-val">PusonDev</div></div>
+    </div>
+    <div class="contact-card" style="cursor:pointer" onclick="window.open('https://www.youtube.com/channel/UCBU8pRp3fF0WvENKOnvq4wQ','_blank')">
+      <div class="contact-icon">▶</div>
+      <div><div class="contact-label">YOUTUBE — TECH</div><div class="contact-val">Puson Tech Channel</div></div>
+    </div>
+    <div class="contact-card" style="cursor:pointer" onclick="window.open('https://www.youtube.com/channel/UCjcymvcNsJ5qGFgudLwRyCg','_blank')">
+      <div class="contact-icon">▶</div>
+      <div><div class="contact-label">GAMING CHANNEL</div><div class="contact-val">Puson Gaming</div></div>
+    </div>
+  </div>
+
+  <div class="availability-row">
+    <span class="avail-chip open">● IT Consulting — Open</span>
+    <span class="avail-chip open">● PC Hardware Build — Open</span>
+    <span class="avail-chip open">● App / Site Development — Open</span>
+    <span class="avail-chip partial">◐ Content Collaboration — Selective</span>
+    <span class="avail-chip neutral">◉ Student Projects — Budget Friendly</span>
+    <span class="avail-chip neutral">◉ Field Service — Dhaka Area</span>
+  </div>
+
+  <!-- ADDITIONAL ATTRIBUTES -->
+  <div style="margin-top:3rem">
+    <h3 style="font-family:var(--mono);font-size:.82rem;color:var(--muted2);letter-spacing:.12em;margin-bottom:1rem">// ADDITIONAL SKILLS & ATTRIBUTES</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:1rem;max-width:720px">
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r8);padding:1rem 1.3rem;flex:1;min-width:200px">
+        <div style="font-size:.82rem;font-weight:700;margin-bottom:.3rem">🏍️ Mobility</div>
+        <div style="font-size:.8rem;color:var(--muted);font-weight:300">Skilled motorcycle and bicycle rider. Rapid response capability for field service and hardware delivery across Dhaka.</div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r8);padding:1rem 1.3rem;flex:1;min-width:200px">
+        <div style="font-size:.82rem;font-weight:700;margin-bottom:.3rem">🗣️ Communication</div>
+        <div style="font-size:.8rem;color:var(--muted);font-weight:300">Excellent verbal and written fluency in both English and Bengali. Strong advantage for client communication and IT shop interactions.</div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r8);padding:1rem 1.3rem;flex:1;min-width:200px">
+        <div style="font-size:.82rem;font-weight:700;margin-bottom:.3rem">🔍 Research</div>
+        <div style="font-size:.8rem;color:var(--muted);font-weight:300">Strong technical research capability for emerging hardware trends, AI tools, and market analysis. "Objective Truth-Seeker" — zero tolerance for hallucinated data.</div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r8);padding:1rem 1.3rem;flex:1;min-width:200px">
+        <div style="font-size:.82rem;font-weight:700;margin-bottom:.3rem">🧠 Analytical</div>
+        <div style="font-size:.8rem;color:var(--muted);font-weight:300">Proven ability to break complex technical problems into actionable, structured solutions. Applied equally to code, hardware, farming systems, and business models.</div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
+<footer>
+  <div class="footer-logo">Puson.Dev</div>
+  <p style="margin-bottom:.4rem"><span>Md. Wahidur Rahman Puson</span> · Dhaka, Bangladesh · 2026</p>
+  <p style="margin-bottom:.4rem"><span>IT Specialist</span> · <span>App Developer</span> · <span>Agro-Tech Practitioner</span></p>
+  <p style="margin-top:.8rem;color:var(--muted2)">"Grown from soil. Shaped by hand. Built with code."</p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.opacity='1';
+      e.target.style.transform='translateY(0)';
+    }
+  });
+},{threshold:0.1});
+
+document.querySelectorAll('.skill-card,.farm-card,.wood-card,.proj-card,.price-card,.exp-item,.yt-prod-card,.contact-card').forEach(el=>{
+  el.style.opacity='0';
+  el.style.transform='translateY(18px)';
+  el.style.transition='opacity .5s ease, transform .5s ease';
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>

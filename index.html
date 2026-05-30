@@ -1,0 +1,2547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Md. Wahidur Rahman Puson — Web & App Developer · Dhaka</title>
+  <meta name="description" content="IT Specialist, Web & App Developer based in Dhaka. I build business digital ecosystems, Android apps, and WordPress websites for clients worldwide.">
+  <meta property="og:title" content="Puson.Dev — Web & App Developer">
+  <meta property="og:description" content="Multi-platform developer. Business digital ecosystems. Middle East, EU, UK, USA, CA, AU.">
+  
+  <!-- Fonts Google CDN -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================================================
+       RESET & GLOBAL SYSTEM
+       ========================================================================== */
+    :root {
+      --bg: #050709;
+      --bg2: #0a0e16;
+      --bg3: #111827;
+      --accent: #00d4ff;
+      --accent2: #0066cc;
+      --gold: #f5c842;
+      --text: #e2eeff;
+      --muted: #6b8aad;
+      --border: rgba(0, 212, 255, 0.12);
+      --border-hover: rgba(0, 212, 255, 0.4);
+      
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+    
+    body {
+      overflow-x: hidden;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    body.no-scroll {
+      overflow: hidden;
+    }
+    
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Selection Colors */
+    ::selection {
+      background-color: var(--accent);
+      color: var(--bg);
+    }
+    
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent2);
+    }
+
+    /* Container Utility */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      width: 100%;
+    }
+
+    /* Section Spacing */
+    section {
+      padding: 140px 0;
+      position: relative;
+    }
+    
+    /* Section Labels & Headers */
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+    
+    .section-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.5px;
+    }
+    
+    .section-subtitle {
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      color: var(--muted);
+      margin-bottom: 4rem;
+      font-weight: 300;
+      max-width: 700px;
+    }
+
+    /* ==========================================================================
+       CUSTOM CURSOR
+       ========================================================================== */
+    #cursor {
+      width: 8px;
+      height: 8px;
+      background-color: #fff;
+      border-radius: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 10000;
+      transform: translate3d(-50%, -50%, 0);
+      will-change: transform;
+      transition: width 0.15s ease, height 0.15s ease, background-color 0.15s ease;
+    }
+    
+    #cursor-ring {
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate3d(-50%, -50%, 0);
+      will-change: transform;
+      transition: border-color 0.3s ease, background-color 0.3s ease;
+    }
+
+    @media (hover: none) and (pointer: coarse) {
+      #cursor, #cursor-ring {
+        display: none;
+      }
+    }
+
+    /* ==========================================================================
+       HERO BACKGROUND GRID
+       ========================================================================== */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(0, 212, 255, 0.08) 1px, transparent 1px);
+      background-size: 36px 36px;
+      animation: gridMove 60s linear infinite;
+      opacity: 0.6;
+      pointer-events: none;
+      z-index: 1;
+      mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+    }
+    
+    @keyframes gridMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 36px 72px; }
+    }
+
+    /* ==========================================================================
+       SCROLL REVEAL SYSTEM
+       ========================================================================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px) scale(0.96);
+      transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+      will-change: transform, opacity;
+    }
+    
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* ==========================================================================
+       NAVIGATION BAR
+       ========================================================================== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 900;
+      padding: 2rem 0;
+      transition: background-color 0.4s var(--ease-smooth), padding 0.4s var(--ease-smooth), border-color 0.4s var(--ease-smooth);
+      border-bottom: 1px solid transparent;
+    }
+    
+    .navbar.scrolled {
+      background-color: rgba(5, 7, 9, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 1.2rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .nav-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: -1px;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 3rem;
+      align-items: center;
+    }
+    
+    .nav-link {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.25s ease;
+      position: relative;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s var(--ease-smooth);
+    }
+    
+    .nav-link:hover {
+      color: var(--accent);
+    }
+    
+    .nav-link:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    /* Mobile Hamburger Menu */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 24px;
+      height: 16px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 1002;
+    }
+    
+    .nav-toggle .bar {
+      width: 100%;
+      height: 2px;
+      background-color: var(--text);
+      transition: transform 0.3s var(--ease-smooth), opacity 0.3s var(--ease-smooth), background-color 0.3s var(--ease-smooth);
+      border-radius: 2px;
+    }
+    
+    .nav-toggle.open .bar:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+      background-color: var(--accent);
+    }
+    
+    .nav-toggle.open .bar:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .nav-toggle.open .bar:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+      background-color: var(--accent);
+    }
+    
+    /* Full-Screen Mobile Overlay Menu */
+    .mobile-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: var(--bg);
+      z-index: 999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s var(--ease-smooth);
+    }
+    
+    .mobile-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    
+    .mobile-links {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.5rem;
+    }
+    
+    .mobile-link {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
+    }
+    
+    .mobile-overlay.open .mobile-link {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Overlay Stagger Delay */
+    .mobile-overlay.open .mobile-link:nth-child(1) { transition-delay: 0.1s; }
+    .mobile-overlay.open .mobile-link:nth-child(2) { transition-delay: 0.15s; }
+    .mobile-overlay.open .mobile-link:nth-child(3) { transition-delay: 0.2s; }
+    .mobile-overlay.open .mobile-link:nth-child(4) { transition-delay: 0.25s; }
+    .mobile-overlay.open .mobile-link:nth-child(5) { transition-delay: 0.3s; }
+
+    /* ==========================================================================
+       BUTTONS
+       ========================================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.1rem 2.2rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-radius: 4px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      will-change: transform;
+      transition: transform 0.4s var(--ease-spring), box-shadow 0.3s ease;
+    }
+    
+    .btn.moving {
+      transition: none; /* disables delay during magnetic track */
+    }
+    
+    .btn-solid {
+      background-color: var(--accent);
+      color: var(--bg);
+      border: 1px solid var(--accent);
+    }
+    
+    .btn-solid:hover {
+      box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+    }
+    
+    .btn-ghost {
+      background-color: transparent;
+      color: var(--accent);
+      border: 1px solid var(--border);
+    }
+    
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      background-color: rgba(0, 212, 255, 0.03);
+    }
+
+    /* Pulsing Glow Animation */
+    .btn-pulse {
+      animation: pulse-glow 2s ease infinite;
+    }
+    
+    @keyframes pulse-glow {
+      0% { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.4); }
+      70% { box-shadow: 0 0 0 12px rgba(0, 212, 255, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0); }
+    }
+
+    /* ==========================================================================
+       HERO SECTION
+       ========================================================================== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 120px;
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+    }
+    
+    .hero-container {
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+      z-index: 5;
+    }
+    
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
+    }
+    
+    .hero-tag {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--gold);
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      margin-bottom: 0.5rem;
+    }
+    
+    .hero-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 8vw, 7.5rem);
+      line-height: 0.9;
+      color: var(--text);
+      letter-spacing: -1px;
+    }
+    
+    .hero-role {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: -0.5rem;
+    }
+    
+    .hero-desc {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 600px;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+      font-weight: 300;
+    }
+    
+    .hero-ctas {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    /* Page Load Stagger Baseline Styles */
+    .hero-stagger {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1s var(--ease-out-expo), transform 1s var(--ease-out-expo);
+    }
+    
+    .hero-stagger.loaded {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stats Panel */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+      width: 100%;
+      margin-top: 1rem;
+    }
+    
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+      letter-spacing: 1px;
+    }
+    
+    .stat-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Floating Code Block */
+    .hero-right {
+      display: flex;
+      justify-content: flex-end;
+      perspective: 1000px;
+    }
+    
+    .code-editor {
+      background: rgba(10, 14, 22, 0.75);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 1.5rem;
+      position: relative;
+      animation: floatCode 6s ease-in-out infinite;
+      will-change: transform;
+      transform-style: preserve-3d;
+    }
+    
+    @keyframes floatCode {
+      0%, 100% { transform: translateY(0) rotateX(1deg) rotateY(-2deg); }
+      50% { transform: translateY(-16px) rotateX(-1deg) rotateY(2deg); }
+    }
+    
+    .code-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 0.8rem;
+    }
+    
+    .code-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .code-dot.red { background-color: #ff5f56; }
+    .code-dot.yellow { background-color: #ffbd2e; }
+    .code-dot.green { background-color: #27c93f; }
+    
+    .code-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-left: 8px;
+    }
+    
+    .code-editor pre {
+      margin: 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      overflow-x: auto;
+    }
+    
+    /* Syntax Highlighting */
+    .kw { color: var(--accent); font-weight: bold; }
+    .str { color: var(--gold); }
+    .key { color: #82aaff; }
+    .comment { color: var(--muted); font-style: italic; }
+
+    /* ==========================================================================
+       SERVICES SECTION
+       ========================================================================== */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3.5rem;
+    }
+    
+    .service-card {
+      background-color: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 3rem 2.2rem;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
+    }
+    
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s var(--ease-smooth);
+    }
+    
+    .service-card:hover {
+      border-color: var(--border-hover);
+      background-color: rgba(0, 212, 255, 0.04);
+      transform: translateY(-4px);
+    }
+    
+    .service-card:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .service-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .service-icon {
+      font-size: 1.8rem;
+    }
+    
+    .service-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      color: var(--muted);
+      opacity: 0.6;
+    }
+    
+    .service-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text);
+      letter-spacing: 0.3px;
+      margin-top: 0.5rem;
+    }
+    
+    .service-desc {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.5;
+      font-weight: 300;
+    }
+    
+    .service-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      padding-top: 1.2rem;
+      margin-top: auto;
+    }
+    
+    .service-bullets li {
+      font-size: 0.85rem;
+      color: var(--text);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    
+    .service-bullets li::before {
+      content: '→';
+      color: var(--accent);
+    }
+
+    /* Exclusions Callout */
+    .exclusions-box {
+      border: 1px solid rgba(245, 200, 66, 0.15);
+      background: rgba(245, 200, 66, 0.02);
+      border-radius: 8px;
+      padding: 1.8rem 2.2rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+    
+    .exclusions-icon {
+      font-size: 1.6rem;
+      line-height: 1;
+      color: var(--gold);
+    }
+    
+    .exclusions-content {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    
+    .exclusions-content strong {
+      color: var(--gold);
+      text-transform: uppercase;
+      font-family: 'Barlow Condensed', sans-serif;
+      letter-spacing: 0.5px;
+    }
+
+    /* ==========================================================================
+       PROJECTS SECTION
+       ========================================================================== */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+    
+    .project-card {
+      background-color: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      transition: border-color 0.3s ease, transform 0.3s var(--ease-smooth), box-shadow 0.3s ease;
+    }
+    
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent2), var(--accent));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s var(--ease-smooth);
+    }
+    
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-6px);
+      box-shadow: 0 15px 35px rgba(0, 212, 255, 0.08);
+    }
+    
+    .project-card:hover::before {
+      transform: scaleX(1);
+    }
+    
+    /* Featured full-width project card */
+    .project-card.featured {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    
+    .project-badge-wrap {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 0.2rem;
+    }
+    
+    .project-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 0.35rem 0.8rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Badge specific color definitions */
+    .badge-active {
+      background: rgba(0, 212, 255, 0.08);
+      color: var(--accent);
+      border: 1px solid rgba(0, 212, 255, 0.2);
+    }
+    .badge-ongoing {
+      background: rgba(245, 200, 66, 0.08);
+      color: var(--gold);
+      border: 1px solid rgba(245, 200, 66, 0.2);
+    }
+    .badge-concept {
+      background: rgba(167, 139, 250, 0.08);
+      color: #a78bfa;
+      border: 1px solid rgba(167, 139, 250, 0.2);
+    }
+    .badge-live {
+      background: rgba(61, 220, 132, 0.08);
+      color: #3ddc84;
+      border: 1px solid rgba(61, 220, 132, 0.2);
+    }
+    .badge-research {
+      background: rgba(248, 113, 113, 0.08);
+      color: #f87171;
+      border: 1px solid rgba(248, 113, 113, 0.2);
+    }
+    .badge-published {
+      background: rgba(45, 212, 191, 0.08);
+      color: #2dd4bf;
+      border: 1px solid rgba(45, 212, 191, 0.2);
+    }
+    
+    .project-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .project-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text);
+      letter-spacing: 0.2px;
+      line-height: 1.2;
+    }
+    
+    .project-desc {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+    
+    /* Sub-items (Inside Featured Card) */
+    .project-subitems {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+    
+    .subitem-card {
+      background: rgba(5, 7, 9, 0.4);
+      border: 1px solid var(--border);
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text);
+    }
+    
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: auto;
+    }
+    
+    .project-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      padding: 0.35rem 0.75rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      color: var(--muted);
+    }
+
+    /* Featured Project Right-Side layout */
+    .featured-media {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      justify-content: center;
+      height: 100%;
+    }
+
+    @media (max-width: 991px) {
+      .project-card.featured {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+
+    /* ==========================================================================
+       TECH STACK / SKILLS SECTION
+       ========================================================================== */
+    .skills-section {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    
+    .skills-header {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Continuous Horizontal Marquee */
+    .ticker-container {
+      width: 100%;
+      overflow: hidden;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 0;
+      position: relative;
+      margin-bottom: 5rem;
+    }
+    
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 40s linear infinite;
+      will-change: transform;
+    }
+    
+    .ticker-container:hover .ticker-track {
+      animation-play-state: paused;
+    }
+    
+    .ticker-content {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.3rem;
+      color: var(--text);
+      letter-spacing: 1px;
+      padding-right: 3rem;
+      white-space: nowrap;
+    }
+    
+    @keyframes marquee {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-50%, 0, 0); }
+    }
+
+    /* Skills Grid */
+    .skills-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+    
+    .skills-category-card {
+      background-color: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      transition: border-color 0.25s ease, transform 0.25s ease;
+    }
+    
+    .skills-category-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+    
+    .skills-category-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 0.6rem;
+    }
+    
+    .skills-tags-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+    
+    .skill-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      padding: 0.4rem 0.8rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      color: var(--text);
+      cursor: pointer;
+      transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+    }
+    
+    .skill-tag:hover {
+      background-color: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+    }
+
+    /* ==========================================================================
+       PRICING SECTION
+       ========================================================================== */
+    .pricing-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 3.5rem;
+    }
+    
+    .pricing-tab-btn {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 0.8rem 2rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s var(--ease-smooth);
+    }
+    
+    .pricing-tab-btn:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+    
+    .pricing-tab-btn.active {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+      box-shadow: 0 6px 20px rgba(0, 212, 255, 0.25);
+    }
+    
+    /* Panels Container */
+    .pricing-panels {
+      position: relative;
+      width: 100%;
+      min-height: 400px;
+    }
+    
+    .pricing-panel {
+      display: none;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      opacity: 0;
+      transform: translate3d(0, 15px, 0);
+    }
+    
+    .pricing-panel.active {
+      display: grid;
+      animation: panelFadeIn 0.5s var(--ease-smooth) forwards;
+    }
+    
+    @keyframes panelFadeIn {
+      to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
+    }
+    
+    .pricing-card {
+      background-color: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s ease, transform 0.3s var(--ease-smooth);
+    }
+    
+    .pricing-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-4px);
+    }
+    
+    /* Recommended Package Highlights */
+    .pricing-card.recommended {
+      border-color: var(--accent);
+      background: linear-gradient(180deg, rgba(0, 212, 255, 0.04) 0%, rgba(10, 14, 22, 0) 100%);
+      grid-column: span 2;
+    }
+    
+    @media (max-width: 768px) {
+      .pricing-card.recommended {
+        grid-column: span 1;
+      }
+    }
+    
+    .badge-recommended {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: var(--gold);
+      color: var(--bg);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 0.4rem 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transform: rotate(45deg) translate(25px, -10px);
+      width: 140px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    .pricing-card h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-bottom: 0.6rem;
+      color: var(--text);
+    }
+    
+    .pricing-desc {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 1.8rem;
+      font-weight: 300;
+      line-height: 1.5;
+    }
+    
+    .price-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 1.5rem;
+    }
+    
+    .price-val {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      color: var(--accent);
+      letter-spacing: 1px;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      line-height: 1;
+    }
+    
+    .price-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .pricing-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .pricing-bullets li {
+      font-size: 0.9rem;
+      color: var(--text);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    
+    .pricing-bullets li::before {
+      content: '✓';
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    /* Pricing Bottom Notice */
+    .pricing-note {
+      text-align: center;
+      margin-top: 4rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+    }
+
+    /* ==========================================================================
+       CONTACT SECTION
+       ========================================================================== */
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 5rem;
+      align-items: flex-start;
+    }
+    
+    .contact-left {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .contact-info-card {
+      background-color: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.8rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      transition: border-color 0.25s ease;
+    }
+    
+    .contact-info-card:hover {
+      border-color: var(--accent);
+    }
+    
+    .contact-info-icon {
+      font-size: 1.6rem;
+      color: var(--accent);
+      min-width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 212, 255, 0.05);
+      border-radius: 50%;
+    }
+    
+    .contact-info-content {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .contact-info-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.2rem;
+    }
+    
+    .contact-info-value {
+      font-size: 1.1rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+    
+    /* Target Markets Visual */
+    .contact-right {
+      display: flex;
+      flex-direction: column;
+      gap: 2.2rem;
+      background: rgba(10, 14, 22, 0.4);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 3rem;
+    }
+    
+    .market-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent);
+    }
+    
+    .market-chips-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+    
+    .market-chip {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      transition: all 0.25s ease;
+    }
+    
+    .market-chip:hover {
+      border-color: var(--accent);
+      background: rgba(0, 212, 255, 0.05);
+      transform: translateY(-2px);
+    }
+
+    /* WhatsApp Button Styles */
+    .contact-whatsapp-btn {
+      width: 100%;
+      padding: 1.3rem 2rem;
+      font-size: 1.2rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 10px 30px rgba(0, 212, 255, 0.1);
+    }
+    
+    .contact-whatsapp-btn:hover {
+      box-shadow: 0 12px 35px rgba(0, 212, 255, 0.25);
+    }
+
+    /* ==========================================================================
+       FOOTER
+       ========================================================================== */
+    .footer {
+      border-top: 1px solid var(--border);
+      background-color: #030406;
+      padding: 5rem 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--muted);
+      position: relative;
+      z-index: 10;
+    }
+    
+    .footer-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+    }
+    
+    .footer-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .footer-brand {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: -0.5px;
+    }
+    
+    .footer-tagline {
+      font-size: 0.8rem;
+      opacity: 0.85;
+    }
+    
+    .footer-center a {
+      color: var(--accent);
+      border-bottom: 1px solid transparent;
+      padding-bottom: 2px;
+      font-weight: 500;
+      transition: border-color 0.25s ease, color 0.25s ease;
+    }
+    
+    .footer-center a:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+    
+    .footer-right {
+      text-align: right;
+    }
+
+    /* ==========================================================================
+       RESPONSIVE BREAKPOINTS
+       ========================================================================== */
+    @media (max-width: 1200px) {
+      .hero-container {
+        gap: 3rem;
+      }
+    }
+
+    @media (max-width: 1199px) {
+      section {
+        padding: 100px 0;
+      }
+    }
+
+    @media (max-width: 991px) {
+      .hero-container {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+        text-align: center;
+      }
+      .hero-left {
+        align-items: center;
+      }
+      .hero-desc {
+        margin: 0 auto 1.5rem auto;
+      }
+      .hero-ctas {
+        justify-content: center;
+      }
+      .hero-right {
+        justify-content: center;
+      }
+      .stats-row {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .contact-container {
+        grid-template-columns: 1fr;
+        gap: 3.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      section {
+        padding: 80px 0;
+      }
+      .stats-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+      .footer-container {
+        flex-direction: column;
+        text-align: center;
+      }
+      .footer-right {
+        text-align: center;
+      }
+      .pricing-tabs {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Custom Cursor elements -->
+  <div id="cursor"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo">PUSON.DEV</a>
+      
+      <!-- Desktop Links -->
+      <div class="nav-links">
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#pricing" class="nav-link">Pricing</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+      
+      <!-- Mobile toggle menu button -->
+      <button class="nav-toggle" aria-label="Toggle Menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-overlay">
+    <div class="mobile-links">
+      <a href="#skills" class="mobile-link">Skills</a>
+      <a href="#projects" class="mobile-link">Projects</a>
+      <a href="#services" class="mobile-link">Services</a>
+      <a href="#pricing" class="mobile-link">Pricing</a>
+      <a href="#contact" class="mobile-link">Contact</a>
+    </div>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="hero">
+    <div class="hero-grid"></div>
+    <div class="container hero-container">
+      
+      <!-- Left Hero Content -->
+      <div class="hero-left">
+        <span class="hero-tag hero-stagger">AVAILABLE FOR HIRE · 2026</span>
+        <h1 class="hero-name hero-stagger">MD. WAHIDUR RAHMAN PUSON</h1>
+        <div class="hero-role hero-stagger">Web & App Developer · IT Specialist · Digital Consultant</div>
+        <p class="hero-desc hero-stagger">
+          I help offline businesses get online — not just a website, but a full digital ecosystem. I also build multi-platform apps and consult on PC hardware. Based in Dhaka, working with clients across the Middle East, EU, UK, USA, Canada, and Australia.
+        </p>
+        
+        <div class="hero-ctas hero-stagger">
+          <a href="#projects" class="btn btn-solid btn-magnetic">View Projects</a>
+          <a href="portfolio.html" class="btn btn-ghost btn-pulse btn-magnetic">Know More About Me →</a>
+        </div>
+        
+        <!-- Stats container -->
+        <div class="stats-row stats-container hero-stagger">
+          <div class="stat-item">
+            <div class="stat-num"><span class="counter" data-target="15">0</span>+</div>
+            <div class="stat-label">Custom PC Builds</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num"><span class="counter" data-target="3">0</span></div>
+            <div class="stat-label">Platforms Shipped</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num"><span class="counter" data-target="8">0</span>+</div>
+            <div class="stat-label">Digital Services</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num"><span class="counter" data-target="2026">0</span></div>
+            <div class="stat-label">Active Status</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Right Hero Code Editor Block -->
+      <div class="hero-right hero-stagger">
+        <div class="code-editor">
+          <div class="code-header">
+            <div class="code-dot red"></div>
+            <div class="code-dot yellow"></div>
+            <div class="code-dot green"></div>
+            <span class="code-title">ultrasave.config.js</span>
+          </div>
+          <pre><code><span class="comment">// ultrasave.config.js</span>
+<span class="kw">export default</span> {
+  <span class="key">platforms</span>: [<span class="str">'windows'</span>, <span class="str">'android'</span>, <span class="str">'web'</span>],
+  <span class="key">engine</span>: <span class="str">'yt-dlp + ffmpeg'</span>,
+  <span class="key">monetization</span>: [<span class="str">'admob'</span>, <span class="str">'adsense'</span>],
+  <span class="key">adFilter</span>: <span class="str">'halal'</span>,
+  <span class="key">status</span>: <span class="str">'ACTIVE'</span>
+}</code></pre>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SERVICES SECTION -->
+  <section id="services" class="reveal">
+    <div class="container">
+      <span class="section-label">What I Build</span>
+      <h2 class="section-title">Full Business Digital Ecosystems</h2>
+      <p class="section-subtitle">Not just a website. Everything connected.</p>
+      
+      <!-- 8 Services Cards Grid -->
+      <div class="services-grid">
+        
+        <!-- 01 Website -->
+        <div class="service-card reveal">
+          <div class="service-meta">
+            <span class="service-icon">🌐</span>
+            <span class="service-num">01</span>
+          </div>
+          <h3 class="service-title">Professional Website</h3>
+          <p class="service-desc">WordPress or Next.js. Mobile-first. CMS. SEO. Leads routed directly to owner's WhatsApp Business.</p>
+          <ul class="service-bullets">
+            <li>Fast load, SSL, contact form</li>
+            <li>Customized service pages</li>
+          </ul>
+        </div>
+        
+        <!-- 02 Google Maps -->
+        <div class="service-card reveal">
+          <div class="service-meta">
+            <span class="service-icon">📍</span>
+            <span class="service-num">02</span>
+          </div>
+          <h3 class="service-title">Google Maps & Local SEO</h3>
+          <p class="service-desc">Complete Google Business Profile optimization. Live maps on site. Professional customer review strategy.</p>
+          <ul class="service-bullets">
+            <li>Appear when people search nearby</li>
+            <li>Local keyword targeting</li>
+          </ul>
+        </div>
+        
+        <!-- 03 Social Integration -->
+        <div class="service-card reveal">
+          <div class="service-meta">
+            <span class="service-icon">📱</span>
+            <span class="service-num">03</span>
+          </div>
+          <h3 class="service-title">Social Media Integration</h3>
+          <p class="service-desc">Facebook + Instagram configurations. WhatsApp Business API buttons. Professional unified branding.</p>
+          <ul class="service-bullets">
+            <li>Connected channels from day one</li>
+            <li>Consistent brand assets</li>
+          </ul>
+        </div>
+        
+        <!-- 04 Facebook Funnel -->
+        <div class="service-card reveal">
+          <div class="service-meta">
+            <span class="service-icon">🎯</span>
+            <span class="service-num">04</span>
+          </div>
+          <h3 class="service-title">Facebook Funnel Infrastructure</h3>
+          <p class="service-desc">Facebook Pixel installed. Dedicated lead capture pages. Retargeting-ready architecture setup.</p>
+          <ul class="service-bullets">
+            <li>Built-in campaign infrastructure</li>
+            <li>Client owns and runs ads easily</li>
+          </ul>
+        </div>
+        
+        <!-- 05 Email Marketing -->
+        <div class="service-card reveal">
+          <div class="service-meta">
+            <span class="service-icon">📧</span>
+            <span class="service-num">05</span>
+          </div>
+          <h3 class="service-title">Email Marketing Setup</h3>
+          <p class="service-desc">Professional domain business email. Mailchimp integration. Newsletter collection forms & 3-email welcome sequence.</p>
+          <ul class="service-bullets">
+            <li>List collection configuration</li>
+            <li>Complete ownership of email data</li>
+          </ul>
+        </div>
+        
+        <!-- 06 WhatsApp Marketing -->
+        <div class="service-card reveal">
+          <div class="service-meta">
+            <span class="service-icon">💬</span>
+            <span class="service-num">06</span>
+          </div>
+          <h3 class="service-title">WhatsApp & Telegram Marketing</h3>
+          <p class="service-desc">WhatsApp Business setups. Click-to-chat features, QR codes generator, broadcast campaign lists builder.</p>
+          <ul class="service-bullets">
+            <li>Collect numbers at every touchpoint</li>
+            <li>Instant direct-to-customer outreach</li>
+          </ul>
+        </div>
+        
+        <!-- 07 Customer Data -->
+        <div class="service-card reveal">
+          <div class="service-meta">
+            <span class="service-icon">🗃️</span>
+            <span class="service-num">07</span>
+          </div>
+          <h3 class="service-title">Customer Data Collection</h3>
+          <p class="service-desc">Structured forms, scanning QR codes, auto email capture systems. Automated Google Sheets backups.</p>
+          <ul class="service-bullets">
+            <li>Secure data capture pipelines</li>
+            <li>Complete control over client lists</li>
+          </ul>
+        </div>
+        
+        <!-- 08 Logo Brand -->
+        <div class="service-card reveal">
+          <div class="service-meta">
+            <span class="service-icon">🎨</span>
+            <span class="service-num">08</span>
+          </div>
+          <h3 class="service-title">Logo & Brand Identity</h3>
+          <p class="service-desc">3 custom logo concepts. Harmonic color palette selection. Font kit directory. All delivery formats.</p>
+          <ul class="service-bullets">
+            <li>Cohesive branding guides</li>
+            <li>Vector, web, and social print files</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Exclusions Callout Box -->
+      <div class="exclusions-box reveal">
+        <div class="exclusions-icon">⚠️</div>
+        <div class="exclusions-content">
+          <strong>Service Exclusions:</strong> I do NOT offer video ads production, ongoing ad campaign management, or complex SaaS application builds. I construct the entire foundation, and you launch marketing channels on top.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS SECTION -->
+  <section id="projects" class="reveal">
+    <div class="container">
+      <span class="section-label">Shipped Products</span>
+      <h2 class="section-title">Things I Built</h2>
+      <p class="section-subtitle">Real products. Not mockups collecting dust.</p>
+      
+      <div class="projects-grid">
+        
+        <!-- Project 1 — UltraSave (Featured Full Width) -->
+        <div class="project-card featured reveal">
+          <div class="project-info">
+            <div class="project-badge-wrap">
+              <span class="project-badge badge-active">🚀 ACTIVE · FLAGSHIP</span>
+            </div>
+            <h3 class="project-title">UltraSave — 3-Platform Ecosystem</h3>
+            <p class="project-desc">
+              A comprehensive social media downloader ecosystem spanning desktop, mobile, and web. Built Windows application using Electron, React, and Vite with integrated yt-dlp & ffmpeg binaries. Produced the Android APK in Flutter with AdMob (applying strict halal category filters). Deployed Next.js distribution website with integrated AdSense monetizations. Includes robust custom IPC communication.
+            </p>
+            <div class="project-subitems">
+              <span class="subitem-card">Windows EXE</span>
+              <span class="subitem-card">Android APK</span>
+              <span class="subitem-card">Next.js Site</span>
+            </div>
+            <div class="project-tags">
+              <span class="project-tag">Electron</span>
+              <span class="project-tag">React+Vite</span>
+              <span class="project-tag">Flutter</span>
+              <span class="project-tag">Next.js</span>
+              <span class="project-tag">yt-dlp</span>
+              <span class="project-tag">ffmpeg</span>
+              <span class="project-tag">AdMob</span>
+              <span class="project-tag">AdSense</span>
+            </div>
+          </div>
+          
+          <div class="featured-media">
+            <div class="code-editor" style="max-width: 100%; animation: none; transform: none;">
+              <div class="code-header">
+                <div class="code-dot red"></div>
+                <div class="code-dot yellow"></div>
+                <div class="code-dot green"></div>
+                <span class="code-title">ultrasave-ipc.js</span>
+              </div>
+              <pre><code><span class="comment">// Desktop-to-Binary Bridge</span>
+ipcMain.handle(<span class="str">'download-video'</span>, <span class="kw">async</span> (event, url) => {
+  <span class="kw">return new</span> Promise((resolve) => {
+    <span class="kw">const</span> process = spawn(ytdlpPath, [<span class="str">'-f'</span>, <span class="str">'best'</span>, url]);
+    process.on(<span class="str">'close'</span>, () => resolve({success: <span class="kw">true</span>}));
+  });
+});</code></pre>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Project 2 — YouTube Channel -->
+        <div class="project-card reveal">
+          <div class="project-badge-wrap">
+            <span class="project-badge badge-ongoing">📺 ONGOING · 2022–PRESENT</span>
+          </div>
+          <h3 class="project-title">Bengali Tech YouTube Channel</h3>
+          <p class="project-desc">
+            Faceless Bengali-language technology educational channel. Designed full production chain: researched concepts, generated voiceovers via ElevenLabs AI, built visual slides in Canva, compiled final video edits inside DaVinci Resolve, and recorded with OBS. Successfully published research exposing the RX 580 2048SP GPU rebranding scam operating in BD.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">ElevenLabs</span>
+            <span class="project-tag">Canva</span>
+            <span class="project-tag">DaVinci Resolve</span>
+            <span class="project-tag">OBS</span>
+            <span class="project-tag">Bengali SEO</span>
+          </div>
+        </div>
+        
+        <!-- Project 3 — Project Neural-Nexus -->
+        <div class="project-card reveal">
+          <div class="project-badge-wrap">
+            <span class="project-badge badge-concept">💡 CONCEPT · IN PROGRESS</span>
+          </div>
+          <h3 class="project-title">Project Neural-Nexus</h3>
+          <p class="project-desc">
+            AI-driven Micro-SaaS software platform and automated affiliate ecosystem. Deployed coordinated multi-AI agent workflows (Claude, Cursor, OpenHands, Cline, Devin) to handle rapid codebase generations, marketing content automations, and passive affiliate revenue pipelines.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">AI/LLM</span>
+            <span class="project-tag">Micro-SaaS</span>
+            <span class="project-tag">Affiliate</span>
+            <span class="project-tag">Automation</span>
+          </div>
+        </div>
+        
+        <!-- Project 4 — Nature's Intimacy Blog -->
+        <div class="project-card reveal">
+          <div class="project-badge-wrap">
+            <span class="project-badge badge-live">🌿 LIVE · NETLIFY</span>
+          </div>
+          <h3 class="project-title">Nature's Intimacy Blog</h3>
+          <p class="project-desc">
+            Herbal wellness and alternative biological wellness authority blog. Built explicitly for Answer Engine Optimization (AEO) to ensure LLM search engines (Perplexity, ChatGPT, Gemini) parse and reference content directly. Generates passive income via affiliate partnerships and Google AdSense integrations.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">Netlify</span>
+            <span class="project-tag">SEO</span>
+            <span class="project-tag">AEO</span>
+            <span class="project-tag">AdSense</span>
+            <span class="project-tag">Affiliate</span>
+          </div>
+        </div>
+        
+        <!-- Project 5 — SecureNexus AI -->
+        <div class="project-card reveal">
+          <div class="project-badge-wrap">
+            <span class="project-badge badge-research">🔐 RESEARCH · PIVOTED</span>
+          </div>
+          <h3 class="project-title">SecureNexus AI</h3>
+          <p class="project-desc">
+            Decentralized personal identity vaults utilizing AI-driven breach detection models. Completed full Product Requirement Document (PRD). Core technical feasibility analysis exposed security bottlenecks, prompting a pivot towards proactive centralized identity monitor setups.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">Identity Vault</span>
+            <span class="project-tag">AI</span>
+            <span class="project-tag">Security</span>
+            <span class="project-tag">PRD</span>
+          </div>
+        </div>
+        
+        <!-- Project 6 — AI Video Ad Tools -->
+        <div class="project-card reveal">
+          <div class="project-badge-wrap">
+            <span class="project-badge badge-published">📝 PUBLISHED</span>
+          </div>
+          <h3 class="project-title">AI Video Ad Tools 2026</h3>
+          <p class="project-desc">
+            Comprehensive technical whitepaper reviewing advanced AI-powered video advertising development software. Reviewed technical accuracy, formatted, and published as structured resource document targeting Bengali tech audiences.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">Technical Writing</span>
+            <span class="project-tag">AI Tools</span>
+            <span class="project-tag">Research</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS SECTION -->
+  <section id="skills" class="skills-section reveal">
+    
+    <!-- Title Area -->
+    <div class="skills-header">
+      <span class="section-label">Tech Stack</span>
+      <h2 class="section-title">Skills & Tools</h2>
+    </div>
+    
+    <!-- Scrolling Marquee Ticker -->
+    <div class="ticker-container reveal">
+      <div class="ticker-track">
+        <span class="ticker-content">React · Next.js · Flutter · Electron · Firebase · Vite · WordPress · DaVinci Resolve · ElevenLabs · OBS · yt-dlp · ffmpeg · AdMob · AdSense · Claude AI · Cursor · AMD Ryzen · BIOS Tuning · DDU · GPU-Z · Git · Python · &nbsp;</span>
+        <span class="ticker-content">React · Next.js · Flutter · Electron · Firebase · Vite · WordPress · DaVinci Resolve · ElevenLabs · OBS · yt-dlp · ffmpeg · AdMob · AdSense · Claude AI · Cursor · AMD Ryzen · BIOS Tuning · DDU · GPU-Z · Git · Python · &nbsp;</span>
+      </div>
+    </div>
+
+    <!-- Skills Category Cards Grid -->
+    <div class="skills-container">
+      <div class="skills-grid">
+        
+        <!-- Web Dev -->
+        <div class="skills-category-card reveal">
+          <h3 class="skills-category-title">Web Development</h3>
+          <div class="skills-tags-wrap">
+            <span class="skill-tag">React</span>
+            <span class="skill-tag">Vite</span>
+            <span class="skill-tag">Next.js</span>
+            <span class="skill-tag">HTML/CSS</span>
+            <span class="skill-tag">WordPress</span>
+          </div>
+        </div>
+        
+        <!-- Mobile Apps -->
+        <div class="skills-category-card reveal">
+          <h3 class="skills-category-title">Mobile Apps</h3>
+          <div class="skills-tags-wrap">
+            <span class="skill-tag">Flutter</span>
+            <span class="skill-tag">Dart</span>
+            <span class="skill-tag">AdMob</span>
+            <span class="skill-tag">Play Store</span>
+          </div>
+        </div>
+        
+        <!-- Desktop Apps -->
+        <div class="skills-category-card reveal">
+          <h3 class="skills-category-title">Desktop Apps</h3>
+          <div class="skills-tags-wrap">
+            <span class="skill-tag">Electron</span>
+            <span class="skill-tag">Node.js</span>
+            <span class="skill-tag">IPC Bridge</span>
+            <span class="skill-tag">Windows EXE</span>
+          </div>
+        </div>
+        
+        <!-- Backend & DB -->
+        <div class="skills-category-card reveal">
+          <h3 class="skills-category-title">Backend & DB</h3>
+          <div class="skills-tags-wrap">
+            <span class="skill-tag">Firebase</span>
+            <span class="skill-tag">Firestore</span>
+            <span class="skill-tag">REST API</span>
+          </div>
+        </div>
+        
+        <!-- Video Production -->
+        <div class="skills-category-card reveal">
+          <h3 class="skills-category-title">Video Production</h3>
+          <div class="skills-tags-wrap">
+            <span class="skill-tag">DaVinci Resolve</span>
+            <span class="skill-tag">HitFilm</span>
+            <span class="skill-tag">OBS</span>
+            <span class="skill-tag">CapCut</span>
+          </div>
+        </div>
+        
+        <!-- AI Workflow -->
+        <div class="skills-category-card reveal">
+          <h3 class="skills-category-title">AI Workflow</h3>
+          <div class="skills-tags-wrap">
+            <span class="skill-tag">Claude</span>
+            <span class="skill-tag">Cursor</span>
+            <span class="skill-tag">OpenHands</span>
+            <span class="skill-tag">Cline</span>
+            <span class="skill-tag">ElevenLabs</span>
+          </div>
+        </div>
+        
+        <!-- PC Hardware -->
+        <div class="skills-category-card reveal">
+          <h3 class="skills-category-title">PC Hardware</h3>
+          <div class="skills-tags-wrap">
+            <span class="skill-tag">AMD Ryzen AM5</span>
+            <span class="skill-tag">MSI Platform</span>
+            <span class="skill-tag">BIOS Tuning</span>
+            <span class="skill-tag">DDU</span>
+            <span class="skill-tag">GPU-Z</span>
+          </div>
+        </div>
+        
+        <!-- Dev Tools -->
+        <div class="skills-category-card reveal">
+          <h3 class="skills-category-title">Dev Tools</h3>
+          <div class="skills-tags-wrap">
+            <span class="skill-tag">VS Code</span>
+            <span class="skill-tag">PowerShell</span>
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">npm</span>
+            <span class="skill-tag">Python</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING SECTION -->
+  <section id="pricing" class="reveal">
+    <div class="container">
+      <span class="section-label">Transparent Rates</span>
+      <h2 class="section-title">Pricing & Packages</h2>
+      <p class="section-subtitle">Demo rates. International in USD. Local BD in BDT. Always discuss scope first.</p>
+      
+      <!-- Tab Control Buttons -->
+      <div class="pricing-tabs">
+        <button class="pricing-tab-btn active" data-tab="websites">Websites</button>
+        <button class="pricing-tab-btn" data-tab="apps">Apps</button>
+        <button class="pricing-tab-btn" data-tab="maintenance">Maintenance</button>
+      </div>
+      
+      <!-- Panels Grid Container -->
+      <div class="pricing-panels">
+        
+        <!-- Tab 1 Panel (Websites) -->
+        <div class="pricing-panel active" id="websites">
+          
+          <!-- Recommended Card -->
+          <div class="pricing-card recommended">
+            <div class="badge-recommended">RECOMMENDED</div>
+            <h3>Business Ecosystem Package</h3>
+            <p class="pricing-desc">Full professional digital foundation setup. Fully integrated web, social, tracking, and messaging setup.</p>
+            <div class="price-row">
+              <div class="price-val"><span class="price-label">Intl:</span>$400 – $800</div>
+              <div class="price-val"><span class="price-label">Local BD:</span>20,000 – 40,000 BDT</div>
+            </div>
+            <ul class="pricing-bullets">
+              <li>Website + Google Maps Setup</li>
+              <li>Facebook + Instagram Integration</li>
+              <li>WhatsApp Business & QR Configs</li>
+              <li>Facebook pixel tracking setups</li>
+              <li>Business domain email & Mailchimp sequences</li>
+              <li>3 Logo concepts & branding kits</li>
+              <li>Forms & spreadsheet database setups</li>
+            </ul>
+          </div>
+          
+          <!-- WordPress Card -->
+          <div class="pricing-card">
+            <h3>Basic WordPress (5 pages)</h3>
+            <p class="pricing-desc">Quick, professional site setups utilizing optimized WordPress workflows.</p>
+            <div class="price-row">
+              <div class="price-val"><span class="price-label">Intl:</span>$150 – $300</div>
+              <div class="price-val"><span class="price-label">Local BD:</span>8,000 – 12,000 BDT</div>
+            </div>
+            <ul class="pricing-bullets">
+              <li>Up to 5 styled pages</li>
+              <li>Mobile-responsive template</li>
+              <li>Contact form & Google Maps embeds</li>
+              <li>Standard SEO plugin setups</li>
+            </ul>
+          </div>
+          
+          <!-- Custom Site Card -->
+          <div class="pricing-card">
+            <h3>Custom Business Website</h3>
+            <p class="pricing-desc">High performance code-bases built custom for speed and modern styling.</p>
+            <div class="price-row">
+              <div class="price-val"><span class="price-label">Intl:</span>$300 – $600</div>
+              <div class="price-val"><span class="price-label">Local BD:</span>15,000 – 30,000 BDT</div>
+            </div>
+            <ul class="pricing-bullets">
+              <li>HTML/CSS/JS or Next.js core</li>
+              <li>SEO optimized structure</li>
+              <li>Integrated CMS setups</li>
+              <li>Lead routing options</li>
+            </ul>
+          </div>
+          
+          <!-- E-Commerce Card -->
+          <div class="pricing-card">
+            <h3>E-commerce</h3>
+            <p class="pricing-desc">Reliable storefront deployments setup to manage products and handle online transactions.</p>
+            <div class="price-row">
+              <div class="price-val"><span class="price-label">Intl:</span>$500 – $1,200</div>
+              <div class="price-val"><span class="price-label">Local BD:</span>25,000 – 50,000 BDT</div>
+            </div>
+            <ul class="pricing-bullets">
+              <li>Cart & checkout structures</li>
+              <li>Local/International gateway connections</li>
+              <li>Client management interface</li>
+              <li>Notification integrations</li>
+            </ul>
+          </div>
+          
+          <!-- Portfolio Site Card -->
+          <div class="pricing-card">
+            <h3>Portfolio/CV Site</h3>
+            <p class="pricing-desc">Visual digital spaces designed for displaying projects and personal summaries.</p>
+            <div class="price-row">
+              <div class="price-val"><span class="price-label">Intl:</span>$80 – $150</div>
+              <div class="price-val"><span class="price-label">Local BD:</span>3,500 – 6,000 BDT</div>
+            </div>
+            <ul class="pricing-bullets">
+              <li>Responsive single page layouts</li>
+              <li>Project gallery display</li>
+              <li>Social link integrations</li>
+              <li>Contact submissions setups</li>
+            </ul>
+          </div>
+
+        </div>
+        
+        <!-- Tab 2 Panel (Apps) -->
+        <div class="pricing-panel" id="apps">
+          
+          <!-- App Simple -->
+          <div class="pricing-card">
+            <h3>Android App — Simple</h3>
+            <p class="pricing-desc">Basic application displays showcasing simple information grids and responsive cards.</p>
+            <div class="price-row">
+              <div class="price-val"><span class="price-label">Intl:</span>$300 – $600</div>
+              <div class="price-val"><span class="price-label">Local BD:</span>12,000 – 22,000 BDT</div>
+            </div>
+            <ul class="pricing-bullets">
+              <li>3 to 5 responsive screens</li>
+              <li>Simple static listings</li>
+              <li>Contact trigger forms</li>
+              <li>APK build delivery</li>
+            </ul>
+          </div>
+          
+          <!-- App Medium -->
+          <div class="pricing-card">
+            <h3>Android App — Medium</h3>
+            <p class="pricing-desc">Feature-rich applications connecting database backends, authentication setups, and dashboards.</p>
+            <div class="price-row">
+              <div class="price-val"><span class="price-label">Intl:</span>$600 – $1,200</div>
+              <div class="price-val"><span class="price-label">Local BD:</span>28,000 – 50,000 BDT</div>
+            </div>
+            <ul class="pricing-bullets">
+              <li>Dynamic API connections</li>
+              <li>Secure auth and databases</li>
+              <li>Dashboard admin controls</li>
+              <li>Google Play console deployment</li>
+            </ul>
+          </div>
+          
+          <!-- App Complex -->
+          <div class="pricing-card">
+            <h3>Android App — Complex</h3>
+            <p class="pricing-desc">Advanced custom applications featuring tailored engines, hardware calls, or complex scaling requirements.</p>
+            <div class="price-row">
+              <div class="price-val"><span class="price-label">Intl:</span>$1,200 – $2,500</div>
+              <div class="price-val"><span class="price-label">Local BD:</span>Negotiate</div>
+            </div>
+            <ul class="pricing-bullets">
+              <li>Custom architectures</li>
+              <li>High-load performance scales</li>
+              <li>Unique system api bridges</li>
+              <li>Continuous build pipelines</li>
+            </ul>
+          </div>
+          
+          <!-- Desktop App -->
+          <div class="pricing-card">
+            <h3>Windows Desktop App</h3>
+            <p class="pricing-desc">Software applications packaged for Windows OS environments with integrated system hooks.</p>
+            <div class="price-row">
+              <div class="price-val"><span class="price-label">Intl:</span>$400 – $900</div>
+              <div class="price-val"><span class="price-label">Local BD:</span>18,000 – 40,000 BDT</div>
+            </div>
+            <ul class="pricing-bullets">
+              <li>Electron or React wrappers</li>
+              <li>Binary subprocess routing</li>
+              <li>System directory hooks</li>
+              <li>EXE package installers</li>
+            </ul>
+          </div>
+
+        </div>
+        
+        <!-- Tab 3 Panel (Maintenance) -->
+        <div class="pricing-panel" id="maintenance">
+          
+          <!-- Wordpress Care -->
+          <div class="pricing-card">
+            <h3>WordPress Site Care (monthly)</h3>
+            <p class="pricing-desc">Standard maintenance services for keeping websites online and updated regularly.</p>
+            <div class="price-row">
+              <div class="price-val"><span class="price-label">Intl:</span>$30 – $60</div>
+              <div class="price-val"><span class="price-label">Local BD:</span>1,500 – 3,000 BDT</div>
+            </div>
+            <ul class="pricing-bullets">
+              <li>System plugin updates</li>
+              <li>Security monitoring tests</li>
+              <li>Database backup setups</li>
+              <li>Visual rendering tests</li>
+            </ul>
+          </div>
+          
+          <!-- Ecosystem Care -->
+          <div class="pricing-card">
+            <h3>Business Ecosystem Care (monthly)</h3>
+            <p class="pricing-desc">Active support schedules tracking custom servers, pixels, analytics, and marketing data feeds.</p>
+            <div class="price-row">
+              <div class="price-val"><span class="price-label">Intl:</span>$50 – $100</div>
+              <div class="price-val"><span class="price-label">Local BD:</span>2,500 – 5,000 BDT</div>
+            </div>
+            <ul class="pricing-bullets">
+              <li>Server status monitoring</li>
+              <li>Tracking pixels checks</li>
+              <li>Leads delivery check-ups</li>
+              <li>Monthly data reports</li>
+            </ul>
+          </div>
+          
+          <!-- Android Updates -->
+          <div class="pricing-card">
+            <h3>Android App Updates (yearly)</h3>
+            <p class="pricing-desc">Yearly maintenance cycles updating platform APIs, AdMob settings, and Play Store SDK target alignments.</p>
+            <div class="price-row">
+              <div class="price-val"><span class="price-label">Intl:</span>$200 – $500</div>
+              <div class="price-val"><span class="price-label">Local BD:</span>10,000 – 22,000 BDT</div>
+            </div>
+            <ul class="pricing-bullets">
+              <li>SDK targets upgrades</li>
+              <li>Platform API adjustments</li>
+              <li>Ad settings tweaks</li>
+              <li>Console submission checks</li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+      
+      <!-- Pricing Bottom Note -->
+      <div class="pricing-note reveal">
+        50% advance required · Wise/PayPal/USDT for international · bKash/Nagad for local · Rush orders +30-50% · 2 revision cycles included
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section id="contact" class="reveal">
+    <div class="container">
+      <span class="section-label">Let's Work</span>
+      <h2 class="section-title">Get In Touch</h2>
+      <p class="section-subtitle">Open to web projects, app development, IT consulting, and digital business setups. Middle East, EU, UK, USA, Canada, Australia — and local Dhaka.</p>
+      
+      <div class="contact-container">
+        
+        <!-- Left Contact Info Cards -->
+        <div class="contact-left reveal">
+          
+          <!-- Phone -->
+          <div class="contact-info-card">
+            <div class="contact-info-icon">📞</div>
+            <div class="contact-info-content">
+              <span class="contact-info-label">Call / Telegram</span>
+              <span class="contact-info-value">01629944975</span>
+            </div>
+          </div>
+          
+          <!-- Email -->
+          <div class="contact-info-card">
+            <div class="contact-info-icon">📧</div>
+            <div class="contact-info-content">
+              <span class="contact-info-label">Email</span>
+              <span class="contact-info-value">Wahidur757@gmail.com</span>
+            </div>
+          </div>
+          
+          <!-- Location -->
+          <div class="contact-info-card">
+            <div class="contact-info-icon">📍</div>
+            <div class="contact-info-content">
+              <span class="contact-info-label">Location</span>
+              <span class="contact-info-value">Nondi Para, Dhaka, Bangladesh</span>
+            </div>
+          </div>
+          
+          <!-- Education -->
+          <div class="contact-info-card">
+            <div class="contact-info-icon">🎓</div>
+            <div class="contact-info-content">
+              <span class="contact-info-label">Education</span>
+              <span class="contact-info-value">B.Sc. CSE — BIST, Dhaka</span>
+            </div>
+          </div>
+          
+          <!-- Availability -->
+          <div class="contact-info-card">
+            <div class="contact-info-icon">⚡</div>
+            <div class="contact-info-content">
+              <span class="contact-info-label">Availability</span>
+              <span class="contact-info-value">Available: Remote & Local</span>
+            </div>
+          </div>
+
+        </div>
+        
+        <!-- Right Market Target Visual chips -->
+        <div class="contact-right reveal">
+          <h3 class="market-title">Target Service Markets</h3>
+          <div class="market-chips-wrap">
+            <span class="market-chip">🇦🇪 UAE</span>
+            <span class="market-chip">🇸🇦 KSA</span>
+            <span class="market-chip">🇶🇦 Qatar</span>
+            <span class="market-chip">🇧🇭 Bahrain</span>
+            <span class="market-chip">🇰🇼 Kuwait</span>
+            <span class="market-chip">🇬🇧 UK</span>
+            <span class="market-chip">🇺🇸 USA</span>
+            <span class="market-chip">🇨🇦 Canada</span>
+            <span class="market-chip">🇦🇺 Australia</span>
+            <span class="market-chip">🇪🇺 EU</span>
+            <span class="market-chip">📍 Dhaka Local</span>
+            <span class="market-chip">🎓 BD Students</span>
+          </div>
+          
+          <!-- Large WhatsApp Call-to-action button -->
+          <a href="https://wa.me/8801629944975" class="btn btn-solid contact-whatsapp-btn btn-magnetic" target="_blank" rel="noopener noreferrer">
+            💬 Start WhatsApp Conversation
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-container">
+      
+      <!-- Footer brand tagline -->
+      <div class="footer-left">
+        <span class="footer-brand">PUSON.DEV</span>
+        <span class="footer-tagline">"Built from soil. Shaped by hand. Shipped in code."</span>
+      </div>
+      
+      <!-- Footer Center portfolio.html link -->
+      <div class="footer-center">
+        <a href="portfolio.html" class="btn-magnetic">Know More About Me →</a>
+      </div>
+      
+      <!-- Footer right details -->
+      <div class="footer-right">
+        <span>© 2026 Md. Wahidur Rahman Puson · Dhaka, Bangladesh</span>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- INTERACTIVE FUNCTIONALITY SCRIPTS -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // ==========================================================================
+      // PAGE LOAD SEQUENCE
+      // ==========================================================================
+      const staggers = document.querySelectorAll('.hero-stagger');
+      staggers.forEach((el, index) => {
+        setTimeout(() => {
+          el.classList.add('loaded');
+        }, 120 * index);
+      });
+
+      // ==========================================================================
+      // SCROLL REVEAL (IntersectionObserver)
+      // ==========================================================================
+      const reveals = document.querySelectorAll('.reveal');
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      reveals.forEach(el => revealObserver.observe(el));
+
+      // ==========================================================================
+      // CUSTOM CURSOR
+      // ==========================================================================
+      const cursor = document.getElementById('cursor');
+      const cursorRing = document.getElementById('cursor-ring');
+      
+      let mouseX = 0, mouseY = 0;
+      let curX = 0, curY = 0;
+      let ringX = 0, ringY = 0;
+      
+      let ringScale = 1;
+      let cursorScale = 1;
+
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+
+      function updateCursor() {
+        // Direct follow with lag
+        curX += (mouseX - curX) * 0.15;
+        curY += (mouseY - curY) * 0.15;
+        
+        // Ring follow with lerp lag
+        ringX += (mouseX - ringX) * 0.08;
+        ringY += (mouseY - ringY) * 0.08;
+
+        if (cursor) {
+          cursor.style.transform = `translate3d(${curX}px, ${curY}px, 0) translate3d(-50%, -50%, 0) scale(${cursorScale})`;
+        }
+        
+        if (cursorRing) {
+          cursorRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate3d(-50%, -50%, 0) scale(${ringScale})`;
+        }
+
+        requestAnimationFrame(updateCursor);
+      }
+      requestAnimationFrame(updateCursor);
+
+      // Expand ring hover classes
+      window.addEventListener('mouseover', (e) => {
+        const target = e.target.closest('a, button, .project-card, .service-card, .pricing-tab-btn, .market-chip, .skill-tag, .nav-toggle, .btn-magnetic');
+        if (target) {
+          ringScale = 1.4;
+          if (cursorRing) {
+            cursorRing.style.borderColor = 'var(--accent)';
+            cursorRing.style.backgroundColor = 'rgba(0, 212, 255, 0.03)';
+          }
+        } else {
+          ringScale = 1;
+          if (cursorRing) {
+            cursorRing.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+            cursorRing.style.backgroundColor = 'transparent';
+          }
+        }
+      });
+
+      // Cursor click scale shrink
+      window.addEventListener('mousedown', () => { cursorScale = 0.7; });
+      window.addEventListener('mouseup', () => { cursorScale = 1; });
+
+      // ==========================================================================
+      // MAGNETIC BUTTONS
+      // ==========================================================================
+      const magneticButtons = document.querySelectorAll('.btn-magnetic');
+      magneticButtons.forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+          btn.classList.add('moving');
+          const rect = btn.getBoundingClientRect();
+          const x = e.clientX - rect.left - (rect.width / 2);
+          const y = e.clientY - rect.top - (rect.height / 2);
+          
+          const maxOffset = 8;
+          const offsetX = (x / (rect.width / 2)) * maxOffset;
+          const offsetY = (y / (rect.height / 2)) * maxOffset;
+          
+          btn.style.transform = `translate3d(${offsetX}px, ${offsetY}px, 0)`;
+        });
+
+        btn.addEventListener('mouseleave', () => {
+          btn.classList.remove('moving');
+          btn.style.transform = 'translate3d(0, 0, 0)';
+        });
+      });
+
+      // ==========================================================================
+      // NUMBERS COUNTER ANIMATION
+      // ==========================================================================
+      let countersAnimated = false;
+      const animateCounters = () => {
+        if (countersAnimated) return;
+        countersAnimated = true;
+        
+        const counters = document.querySelectorAll('.counter');
+        counters.forEach(counter => {
+          const target = parseInt(counter.getAttribute('data-target'), 10);
+          const duration = 1500; // ms
+          let startTime = null;
+
+          const step = (timestamp) => {
+            if (!startTime) startTime = timestamp;
+            const progress = Math.min((timestamp - startTime) / duration, 1);
+            
+            // easeOutExpo
+            const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+            const currentValue = Math.floor(easeProgress * target);
+            
+            counter.textContent = currentValue;
+            
+            if (progress < 1) {
+              requestAnimationFrame(step);
+            } else {
+              counter.textContent = target;
+            }
+          };
+          requestAnimationFrame(step);
+        });
+      };
+
+      // Observe stats container to trigger counter
+      const statsRow = document.querySelector('.stats-container');
+      if (statsRow) {
+        const statsObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              animateCounters();
+              statsObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15 });
+        statsObserver.observe(statsRow);
+      }
+
+      // ==========================================================================
+      // NAV BAR SCROLL BEHAVIOR
+      // ==========================================================================
+      const navbar = document.querySelector('.navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 80) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      });
+
+      // ==========================================================================
+      // PRICING TABS BEHAVIOR
+      // ==========================================================================
+      const tabBtns = document.querySelectorAll('.pricing-tab-btn');
+      const tabPanels = document.querySelectorAll('.pricing-panel');
+
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabBtns.forEach(b => b.classList.remove('active'));
+          tabPanels.forEach(p => p.classList.remove('active'));
+
+          btn.classList.add('active');
+          const activePanel = document.getElementById(btn.getAttribute('data-tab'));
+          if (activePanel) {
+            activePanel.classList.add('active');
+          }
+        });
+      });
+
+      // ==========================================================================
+      // HAMBURGER MOBILE MENU
+      // ==========================================================================
+      const navToggle = document.querySelector('.nav-toggle');
+      const mobileOverlay = document.querySelector('.mobile-overlay');
+      const mobileLinks = document.querySelectorAll('.mobile-link');
+
+      navToggle.addEventListener('click', () => {
+        navToggle.classList.toggle('open');
+        mobileOverlay.classList.toggle('open');
+        document.body.classList.toggle('no-scroll');
+      });
+
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          navToggle.classList.remove('open');
+          mobileOverlay.classList.remove('open');
+          document.body.classList.remove('no-scroll');
+        });
+      });
+
+    });
+  </script>
+</body>
+</html>
