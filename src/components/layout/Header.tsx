@@ -1,58 +1,92 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import { CLINIC_INFO } from "@/lib/clinic-info";
 
-interface HeaderProps {
-  minimal?: boolean;
+// Simple magnetic hover effect for 3‑D movement
+function MagneticItem({ children, className }: { children: React.ReactNode; className?: string }) {
+  const [pos, setPos] = useState({ x: 0, y: 0 });
+  const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 10;
+    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 10;
+    setPos({ x, y });
+  };
+  const reset = () => setPos({ x: 0, y: 0 });
+  return (
+    <motion.div
+      className={className}
+      onMouseMove={handleMouse}
+      onMouseLeave={reset}
+      animate={{ rotateX: pos.y, rotateY: -pos.x }}
+      transition={{ type: "spring", stiffness: 200, damping: 20 }}
+    >
+      {children}
+    </motion.div>
+  );
 }
 
-export default function Header({ minimal = false }: HeaderProps) {
+export default function Header() {
   const { t } = useLanguage();
-
-  if (minimal) {
-    return (
-      <header className="bg-primary py-4 px-6">
-        <div className="max-w-6xl mx-auto flex items-center gap-3">
-                        <Image src="/logo-new.png" alt="Prity Dental Logo" width={40} height={40} className="rounded-full" />
-          <span className="text-white font-bold">{CLINIC_INFO.name}</span>
-        </div>
-      </header>
-    );
-  }
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const links = [
+    { name: t?.nav?.home ?? "Home", href: "/" },
+    { name: t?.nav?.services ?? "Services", href: "/services" },
+    { name: t?.nav?.book ?? "Book", href: "/book-appointment" },
+    { name: t?.nav?.login ?? "Login", href: "/auth/login" },
+  ];
 
   return (
-    <header className="bg-primary sticky top-0 z-40 shadow-md">
-      <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <header className="bg-[#050d1a]/90 backdrop-blur-xl shadow-md sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
         <Link href="/" className="flex items-center gap-2">
-                        <Image src="/logo-new.png" alt="Prity Dental Logo" width={36} height={36} className="rounded-full" />
-          <span className="text-white font-bold text-sm md:text-base hidden sm:block">
-            {CLINIC_INFO.name}
-          </span>
+          <Image src="/logo-new.png" alt="Prity Dental Logo" width={36} height={36} className="rounded-full" />
+          <span className="text-white font-bold text-lg hidden sm:block">{CLINIC_INFO.name}</span>
         </Link>
-        <nav className="flex items-center gap-2 md:gap-4 text-sm">
-          <Link href="/" className="text-white/90 hover:text-white">{t.nav.home}</Link>
-          <Link href="/services" className="text-white/90 hover:text-white">{t.nav.services}</Link>
-          <Link href="/book-appointment" className="text-white/90 hover:text-white hidden sm:inline">
-            {t.nav.book}
-          </Link>
-          <Link href="/auth/login" className="text-white/90 hover:text-white">{t.nav.login}</Link>
-          <Link
-            href="/auth/signup"
-            className="bg-white text-primary px-3 py-1.5 rounded-lg font-semibold hover:bg-light-bg"
-          >
-            {t.nav.signup}
-          </Link>
-          <Link
-            href="/admin"
-            className="text-white/70 hover:text-white text-xs ml-2 border border-white/30 px-2 py-1 rounded"
-          >
-            Admin
-          </Link>
+        {/* Desktop nav */}
+        <nav className="hidden lg:flex gap-6 text-white">
+          {links.map((l) => (
+            <MagneticItem key={l.href} className="cursor-pointer">
+              <Link href={l.href} className="hover:text-[#38bdf8] transition-colors">
+                {l.name}
+              </Link>
+            </MagneticItem>
+          ))}
         </nav>
+        {/* Mobile menu button */}
+        <button className="text-white lg:hidden" onClick={() => setMobileOpen(!mobileOpen)}>
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {mobileOpen ? (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            ) : (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            )}
+          </svg>
+        </button>
       </div>
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="lg:hidden bg-[#050d1a]/95 backdrop-blur-xl border-t border-blue-900/40"
+          >
+            <div className="px-4 py-4 flex flex-col gap-2 text-white">
+              {links.map((l) => (
+                <Link key={l.href} href={l.href} className="py-2 hover:text-[#38bdf8] transition-colors" onClick={() => setMobileOpen(false)}>
+                  {l.name}
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

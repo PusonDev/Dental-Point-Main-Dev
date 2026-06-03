@@ -1,6 +1,4 @@
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import BanglaToggle from "@/components/layout/BanglaToggle";
+import React from "react";
 
 export default function PublicLayout({
   children,
@@ -10,11 +8,12 @@ export default function PublicLayout({
   minimalHeader?: boolean;
 }) {
   return (
-    <>
-      <Header minimal={minimalHeader} />
-      <main className="min-h-screen flex flex-col">{children}</main>
-      <Footer />
-      <BanglaToggle />
-    </>
+    <div className="flex flex-col min-h-screen">
+      {/* 
+        Note: Header, Footer, and BanglaToggle are removed from here 
+        because they are already globally provided in src/app/layout.tsx 
+      */}
+      {children}
+    </div>
   );
 }

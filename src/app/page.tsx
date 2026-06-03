@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, useInView, useAnimation } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 const services = [
@@ -454,66 +455,14 @@ export default function HomePage() {
                 className="relative w-full max-w-md mx-auto"
               >
                 <div className="relative bg-gradient-to-br from-blue-500/15 to-transparent rounded-3xl p-8 border border-blue-500/20">
-                  <svg
-                    viewBox="0 0 280 320"
-                    className="w-full h-auto"
-                    fill="none"
-                  >
-                    <defs>
-                      <linearGradient id="enamelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stopColor="#e8f0fe" />
-                        <stop offset="100%" stopColor="#d0e4fc" />
-                      </linearGradient>
-                    </defs>
-                    <path
-                      d="M140 20 L200 50 L220 120 L200 200 L140 240 L80 200 L60 120 L80 50 Z"
-                      fill="url(#enamelGrad)"
-                      stroke="#93c5fd"
-                      strokeWidth="1.5"
-                    />
-                    <path
-                      d="M140 40 L180 65 L195 120 L180 175 L140 205 L100 175 L85 120 L100 65 Z"
-                      fill="#f5f0e8"
-                      fillOpacity="0.4"
-                      stroke="#93c5fd"
-                      strokeWidth="1"
-                    />
-                    <path
-                      d="M140 80 Q155 100 140 120 Q125 100 140 80"
-                      fill="#fce4ec"
-                      fillOpacity="0.6"
-                      stroke="#93c5fd"
-                      strokeWidth="1"
-                    />
-                    <path
-                      d="M100 200 L90 280 L110 280 L120 200"
-                      fill="url(#enamelGrad)"
-                      stroke="#93c5fd"
-                      strokeWidth="1.5"
-                    />
-                    <path
-                      d="M180 200 L190 280 L170 280 L160 200"
-                      fill="url(#enamelGrad)"
-                      stroke="#93c5fd"
-                      strokeWidth="1.5"
-                    />
-                    <ellipse
-                      cx="100"
-                      cy="60"
-                      rx="20"
-                      ry="12"
-                      fill="white"
-                      fillOpacity="0.55"
-                      transform="rotate(-15 100 60)"
-                    />
-                    <circle
-                      cx="170"
-                      cy="70"
-                      r="6"
-                      fill="white"
-                      fillOpacity="0.4"
-                    />
-                  </svg>
+                  <Image
+                    src="/main-logo-3.png"
+                    alt="Prity Dental Main Logo"
+                    width={280}
+                    height={320}
+                    className="w-full h-auto object-contain drop-shadow-[0_0_20px_rgba(59,130,246,0.3)]"
+                    priority
+                  />
 
                   <motion.div
                     animate={{
