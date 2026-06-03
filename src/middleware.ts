@@ -8,6 +8,14 @@ export async function middleware(request: NextRequest) {
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
+      db: {
+        schema: 'public',
+      },
+      global: {
+        headers: {
+          'x-client-info': 'dental-point-web',
+        },
+      },
       cookies: {
         getAll() {
           return request.cookies.getAll();
@@ -34,17 +42,21 @@ export async function middleware(request: NextRequest) {
 
   if (isAdminLogin) {
     if (user) {
-      const { data: staff } = await supabase
-        .from("staff")
-        .select("role")
-        .eq("user_id", user.id)
-        .eq("is_active", true)
-        .single();
-      if (staff?.role === "admin") {
-        return NextResponse.redirect(new URL("/admin", request.url));
-      }
-      if (staff?.role === "receptionist") {
-        return NextResponse.redirect(new URL("/receptionist", request.url));
+      try {
+        const { data: staff } = await supabase
+          .from("staff")
+          .select("role")
+          .eq("user_id", user.id)
+          .eq("is_active", true)
+          .single();
+        if (staff?.role === "admin") {
+          return NextResponse.redirect(new URL("/admin", request.url));
+        }
+        if (staff?.role === "receptionist") {
+          return NextResponse.redirect(new URL("/receptionist", request.url));
+        }
+      } catch (error) {
+        console.error("Middleware staff check error:", error);
       }
     }
     return supabaseResponse;
@@ -59,36 +71,41 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  if (isDashboard) {
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("id")
-      .eq("id", user.id)
-      .single();
-    if (!profile) {
-      const url = request.nextUrl.clone();
-      url.pathname = "/auth/signup";
-      return NextResponse.redirect(url);
+  try {
+    if (isDashboard) {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("id")
+        .eq("id", user.id)
+        .single();
+      if (!profile) {
+        const url = request.nextUrl.clone();
+        url.pathname = "/auth/signup";
+        return NextResponse.redirect(url);
+      }
     }
-  }
 
-  if (isAdmin || isReceptionist) {
-    const { data: staff } = await supabase
-      .from("staff")
-      .select("role")
-      .eq("user_id", user.id)
-      .eq("is_active", true)
-      .single();
+    if (isAdmin || isReceptionist) {
+      const { data: staff } = await supabase
+        .from("staff")
+        .select("role")
+        .eq("user_id", user.id)
+        .eq("is_active", true)
+        .single();
 
-    if (!staff) {
-      return NextResponse.redirect(new URL("/", request.url));
+      if (!staff) {
+        return NextResponse.redirect(new URL("/", request.url));
+      }
+      if (isAdmin && staff.role !== "admin") {
+        return NextResponse.redirect(new URL("/receptionist", request.url));
+      }
+      if (isReceptionist && staff.role !== "receptionist") {
+        return NextResponse.redirect(new URL("/admin", request.url));
+      }
     }
-    if (isAdmin && staff.role !== "admin") {
-      return NextResponse.redirect(new URL("/receptionist", request.url));
-    }
-    if (isReceptionist && staff.role !== "receptionist") {
-      return NextResponse.redirect(new URL("/admin", request.url));
-    }
+  } catch (error) {
+    console.error("Middleware database error:", error);
+    // On error, allow the request to proceed rather than blocking
   }
 
   return supabaseResponse;

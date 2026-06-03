@@ -3,6 +3,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { enqueueMessage } from "@/lib/whatsapp";
 import appendBookingBackup from "@/lib/offline-backup";
+import { withRetry, handleSupabaseError } from "@/lib/supabase-utils";
 import { z } from "zod";
 
 const schema = z.object({
@@ -16,17 +17,22 @@ const schema = z.object({
 });
 
 export async function GET() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return NextResponse.json({ appointments: [] });
+  try {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return NextResponse.json({ appointments: [] });
 
-  const { data } = await supabase
-    .from("appointments")
-    .select("*")
-    .eq("patient_id", user.id)
-    .eq("is_deleted", false)
-    .order("created_at", { ascending: false });
-  return NextResponse.json({ appointments: data || [] });
+    const { data } = await supabase
+      .from("appointments")
+      .select("*")
+      .eq("patient_id", user.id)
+      .eq("is_deleted", false)
+      .order("created_at", { ascending: false });
+    return NextResponse.json({ appointments: data || [] });
+  } catch (error) {
+    console.error("GET appointments error:", error);
+    return NextResponse.json({ appointments: [], error: handleSupabaseError(error) }, { status: 500 });
+  }
 }
 
 export async function POST(request: Request) {
