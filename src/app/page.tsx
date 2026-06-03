@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useInView, useAnimation } from "framer-motion";
-
+import { useLanguage } from "@/context/LanguageContext";
 const services = [
   {
     title: "Root Canal Treatment",
@@ -251,6 +251,7 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
 }
 
 export default function HomePage() {
+  const { t } = useLanguage();
   const heroRef = useRef(null);
   const particlesRef = useRef<HTMLCanvasElement>(null);
 
@@ -409,13 +410,13 @@ export default function HomePage() {
                   href="/book-appointment"
                   className="btn-primary px-8 py-3 text-lg"
                 >
-                  Book Appointment →
+                  {t.nav.book} →
                 </Link>
                 <Link
                   href="/services"
                   className="btn-secondary px-8 py-3 text-lg"
                 >
-                  Our Services
+                  {t.nav.services}
                 </Link>
               </motion.div>
 
@@ -788,33 +789,30 @@ export default function HomePage() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 bg-[#0f2040]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="font-cormorant text-4xl md:text-5xl font-semibold mb-4">
-              Contact Us
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+              {t.home.contactTitle || "Contact Us"}
             </h2>
             <p className="text-white/60 max-w-2xl mx-auto">
-              Get in touch with us for any queries or appointments
+              {t.home.contactSub || "Get in touch with us for any queries or appointments"}
             </p>
           </motion.div>
 
           <div className="grid lg:grid-cols-2 gap-8">
             <div className="space-y-4">
               {[
-                { icon: "📍", text: "1/1, East Bashabo, Kodomtola, Shobujbag, Dhaka-1214" },
-                { icon: "📞", text: "01616 753364" },
-                { icon: "✉️", text: "drjarinsdentalpoint14@gmail.com" },
-                {
-                  icon: "🕐",
-                  text: "Morning: 11:00 AM – 2:00 PM | Evening: 5:00 PM – 10:00 PM",
-                },
+                { icon: "📍", text: t.home.address || "1/1, East Bashabo, Kodomtola, Shobujbag, Dhaka-1214" },
+                { icon: "📞", text: t.home.phone || "01616 753364" },
+                { icon: "✉️", text: t.home.email || "drjarinsdentalpoint14@gmail.com" },
+                { icon: "🕐", text: t.home.hours || "Morning: 11:00 AM – 2:00 PM | Evening: 5:00 PM – 10:00 PM" },
               ].map((item, index) => (
                 <motion.div
                   key={index}
@@ -840,12 +838,13 @@ export default function HomePage() {
               className="rounded-2xl overflow-hidden border border-blue-500/20"
             >
               <iframe
-                src="https://www.google.com/maps?q=23.738080371291566,90.43519232721546&z=17&output=embed"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3652.227581177651!2d90.431981!3d23.738361!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDQ0JzE4LjEiTiA5MMKwMjUnNTUuMSJF!5e0!3m2!1sbn!2sbd!4v1716320000000!5m2!1sbn!2sbd"
                 width="100%"
                 height="380"
                 style={{ border: 0, filter: "brightness(0.85) saturate(1.2)" }}
-                allowFullScreen
+                allowFullScreen={true}
                 loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
               />
             </motion.div>
           </div>

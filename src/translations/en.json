@@ -15,7 +15,13 @@
     "bookSub": "It's free & takes 2 minutes",
     "viewServices": "View All Services",
     "readyTitle": "Ready to smile better?",
-    "readySub": "Book your appointment now"
+    "readySub": "Book your appointment now",
+    "contactTitle": "Contact Us",
+    "contactSub": "Get in touch with us for any queries or appointments",
+    "address": "1/1, East Bashabo, Kodomtola, Shobujbag, Dhaka-1214",
+    "phone": "01616 753364",
+    "email": "drjarinsdentalpoint14@gmail.com",
+    "hours": "Morning: 11:00 AM – 2:00 PM | Evening: 5:00 PM – 10:00 PM"
   },
   "services": {
     "title": "Our Services",
