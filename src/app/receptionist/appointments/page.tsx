@@ -1,22 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import type { Appointment, AppointmentStatus } from "@/types";
 
 export default function ReceptionistAppointmentsPage() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [loading, setLoading] = useState(true);
 
-  function load() {
+  const load = useCallback(() => {
     fetch("/api/admin/appointments")
       .then((r) => r.json())
       .then((d) => setAppointments(d.appointments || []))
       .finally(() => setLoading(false));
-  }
+  }, []);
 
   useEffect(() => {
     load();
-  }, []);
+  }, [load]);
 
   async function updateStatus(id: string, status: AppointmentStatus) {
     await fetch("/api/admin/appointments", {

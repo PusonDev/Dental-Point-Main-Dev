@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import type { Profile } from "@/types";
 import { showToast } from "@/lib/toast";
@@ -31,7 +31,7 @@ export default function AdminPatientsPage() {
     }
   }
 
-  async function load(search = q) {
+  const load = useCallback(async (search: string) => {
     setLoading(true);
     try {
       const res = await fetch(`/api/admin/patients?q=${encodeURIComponent(search)}`);
@@ -42,12 +42,11 @@ export default function AdminPatientsPage() {
     } finally {
       setLoading(false);
     }
-  }
+  }, []);
 
   useEffect(() => {
-    load();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    load("");
+  }, [load]);
 
   return (
     <div className="space-y-6">
@@ -62,11 +61,11 @@ export default function AdminPatientsPage() {
         <input
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && load()}
+          onKeyDown={(e) => e.key === "Enter" && load(q)}
           placeholder="Search name or phone number..."
           className="input-field flex-1"
         />
-        <button type="button" onClick={() => load()} className="btn-primary py-2 px-6 text-sm">
+        <button type="button" onClick={() => load(q)} className="btn-primary py-2 px-6 text-sm">
           Search
         </button>
       </div>
@@ -131,4 +130,3 @@ export default function AdminPatientsPage() {
     </div>
   );
 }
-

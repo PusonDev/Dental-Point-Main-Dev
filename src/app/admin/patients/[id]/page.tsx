@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import type { Profile, Visit, Report, Payment, Appointment } from "@/types";
@@ -21,7 +21,7 @@ export default function PatientDetailPage() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<Tab>("overview");
 
-  async function load() {
+  const load = useCallback(async () => {
     setLoading(true);
     try {
       const res = await fetch(`/api/admin/patients/${id}`);
@@ -34,11 +34,11 @@ export default function PatientDetailPage() {
     } finally {
       setLoading(false);
     }
-  }
+  }, [id, router]);
 
   useEffect(() => {
     load();
-  }, [id]);
+  }, [load]);
 
   if (loading) return (
     <div className="flex justify-center py-20">

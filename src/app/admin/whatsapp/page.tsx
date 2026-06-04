@@ -1,22 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import type { WhatsAppQueueItem } from "@/types";
 
 export default function AdminWhatsAppPage() {
   const [queue, setQueue] = useState<WhatsAppQueueItem[]>([]);
   const [loading, setLoading] = useState(true);
 
-  function load() {
+  const load = useCallback(() => {
     fetch("/api/admin/whatsapp")
       .then((r) => r.json())
       .then((d) => setQueue(d.queue || []))
       .finally(() => setLoading(false));
-  }
+  }, []);
 
   useEffect(() => {
     load();
-  }, []);
+  }, [load]);
 
   async function act(id: string, action: "approve" | "reject" | "send") {
     await fetch("/api/admin/whatsapp", {

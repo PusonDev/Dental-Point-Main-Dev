@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import type { Appointment, Lead, Payment, Profile } from "@/types";
 
 interface RecoveryPayload {
@@ -15,7 +15,7 @@ export default function AdminRecoveryPage() {
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
 
-  async function load() {
+  const load = useCallback(async () => {
     setLoading(true);
     const res = await fetch("/api/admin/recovery");
     const data = await res.json();
@@ -26,11 +26,11 @@ export default function AdminRecoveryPage() {
       payments: data.payments || [],
     });
     setLoading(false);
-  }
+  }, []);
 
   useEffect(() => {
     load();
-  }, []);
+  }, [load]);
 
   async function handleRestore(table: "profiles" | "leads" | "appointments" | "payments", id: string) {
     setActionLoading(id);
