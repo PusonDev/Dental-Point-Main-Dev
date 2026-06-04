@@ -4,6 +4,7 @@
     "services": "Services",
     "book": "Book Appointment",
     "login": "Login",
+    "signIn": "Sign In",
     "signup": "Sign Up",
     "dashboard": "Dashboard",
     "logout": "Logout"
@@ -69,7 +70,8 @@
     "bookNew": "Book Appointment"
   },
   "footer": {
-    "rights": "All rights reserved"
+    "rights": "All rights reserved",
+    "adminLogin": "Admin Login"
   },
   "common": {
     "loading": "Loading...",

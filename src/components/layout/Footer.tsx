@@ -1,56 +1,11 @@
 "use client";
-
-import Link from "next/link";
+import { motion } from 'framer-motion';
 import Image from "next/image";
-import { motion, useMotionValue, useTransform } from "framer-motion";
-import { useRef } from "react";
 import { useLanguage } from "@/context/LanguageContext";
-
-// Magnetic hover component for subtle 3D movement
-function MagneticItem({ children, className }: { children: React.ReactNode; className?: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const mx = e.clientX - (rect.left + rect.width / 2);
-    const my = e.clientY - (rect.top + rect.height / 2);
-    // small displacement for a refined effect
-    x.set(mx * 0.2);
-    y.set(my * 0.2);
-  };
-
-  const reset = () => {
-    x.set(0);
-    y.set(0);
-  };
-
-  const rotateX = useTransform(y, [-50, 50], [10, -10]);
-  const rotateY = useTransform(x, [-50, 50], [-10, 10]);
-
-  return (
-    <motion.div
-      ref={ref}
-      onMouseMove={handleMouse}
-      onMouseLeave={reset}
-      style={{ rotateX, rotateY }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
+import FooterAdminLogin from "@/components/layout/FooterAdminLogin";
 
 export default function Footer() {
   const { t } = useLanguage(); // placeholder for future i18n
-  const links = [
-    { name: "Home", href: "/" },
-    { name: "Services", href: "/services" },
-    { name: "Book", href: "/book-appointment" },
-    { name: "Login", href: "/auth/login" },
-  ];
 
   return (
     <footer className="bg-[#0a1628] text-white mt-auto border-t border-blue-900/20 py-12">
@@ -82,20 +37,7 @@ export default function Footer() {
           </a>
         </p>
 
-        {/* Right: Horizontal navigation with magnetic hover */}
-        <nav className="flex justify-center md:justify-end gap-6">
-          {links.map((item, idx) => (
-            <MagneticItem key={idx} className="group relative">
-              <Link href={item.href} className="text-slate-300 text-lg font-medium transition-colors duration-300">
-                <span className="relative z-10 group-hover:text-white">{item.name}</span>
-                {/* Hover glow */}
-                <motion.div
-                  className="absolute inset-0 bg-blue-500/20 rounded-md blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                />
-              </Link>
-            </MagneticItem>
-          ))}
-        </nav>
+        <FooterAdminLogin />
       </div>
     </footer>
   );

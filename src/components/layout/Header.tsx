@@ -6,6 +6,8 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import { CLINIC_INFO } from "@/lib/clinic-info";
+import NavSignUp from "@/components/layout/NavSignUp";
+import NavSignIn from "@/components/layout/NavSignIn";
 
 // Simple magnetic hover effect for 3‑D movement
 function MagneticItem({ children, className }: { children: React.ReactNode; className?: string }) {
@@ -37,7 +39,6 @@ export default function Header() {
     { name: t?.nav?.home ?? "Home", href: "/" },
     { name: t?.nav?.services ?? "Services", href: "/services" },
     { name: t?.nav?.book ?? "Book", href: "/book-appointment" },
-    { name: t?.nav?.login ?? "Login", href: "/auth/login" },
   ];
 
   return (
@@ -48,7 +49,7 @@ export default function Header() {
           <span className="text-white font-bold text-lg hidden sm:block">{CLINIC_INFO.name}</span>
         </Link>
         {/* Desktop nav */}
-        <nav className="hidden lg:flex gap-6 text-white">
+        <nav className="hidden lg:flex items-center gap-6 text-white">
           {links.map((l) => (
             <MagneticItem key={l.href} className="cursor-pointer">
               <Link href={l.href} className="hover:text-[#38bdf8] transition-colors">
@@ -56,6 +57,12 @@ export default function Header() {
               </Link>
             </MagneticItem>
           ))}
+          <MagneticItem className="cursor-pointer">
+            <NavSignUp className="hover:text-[#38bdf8] transition-colors" />
+          </MagneticItem>
+          <MagneticItem className="cursor-pointer">
+            <NavSignIn className="hover:text-[#38bdf8] transition-colors" />
+          </MagneticItem>
         </nav>
         {/* Mobile menu button */}
         <button className="text-white lg:hidden" onClick={() => setMobileOpen(!mobileOpen)}>
@@ -83,6 +90,14 @@ export default function Header() {
                   {l.name}
                 </Link>
               ))}
+              <NavSignUp
+                className="py-2 hover:text-[#38bdf8] transition-colors"
+                onClick={() => setMobileOpen(false)}
+              />
+              <NavSignIn
+                className="py-2 hover:text-[#38bdf8] transition-colors"
+                onClick={() => setMobileOpen(false)}
+              />
             </div>
           </motion.div>
         )}

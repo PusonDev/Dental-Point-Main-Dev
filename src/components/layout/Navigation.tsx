@@ -5,6 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
+import NavSignUp from "@/components/layout/NavSignUp";
+import NavSignIn from "@/components/layout/NavSignIn";
 
 export default function Navigation() {
   const { t } = useLanguage();
@@ -60,6 +62,8 @@ export default function Navigation() {
             >
               Contact
             </Link>
+            <NavSignUp />
+            <NavSignIn />
             <Link
               href="/book-appointment"
               className="bg-[#1d4ed8] hover:bg-[#2563eb] text-white px-5 py-2 rounded-full font-medium transition-all shadow-lg shadow-blue-500/30"
@@ -135,6 +139,14 @@ export default function Navigation() {
               >
                 Contact
               </Link>
+              <NavSignUp
+                className="block text-[#f0f6ff]/80 hover:text-white py-2"
+                onClick={() => setMobileOpen(false)}
+              />
+              <NavSignIn
+                className="block text-[#f0f6ff]/80 hover:text-white py-2"
+                onClick={() => setMobileOpen(false)}
+              />
               <Link
                 href="/book-appointment"
                 className="block bg-[#1d4ed8] hover:bg-[#2563eb] text-white px-5 py-2 rounded-full font-medium text-center mt-4"
