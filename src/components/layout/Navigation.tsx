@@ -55,12 +55,6 @@ export default function Navigation() {
               {t.nav.services}
             </Link>
             <Link
-              href="/book-appointment"
-              className="text-[#f0f6ff]/80 hover:text-white transition-colors"
-            >
-              {t.nav.book}
-            </Link>
-            <Link
               href="/#contact"
               className="text-[#f0f6ff]/80 hover:text-white transition-colors"
             >
