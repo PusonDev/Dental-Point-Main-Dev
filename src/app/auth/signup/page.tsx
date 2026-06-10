@@ -101,7 +101,7 @@ export default function SignupPage() {
 
   return (
     <PublicLayout minimalHeader>
-      <div className="max-w-md mx-auto px-4 py-10">
+      <div className="max-w-md mx-auto px-4 pt-40 pb-12">
         <h1 className="text-2xl font-bold text-primary text-center mb-2">
           {t.auth.signup}
         </h1>

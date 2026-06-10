@@ -117,7 +117,7 @@ export default function BookAppointmentPage() {
 
   return (
     <PublicLayout>
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/20 to-sky-50/15 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/20 to-sky-50/15 pt-40 pb-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           {/* Main Title Banner */}
           <div className="text-center mb-10">
