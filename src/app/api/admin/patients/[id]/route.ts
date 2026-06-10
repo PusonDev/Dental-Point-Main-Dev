@@ -4,14 +4,13 @@ import { requireStaff } from "@/lib/auth-helpers";
 
 export async function GET(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   const auth = await requireStaff();
   if (auth.error) return NextResponse.json({ error: auth.error }, { status: auth.status });
 
   const admin = createAdminClient();
-  const resolvedParams = await params;
-  const id = resolvedParams.id;
+  const id = params.id;
 
   const [profile, visits, reports, payments, appointments] = await Promise.all([
     admin.from("profiles").select("*").eq("id", id).single(),

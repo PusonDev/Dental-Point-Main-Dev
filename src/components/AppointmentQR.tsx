@@ -1,15 +1,12 @@
 import { QRCodeSVG } from 'qrcode.react';
 
-interface AppointmentQRProps {
-  data: string;
-}
-
-const AppointmentQR: React.FC<AppointmentQRProps> = ({ data }) => {
+const AppointmentQR: React.FC = () => {
+const qrCodeLink = "https://drjerin.vercel.app";
 
   return (
     <div className="appointment-qr-container">
       <QRCodeSVG
-        value={data}
+        value={qrCodeLink}
         size={256}
         level="H"
         includeMargin={true}
