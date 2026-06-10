@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "build:internal": "next build",
+    "build": "next build --webpack",
+    "build:internal": "next build --webpack",
     "build:win": "powershell -ExecutionPolicy Bypass -File scripts/win-build.ps1",
     "start": "next start",
     "lint": "next lint",

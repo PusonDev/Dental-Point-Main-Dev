@@ -1,257 +1,113 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import PublicLayout from "@/components/shared/PublicLayout";
+import type { ReactNode } from "react";
 
-const servicesData = [
-  {
-    title: "Teeth Whitening",
-    description: "Brighten your smile with our professional teeth whitening services.",
-    price: "$150 - $300",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
-        className="w-10 h-10 text-[#38bdf8]"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M9.75 3.104V2.376a1.5 1.5 0 011.03-.783l1.008-.344a1.5 1.5 0 011.03.783v.728m-1.5 6a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm0 0v-4.5m0 0a1.5 1.5 0 00-1.5-1.5H9.75A1.5 1.5 0 008.25 6v.75m-7.5 3.375h18a2.25 2.25 0 002.25-2.25v-1.374L17.625 4.78c-.765-.36-1.572-.533-2.404-.533H9.75C6.93 4.247 4.5 6.678 4.5 9.497v1.873M4.5 9.497a1.5 1.5 0 01-1.5 1.5H2.25A1.5 1.5 0 01.75 9.497V7.622c0-.573.113-1.123.324-1.636l2.167-5.071a1.5 1.5 0 011.03-.783l1.008-.344a1.5 1.5 0 011.03.783v.728M9.75 14.625a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm0 0v-4.5m0 0a1.5 1.5 0 00-1.5-1.5H9.75A1.5 1.5 0 008.25 6v.75m-7.5 3.375h18a2.25 2.25 0 002.25-2.25v-1.374L17.625 4.78c-.765-.36-1.572-.533-2.404-.533H9.75C6.93 4.247 4.5 6.678 4.5 9.497v1.873M4.5 9.497a1.5 1.5 0 01-1.5 1.5H2.25A1.5 1.5 0 01.75 9.497V7.622c0-.573.113-1.123.324-1.636l2.167-5.071a1.5 1.5 0 011.03-.783l1.008-.344a1.5 1.5 0 011.03.783v.728M9.75 14.625a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm0 0v-4.5m0 0a1.5 1.5 0 00-1.5-1.5H9.75A1.5 1.5 0 008.25 6v.75"
-        />
-      </svg>
-    ),
-  },
-  {
-    title: "Dental Implants",
-    description: "Permanent solutions for missing teeth with natural-looking implants.",
-    price: "$2000 - $5000",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
-        className="w-10 h-10 text-[#38bdf8]"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
-        />
-      </svg>
-    ),
-  },
-  {
-    title: "Orthodontics / Braces",
-    description: "Straighten your teeth for a perfect smile with our orthodontic treatments.",
-    price: "$3000 - $7000",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
-        className="w-10 h-10 text-[#38bdf8]"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M11.644 11.23a.879.879 0 00-1.04-.374m1.04.374a.879.879 0 01-1.04-.374m1.04.374V19.5m-1.5-3.628a.879.879 0 00-1.04-.374m1.04.374a.879.879 0 01-1.04-.374m1.04.374V19.5M10.5 4.5l-1.5 3m1.5-3l1.5 3M10.5 4.5v3.75m-1.5 6H8.25m-.75 0H6.75m-1.5 0H4.5m-1.5 0H2.25M11.25 10.5h1.5A2.25 2.25 0 0115 12.75v5.062a2.25 2.25 0 01-2.25 2.25H11.25m0-9.75h-1.5A2.25 2.25 0 007.5 12.75v5.062a2.25 2.25 0 002.25 2.25h1.5M11.25 10.5V6m0 0H8.25M6 6H4.5m-1.5 0H2.25m1.5 3V6m-1.5 0V9m-1.5 0V6m-1.5 0V9m1.5-3V9m-1.5 0V6"
-        />
-      </svg>
-    ),
-  },
-  {
-    title: "Root Canal",
-    description: "Effective treatment to save a tooth that is infected or badly decayed.",
-    price: "$800 - $1500",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
-        className="w-10 h-10 text-[#38bdf8]"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
-        />
-      </svg>
-    ),
-  },
-  {
-    title: "Teeth Cleaning",
-    description: "Regular cleaning for maintaining oral hygiene and preventing cavities.",
-    price: "$75 - $150",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
-        className="w-10 h-10 text-[#38bdf8]"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M12 9v3.75m9-.75a8.25 8.25 0 11-16.5 0V12A2.25 2.25 0 006.75 14.25h0a2.25 2.25 0 002.25 2.25H12a2.25 2.25 0 002.25-2.25v-2.875m-6.572 1.115a2.25 2.25 0 10-.154 3.012l.092-.092Z"
-        />
-      </svg>
-    ),
-  },
-  {
-    title: "Veneers",
-    description: "Custom-made shells to improve the appearance of your teeth.",
-    price: "$900 - $2500 per tooth",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
-        className="w-10 h-10 text-[#38bdf8]"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M9.75 3.104V2.376a1.5 1.5 0 011.03-.783l1.008-.344a1.5 1.5 0 011.03.783v.728m-1.5 6a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm0 0v-4.5m0 0a1.5 1.5 0 00-1.5-1.5H9.75A1.5 1.5 0 008.25 6v.75m-7.5 3.375h18a2.25 2.25 0 002.25-2.25v-1.374L17.625 4.78c-.765-.36-1.572-.533-2.404-.533H9.75C6.93 4.247 4.5 6.678 4.5 9.497v1.873M4.5 9.497a1.5 1.5 0 01-1.5 1.5H2.25A1.5 1.5 0 01.75 9.497V7.622c0-.573.113-1.123.324-1.636l2.167-5.071a1.5 1.5 0 011.03-.783l1.008-.344a1.5 1.5 0 011.03.783v.728M9.75 14.625a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm0 0v-4.5m0 0a1.5 1.5 0 00-1.5-1.5H9.75A1.5 1.5 0 008.25 6v.75m-7.5 3.375h18a2.25 2.25 0 002.25-2.25v-1.374L17.625 4.78c-.765-.36-1.572-.533-2.404-.533H9.75C6.93 4.247 4.5 6.678 4.5 9.497v1.873M4.5 9.497a1.5 1.5 0 01-1.5 1.5H2.25A1.5 1.5 0 01.75 9.497V7.622c0-.573.113-1.123.324-1.636l2.167-5.071a1.5 1.5 0 011.03-.783l1.008-.344a1.5 1.5 0 011.03.783v.728M9.75 14.625a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm0 0v-4.5m0 0a1.5 1.5 0 00-1.5-1.5H9.75A1.5 1.5 0 008.25 6v.75"
-        />
-      </svg>
-    ),
-  },
-  {
-    title: "Pediatric Dentistry",
-    description: "Gentle and comprehensive dental care for children of all ages.",
-    price: "$100 - $300",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
-        className="w-10 h-10 text-[#38bdf8]"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M11.644 11.23a.879.879 0 00-1.04-.374m1.04.374a.879.879 0 01-1.04-.374m1.04.374V19.5m-1.5-3.628a.879.879 0 00-1.04-.374m1.04.374a.879.879 0 01-1.04-.374m1.04.374V19.5M10.5 4.5l-1.5 3m1.5-3l1.5 3M10.5 4.5v3.75m-1.5 6H8.25m-.75 0H6.75m-1.5 0H4.5m-1.5 0H2.25M11.25 10.5h1.5A2.25 2.25 0 0115 12.75v5.062a2.25 2.25 0 01-2.25 2.25H11.25m0-9.75h-1.5A2.25 2.25 0 007.5 12.75v5.062a2.25 2.25 0 002.25 2.25h1.5M11.25 10.5V6m0 0H8.25M6 6H4.5m-1.5 0H2.25m1.5 3V6m-1.5 0V9m-1.5 0V6m-1.5 0V9m1.5-3V9m-1.5 0V6"
-        />
-      </svg>
-    ),
-  },
-  {
-    title: "Emergency Dental Care",
-    description: "Immediate care for dental emergencies, pain relief, and urgent issues.",
-    price: "Varies",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
-        className="w-10 h-10 text-[#38bdf8]"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
-        />
-      </svg>
-    ),
-  },
-];
-
-const ServicesPage = () => {
-  const fadeInUp = {
-    initial: { opacity: 0, y: 30 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.7 },
-  };
-
-  return (
-    <div className="min-h-screen bg-[#0a0f1e] text-[#f0f9ff]">
-      <motion.section
-        className="relative py-20 md:py-32 text-center overflow-hidden"
-      >
-        <div className="container mx-auto px-6">
-          <motion.h1
-            {...fadeInUp}
-            className="text-5xl md:text-7xl font-extrabold mb-4 leading-tight"
-          >
-            Our Dental Services
-          </motion.h1>
-          <motion.p
-            {...fadeInUp}
-            transition={{ ...fadeInUp.transition, delay: 0.2 }}
-            className="text-xl md:text-2xl text-[#94a3b8] max-w-3xl mx-auto"
-          >
-            Comprehensive care for a healthier, brighter smile.
-          </motion.p>
-        </div>
-      </motion.section>
-
-      <div className="bg-gradient-to-r from-transparent via-[#38bdf8]/30 to-transparent h-px w-full my-12" />
-
-      <section className="container mx-auto px-6 py-16">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ staggerChildren: 0.1 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
-        >
-          {servicesData.map((service, index) => (
-            <motion.div
-              key={index}
-              variants={fadeInUp}
-              whileHover={{
-                y: -6,
-                boxShadow: "0 20px 40px rgba(56,189,248,0.15)",
-              }}
-              className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-8 text-center transition-all duration-300 ease-in-out"
-            >
-              <div className="mb-6 flex justify-center">
-                {service.icon}
-              </div>
-              <h3 className="text-2xl font-bold mb-3">{service.title}</h3>
-              <p className="text-[#94a3b8] mb-4">{service.description}</p>
-              <span className="inline-block bg-[#38bdf8]/20 text-[#38bdf8] text-sm font-semibold px-4 py-1 rounded-full mb-6">
-                {service.price}
-              </span>
-              <Link href="/book-appointment" passHref>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="mt-4 w-full bg-[#38bdf8] text-[#0a0f1e] py-3 rounded-xl font-semibold transition-colors duration-200"
-                >
-                  Book Now
-                </motion.button>
-              </Link>
-            </motion.div>
-          ))}
-        </motion.div>
-      </section>
-
-      <div className="bg-gradient-to-r from-transparent via-[#38bdf8]/30 to-transparent h-px w-full my-12" />
-
-      <footer className="py-10 text-center text-[#94a3b8]">
-        <p>Built by Puson · puson.dev</p>
-      </footer>
-    </div>
-  );
+type ServiceItem = {
+  title: string;
+  description: string;
+  price: string;
+  icon: ReactNode;
 };
 
-export default ServicesPage;
+const services: ServiceItem[] = [
+  { title: "Teeth Whitening", description: "Brighter smile in a safe, clinic-controlled setting.", price: "৳3,500 - ৳8,000", icon: <path d="M12 3l2.2 4.5L19 9.8l-3.5 3.4.8 4.8L12 15.8 7.7 18l.8-4.8L5 9.8l4.8-.3L12 3Z" /> },
+  { title: "Dental Implants", description: "Natural-looking replacement for missing teeth.", price: "৳45,000+", icon: <path d="M12 2C8.1 2 5 5.1 5 9c0 5 7 13 7 13s7-8 7-13c0-3.9-3.1-7-7-7Zm0 9.2A2.2 2.2 0 1 1 12 6.8a2.2 2.2 0 0 1 0 4.4Z" /> },
+  { title: "Orthodontics / Braces", description: "Straighten alignment with modern orthodontic care.", price: "৳35,000+", icon: <path d="M6 6h12v2H6V6Zm0 4h12v2H6v-2Zm0 4h12v2H6v-2Z" /> },
+  { title: "Root Canal", description: "Relieve pain and save the natural tooth.", price: "৳6,000 - ৳15,000", icon: <path d="M12 2C9 2 7 4.2 7 7c0 2.2 1.2 4 2.5 5.2V18l2.5 2 2.5-2v-5.8C14.8 11 16 9.2 16 7c0-2.8-2-5-4-5Z" /> },
+  { title: "Teeth Cleaning", description: "Routine scaling and polishing for gum health.", price: "৳1,500 - ৳3,500", icon: <path d="M5 11h14v2H5v-2Zm2-5h10v2H7V6Zm2 10h6v2H9v-2Z" /> },
+  { title: "Veneers", description: "Refine shape and color for a polished smile.", price: "৳8,000+", icon: <path d="M7 4h10l2 5-7 11L5 9l2-5Zm2.2 2L8 8.2 12 15l4-6.8L14.8 6H9.2Z" /> },
+  { title: "Pediatric Dentistry", description: "Gentle care for children and first-time visits.", price: "৳1,000+", icon: <path d="M12 3a5 5 0 0 0-5 5v2H6a2 2 0 0 0-2 2v2h4v5h4v-5h2v5h4v-5h4v-2a2 2 0 0 0-2-2h-1V8a5 5 0 0 0-5-5Z" /> },
+  { title: "Emergency Dental Care", description: "Fast response for pain, trauma, or urgent issues.", price: "Same day", icon: <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" /> },
+];
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 30 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-80px" },
+  transition: { duration: 0.7 },
+};
+
+export default function ServicesPage() {
+  return (
+    <PublicLayout>
+      <div className="min-h-screen bg-[#0a0f1e] text-[#f0f9ff]">
+        <section className="relative overflow-hidden px-4 pt-32 pb-16 sm:px-6 lg:px-8">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.15),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(14,165,233,0.12),transparent_30%)]" />
+          <div className="relative mx-auto max-w-7xl">
+            <motion.div {...fadeInUp} className="max-w-3xl">
+              <p className="mb-4 inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-1 text-sm text-[#94a3b8] backdrop-blur-md">
+                Premium treatments. Gentle care. Clear pricing.
+              </p>
+              <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+                Dental services designed around comfort and confidence.
+              </h1>
+              <p className="mt-6 max-w-2xl text-base leading-7 text-[#94a3b8] sm:text-lg">
+                From preventive cleaning to emergency care, every service is delivered with modern tools, calm guidance, and a smile-first experience.
+              </p>
+            </motion.div>
+
+            <motion.div {...fadeInUp} transition={{ duration: 0.7, delay: 0.15 }} className="mt-10 h-px w-full bg-gradient-to-r from-transparent via-[#38bdf8]/60 to-transparent" />
+          </div>
+        </section>
+
+        <section className="px-4 pb-20 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <motion.div
+              className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3"
+              initial="hidden"
+              animate="show"
+              variants={{ show: { transition: { staggerChildren: 0.1 } } }}
+            >
+              {services.map((service) => (
+                <motion.article
+                  key={service.title}
+                  variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0 } }}
+                  whileHover={{ y: -6, boxShadow: "0 20px 40px rgba(56,189,248,0.15)" }}
+                  transition={{ duration: 0.25 }}
+                  className="group rounded-2xl border border-white/10 bg-[rgba(255,255,255,0.04)] p-6 backdrop-blur-md"
+                >
+                  <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border border-[#38bdf8]/20 bg-[#38bdf8]/10 text-[#38bdf8]">
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="h-7 w-7">
+                      {service.icon}
+                    </svg>
+                  </div>
+                  <h2 className="text-xl font-semibold text-[#f0f9ff]">{service.title}</h2>
+                  <p className="mt-3 text-sm leading-6 text-[#94a3b8]">{service.description}</p>
+                  <div className="mt-5 flex items-center justify-between gap-3">
+                    <span className="rounded-full border border-[#38bdf8]/20 bg-[#38bdf8]/10 px-3 py-1 text-xs font-semibold text-[#38bdf8]">
+                      {service.price}
+                    </span>
+                    <Link
+                      href="/book-appointment"
+                      className="rounded-full bg-[#38bdf8] px-4 py-2 text-sm font-semibold text-[#0a0f1e] transition-transform group-hover:translate-x-0.5"
+                    >
+                      Book Now
+                    </Link>
+                  </div>
+                </motion.article>
+              ))}
+            </motion.div>
+
+            <div className="mt-16 rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-md">
+              <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+                <div className="max-w-2xl">
+                  <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#38bdf8]">Need help choosing?</p>
+                  <h3 className="mt-3 text-2xl font-bold text-[#f0f9ff]">We’ll guide you to the right treatment, without the pressure.</h3>
+                  <p className="mt-3 text-[#94a3b8]">
+                    Book a consultation and let the clinic help you decide the safest, fastest, and most effective path forward.
+                  </p>
+                </div>
+                <Link href="/book-appointment" className="inline-flex items-center justify-center rounded-full bg-[#38bdf8] px-6 py-3 font-semibold text-[#0a0f1e]">
+                  Book an Appointment
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </PublicLayout>
+  );
+}
