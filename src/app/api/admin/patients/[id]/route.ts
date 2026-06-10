@@ -1,16 +1,16 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { requireStaff } from "@/lib/auth-helpers";
 
 export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const auth = await requireStaff();
   if (auth.error) return NextResponse.json({ error: auth.error }, { status: auth.status });
 
   const admin = createAdminClient();
-  const id = params.id;
+  const { id } = await params;
 
   const [profile, visits, reports, payments, appointments] = await Promise.all([
     admin.from("profiles").select("*").eq("id", id).single(),
