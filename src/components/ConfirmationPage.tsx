@@ -3,7 +3,7 @@ import AppointmentQR from './AppointmentQR';
 const ConfirmationPage: React.FC = () => {
   return (
     <div className="confirmation-page-container">
-      <AppointmentQR />
+      <AppointmentQR data="https://drjerin.vercel.app" />
     </div>
   );
 };
