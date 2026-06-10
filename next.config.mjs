@@ -65,9 +65,7 @@ class NormalizeReadlinkErrorsPlugin {
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    serverComponentsExternalPackages: ["@react-pdf/renderer"],
-  },
+  serverExternalPackages: ["@react-pdf/renderer"],
   images: {
     remotePatterns: [
       {

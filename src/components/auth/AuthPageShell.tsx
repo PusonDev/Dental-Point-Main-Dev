@@ -21,13 +21,19 @@ export default function AuthPageShell({ variant, children, footer }: AuthPageShe
   const badge = isSignIn
     ? isBn
       ? "নিরাপদ পেশেন্ট পোর্টাল"
-      : t.auth.secureBadgeSignIn
+      : "Secure Patient Portal"
     : isBn
       ? "১ মিনিটে ফ্রি একাউন্ট"
-      : t.auth.secureBadgeSignup;
+      : "1-Min Free Account";
 
-  const title = isSignIn ? t.auth.signIn : t.auth.signup;
-  const subtitle = isSignIn ? t.auth.signInSubtitle : t.auth.signupSubtitle;
+  const title = isSignIn ? t.auth.login : t.auth.signup;
+  const subtitle = isSignIn
+    ? isBn
+      ? "আপনার পেশেন্ট পোর্টালে সাইন ইন করুন"
+      : "Sign in to your patient portal"
+    : isBn
+      ? "১ মিনিটে আপনার ফ্রি পেশেন্ট একাউন্ট তৈরি করুন"
+      : "Create your free patient account in 1 minute";
 
   return (
     <div className="min-h-screen relative flex flex-col items-center justify-center overflow-hidden bg-[#0f172a]">
