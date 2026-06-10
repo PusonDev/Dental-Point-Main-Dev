@@ -2,6 +2,7 @@
   "nav": {
     "home": "Home",
     "services": "Services",
+    "contact": "Contact",
     "book": "Book Appointment",
     "login": "Login",
     "signIn": "Sign In",
@@ -39,12 +40,20 @@
   },
   "book": {
     "title": "Book Appointment",
+    "step1": "Personal Info",
+    "step2": "Service & Date",
+    "step3": "Confirm Booking",
     "name": "Full Name",
     "phone": "Phone Number",
     "email": "Email",
+    "service": "Select Service",
+    "chooseService": "Select a service",
     "date": "Preferred Date",
     "time": "Preferred Time",
     "reason": "Reason for Visit",
+    "next1": "Next: Select Service & Date",
+    "next2": "Next: Confirm",
+    "confirmTitle": "Confirm Your Appointment",
     "note": "Special Note",
     "submit": "Request Appointment",
     "success": "Your appointment request has been sent!"
@@ -71,6 +80,7 @@
   },
   "footer": {
     "rights": "All rights reserved",
+    "builtBy": "Built by Puson · puson.dev",
     "adminLogin": "Admin Login"
   },
   "common": {

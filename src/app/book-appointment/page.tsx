@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import AppointmentQR from "@/components/AppointmentQR";
 import ConfirmationPage from "@/components/ConfirmationPage";
+import { useLanguage } from "@/context/LanguageContext";
 
 const BACKGROUND_COLOR = "#0a0f1e"; // deep navy
 const CARD_BG_COLOR = "rgba(255,255,255,0.04)";
@@ -43,6 +44,7 @@ const timeSlots = [
 
 export default function BookAppointmentPage() {
   const router = useRouter();
+  const { tc, locale } = useLanguage();
   const [step, setStep] = useState(1);
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
@@ -161,7 +163,7 @@ export default function BookAppointmentPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
               >
-                Dental Point
+                {tc("home.heroTitle", "Dental Point")}
               </motion.h2>
               <motion.p
                 className="text-xl text-[#94a3b8] mb-8"
@@ -169,7 +171,7 @@ export default function BookAppointmentPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.6 }}
               >
-                Your Journey to a Brighter Smile Starts Here.
+                {tc("home.bookCta", "Your Journey to a Brighter Smile Starts Here.")}
               </motion.p>
 
               <motion.div
@@ -211,9 +213,9 @@ export default function BookAppointmentPage() {
                     {stepNum < step ? "✓" : stepNum}
                   </div>
                   <p className="text-xs mt-2 text-[#94a3b8]">
-                    {stepNum === 1 && "Personal Info"}
-                    {stepNum === 2 && "Service & Date"}
-                    {stepNum === 3 && "Confirm Booking"}
+                    {stepNum === 1 && tc("book.step1", "Personal Info")}
+                    {stepNum === 2 && tc("book.step2", "Service & Date")}
+                    {stepNum === 3 && tc("book.step3", "Confirm Booking")}
                   </p>
                 </div>
               ))}
@@ -233,7 +235,7 @@ export default function BookAppointmentPage() {
                   >
                     <div>
                       <label className="block text-[#f0f9ff] text-sm font-semibold mb-2">
-                        Full Name <span className="text-red-500">*</span>
+                        {tc("book.name", "Full Name")} <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="text"
@@ -245,7 +247,7 @@ export default function BookAppointmentPage() {
                     </div>
                     <div>
                       <label className="block text-[#f0f9ff] text-sm font-semibold mb-2">
-                        Phone Number <span className="text-red-500">*</span>
+                        {tc("book.phone", "Phone Number")} <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="tel"
@@ -257,7 +259,7 @@ export default function BookAppointmentPage() {
                     </div>
                     <div>
                       <label className="block text-[#f0f9ff] text-sm font-semibold mb-2">
-                        Email (Optional)
+                        {tc("book.email", "Email")} ({locale === "bn" ? "ঐচ্ছিক" : "Optional"})
                       </label>
                       <input
                         type="email"
@@ -273,7 +275,7 @@ export default function BookAppointmentPage() {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      Next: Select Service & Date
+                      {tc("book.next1", "Next: Select Service & Date")}
                     </motion.button>
                   </motion.div>
                 )}
@@ -290,7 +292,7 @@ export default function BookAppointmentPage() {
                   >
                     <div>
                       <label className="block text-[#f0f9ff] text-sm font-semibold mb-2">
-                        Select Service <span className="text-red-500">*</span>
+                        {tc("book.service", "Select Service")} <span className="text-red-500">*</span>
                       </label>
                       <select
                         value={selectedService}
@@ -298,7 +300,7 @@ export default function BookAppointmentPage() {
                         className="w-full bg-white/5 border border-white/10 focus:border-[#38bdf8] rounded-xl px-4 py-3 text-white placeholder:text-[#94a3b8] appearance-none"
                         required
                       >
-                        <option value="" disabled>Select a service</option>
+                        <option value="" disabled>{tc("book.chooseService", "Select a service")}</option>
                         {servicesList.map((service) => (
                           <option key={service} value={service}>
                             {service}
@@ -308,7 +310,7 @@ export default function BookAppointmentPage() {
                     </div>
                     <div>
                       <label className="block text-[#f0f9ff] text-sm font-semibold mb-2">
-                        Select Date <span className="text-red-500">*</span>
+                        {tc("book.date", "Select Date")} <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="date"
@@ -321,7 +323,7 @@ export default function BookAppointmentPage() {
                     </div>
                     <div>
                       <label className="block text-[#f0f9ff] text-sm font-semibold mb-2">
-                        Select Time Slot <span className="text-red-500">*</span>
+                        {tc("book.time", "Select Time Slot")} <span className="text-red-500">*</span>
                       </label>
                       <div className="grid grid-cols-3 gap-3">
                         {timeSlots.map((time) => (
@@ -350,7 +352,7 @@ export default function BookAppointmentPage() {
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
-                        Back
+                        {tc("common.back", "Back")}
                       </motion.button>
                       <motion.button
                         type="button"
@@ -359,7 +361,7 @@ export default function BookAppointmentPage() {
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
-                        Next: Confirm
+                        {tc("book.next2", "Next: Confirm")}
                       </motion.button>
                     </div>
                   </motion.div>
@@ -376,31 +378,31 @@ export default function BookAppointmentPage() {
                     className="space-y-6"
                   >
                     <h3 className="text-2xl font-bold text-[#f0f9ff] mb-4">
-                      Confirm Your Appointment
+                      {tc("book.confirmTitle", "Confirm Your Appointment")}
                     </h3>
                     <div
                       className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 space-y-3"
                     >
                       <p>
-                        <strong className="text-[#38bdf8]">Name:</strong> {fullName}
+                        <strong className="text-[#38bdf8]">{tc("book.name", "Name")}:</strong> {fullName}
                       </p>
                       <p>
-                        <strong className="text-[#38bdf8]">Phone:</strong> {phone}
+                        <strong className="text-[#38bdf8]">{tc("book.phone", "Phone")}:</strong> {phone}
                       </p>
                       {email && (
                         <p>
-                          <strong className="text-[#38bdf8]">Email:</strong> {email}
+                          <strong className="text-[#38bdf8]">{tc("book.email", "Email")}:</strong> {email}
                         </p>
                       )}
                       <p>
-                        <strong className="text-[#38bdf8]">Service:</strong> {" "}
+                        <strong className="text-[#38bdf8]">{tc("book.service", "Service")}:</strong> {" "}
                         {selectedService}
                       </p>
                       <p>
-                        <strong className="text-[#38bdf8]">Date:</strong> {selectedDate}
+                        <strong className="text-[#38bdf8]">{tc("book.date", "Date")}:</strong> {selectedDate}
                       </p>
                       <p>
-                        <strong className="text-[#38bdf8]">Time:</strong> {selectedTime}
+                        <strong className="text-[#38bdf8]">{tc("book.time", "Time")}:</strong> {selectedTime}
                       </p>
                     </div>
                     <div className="flex justify-center p-4">
@@ -414,7 +416,7 @@ export default function BookAppointmentPage() {
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
-                        Back
+                        {tc("common.back", "Back")}
                       </motion.button>
                       <motion.button
                         type="submit"
@@ -422,7 +424,7 @@ export default function BookAppointmentPage() {
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
-                        Confirm Booking
+                        {tc("book.submit", "Confirm Booking")}
                       </motion.button>
                     </div>
                   </motion.div>
@@ -433,7 +435,7 @@ export default function BookAppointmentPage() {
         </div>
       </div>
       <footer className="py-10 text-center text-[#94a3b8]">
-        <p>Built by Puson · puson.dev</p>
+        <p>{tc("footer.builtBy", "Built by Puson · puson.dev")}</p>
       </footer>
     </div>
   );

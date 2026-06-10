@@ -9,7 +9,7 @@ import NavSignUp from "@/components/layout/NavSignUp";
 import NavSignIn from "@/components/layout/NavSignIn";
 
 export default function Navigation() {
-  const { t } = useLanguage();
+  const { t, tc } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -60,7 +60,7 @@ export default function Navigation() {
               href="/#contact"
               className="text-[#f0f6ff]/80 hover:text-white transition-colors"
             >
-              Contact
+              {tc("nav.contact", "Contact")}
             </Link>
             <NavSignUp />
             <NavSignIn />
@@ -137,7 +137,7 @@ export default function Navigation() {
                 className="block text-[#f0f6ff]/80 hover:text-white py-2"
                 onClick={() => setMobileOpen(false)}
               >
-                Contact
+                {tc("nav.contact", "Contact")}
               </Link>
               <NavSignUp
                 className="block text-[#f0f6ff]/80 hover:text-white py-2"

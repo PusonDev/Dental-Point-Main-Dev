@@ -5,7 +5,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import FooterAdminLogin from "@/components/layout/FooterAdminLogin";
 
 export default function Footer() {
-  const { t } = useLanguage(); // placeholder for future i18n
+  const { tc } = useLanguage();
 
   return (
     <footer className="bg-[#0a1628] text-white mt-auto border-t border-blue-900/20 py-12">
@@ -20,13 +20,13 @@ export default function Footer() {
           </motion.div>
           <div>
             <p className="font-cormorant text-lg font-semibold">Dr. Jarin&apos;s Dental Point</p>
-            <p className="text-[#38bdf8] text-sm">Better Teeth · Better Health</p>
+            <p className="text-[#38bdf8] text-sm">{tc("home.heroSubtitle", "Better Teeth · Better Health")}</p>
           </div>
         </div>
 
         {/* Center: Credit */}
-        <p className="text-white/60 text-center text-sm">
-          © {new Date().getFullYear()} Dr. Jarin&apos;s Dental Point. All rights reserved. Built by{" "}
+          <p className="text-white/60 text-center text-sm">
+          © {new Date().getFullYear()} Dr. Jarin&apos;s Dental Point. {tc("footer.rights", "All rights reserved")}. Built by{" "}
           <a
             href="https://puson.dev"
             target="_blank"
