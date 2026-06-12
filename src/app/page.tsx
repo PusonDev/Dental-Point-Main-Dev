@@ -649,6 +649,12 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
+                title: "Dental X-Ray",
+                desc: "In-house single-tooth X-rays. For full-mouth scans, our partners offer identical standard prices.",
+                icon: "xray",
+                highlighted: true
+              },
+              {
                 title: "Pain-Free Care",
                 desc: "Gentle techniques and local anesthesia to ensure a highly comfortable, painless experience.",
                 icon: "syringe"
@@ -679,11 +685,6 @@ export default function HomePage() {
                 icon: "badge"
               },
               {
-                title: "Dental X-Ray",
-                desc: "In-house single-tooth X-rays. For full-mouth scans, our partners offer identical standard prices.",
-                icon: "xray"
-              },
-              {
                 title: "Strict Sterilization",
                 desc: "100% safe environment with multi-stage autoclave sterilization for all surgical tools.",
                 icon: "shield"
@@ -696,15 +697,52 @@ export default function HomePage() {
             ].map((item, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial="initial"
+                whileInView="animate"
+                whileHover="hover"
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                className="bg-white/3 border border-white/8 rounded-2xl p-6 hover:bg-blue-500/8 hover:border-blue-500/30 transition-all duration-300 flex flex-col justify-between"
+                variants={{
+                  initial: { opacity: 0, y: 30 },
+                  animate: { 
+                    opacity: 1, 
+                    y: 0, 
+                    transition: { delay: index * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] } 
+                  },
+                  hover: { 
+                    y: -10, 
+                    scale: 1.02,
+                    borderColor: item.highlighted ? "rgba(96, 165, 250, 0.6)" : "rgba(59, 130, 246, 0.3)",
+                    backgroundColor: item.highlighted ? "rgba(30, 58, 138, 0.25)" : "rgba(29, 78, 216, 0.08)",
+                    boxShadow: item.highlighted 
+                      ? "0 20px 40px rgba(59, 130, 246, 0.35)" 
+                      : "0 20px 30px rgba(0, 0, 0, 0.25)",
+                    transition: { duration: 0.3, ease: "easeOut" }
+                  }
+                }}
+                className={`relative rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between overflow-hidden border ${
+                  item.highlighted 
+                    ? "bg-gradient-to-br from-blue-600/20 via-blue-500/10 to-sky-500/5 border-blue-500/40 shadow-[0_0_25px_rgba(59,130,246,0.2)]" 
+                    : "bg-white/3 border-white/8"
+                }`}
               >
+                {item.highlighted && (
+                  <span className="absolute top-4 right-4 bg-gradient-to-r from-blue-500 to-sky-500 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider text-white shadow-[0_2px_10px_rgba(59,130,246,0.5)] animate-pulse">
+                    Featured
+                  </span>
+                )}
                 <div>
-                  <div className="w-8 h-8 mb-4 stroke-blue-400">
-                    <svg viewBox="0 0 32 32" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <motion.div 
+                    variants={{
+                      initial: { scale: 1, rotate: 0 },
+                      hover: { 
+                        scale: 1.15, 
+                        rotate: [0, -10, 10, 0], 
+                        transition: { duration: 0.4, ease: "easeInOut" } 
+                      }
+                    }}
+                    className="w-8 h-8 mb-4 stroke-blue-400 flex items-center justify-center origin-center"
+                  >
+                    <svg viewBox="0 0 32 32" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full">
                       {item.icon === "syringe" && <><path d="M8 4 L8 14 C8 17 10 19 13 19 L13 28 M16 4 L16 14 C16 17 14 19 11 19 L11 28 M6 10 L18 10" /></>}
                       {item.icon === "microscope" && <><path d="M16 4 L16 12 L12 16 L12 24 L20 24 L20 16 L16 12 M8 24 L24 24 M16 24 L16 28" /></>}
                       {item.icon === "calendar" && <><rect x="4" y="6" width="24" height="20" rx="2" /><line x1="4" y1="12" x2="28" y2="12" /><line x1="12" y1="4" x2="12" y2="8" /><line x1="20" y1="4" x2="20" y2="8" /></>}
@@ -715,8 +753,18 @@ export default function HomePage() {
                       {item.icon === "shield" && <><path d="M16 4 L26 8 L26 16 C26 22 21 26 16 28 C11 26 6 22 6 16 L6 8 Z" /><path d="M11 16 L14 19 L21 12" /></>}
                       {item.icon === "comfort" && <><path d="M12 14 C12 10 15 7 16 7 C17 7 20 10 20 14 C20 18 16 22 16 22 C16 22 12 18 12 14 Z" /><circle cx="16" cy="13" r="2" /><path d="M6 26 C6 21 10 19 16 19 C22 19 26 21 26 26" /></>}
                     </svg>
-                  </div>
-                  <h3 className="font-cormorant text-xl font-semibold mb-2 group-hover:text-sky-400 transition-colors">{item.title}</h3>
+                  </motion.div>
+                  <motion.h3 
+                    variants={{
+                      initial: { x: 0 },
+                      hover: { x: 4, transition: { duration: 0.2 } }
+                    }}
+                    className={`font-cormorant text-xl font-semibold mb-2 transition-colors ${
+                      item.highlighted ? "text-sky-300" : "text-white"
+                    }`}
+                  >
+                    {item.title}
+                  </motion.h3>
                   <p className="text-white/60 text-sm leading-relaxed">{item.desc}</p>
                 </div>
               </motion.div>
