@@ -13,7 +13,7 @@ const services = [
     color: "blue",
   },
   {
-    title: "Crown, Cap & Bridge",
+    title: "Crown & Bridge",
     desc: "Restore damaged teeth with precision-crafted natural-looking crowns and bridges.",
     icon: "crown",
     color: "sky",
@@ -648,12 +648,51 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { title: "Pain-Free Care", icon: "syringe" },
-              { title: "Advanced Equipment", icon: "microscope" },
-              { title: "Easy Online Booking", icon: "calendar" },
-              { title: "Family Friendly", icon: "people" },
-              { title: "Flexible Hours", icon: "clock" },
-              { title: "BMDC Certified", icon: "badge" },
+              {
+                title: "Pain-Free Care",
+                desc: "Gentle techniques and local anesthesia to ensure a highly comfortable, painless experience.",
+                icon: "syringe"
+              },
+              {
+                title: "Advanced Equipment",
+                desc: "State-of-the-art dental technology for highly precise, comfortable, and efficient treatments.",
+                icon: "microscope"
+              },
+              {
+                title: "Easy Online Booking",
+                desc: "Schedule, reschedule, or manage your dental appointments online instantly with ease.",
+                icon: "calendar"
+              },
+              {
+                title: "Family Friendly",
+                desc: "A warm, welcoming dental clinic environment designed for patients of all age groups.",
+                icon: "people"
+              },
+              {
+                title: "Flexible Hours",
+                desc: "Convenient morning and evening timings tailored to fit your busy daily schedule.",
+                icon: "clock"
+              },
+              {
+                title: "BMDC Certified",
+                desc: "Complete peace of mind with qualified professionals registered under the BMDC.",
+                icon: "badge"
+              },
+              {
+                title: "Dental X-Ray",
+                desc: "In-house single-tooth X-rays. For full-mouth scans, our partners offer identical standard prices.",
+                icon: "xray"
+              },
+              {
+                title: "Strict Sterilization",
+                desc: "100% safe environment with multi-stage autoclave sterilization for all surgical tools.",
+                icon: "shield"
+              },
+              {
+                title: "Premium Comfort",
+                desc: "Soothing, modern setup designed to keep dental anxiety away and make you feel at home.",
+                icon: "comfort"
+              }
             ].map((item, index) => (
               <motion.div
                 key={index}
@@ -661,19 +700,25 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
-                className="bg-white/3 border border-white/8 rounded-2xl p-6 hover:bg-blue-500/8 transition-all duration-300"
+                className="bg-white/3 border border-white/8 rounded-2xl p-6 hover:bg-blue-500/8 hover:border-blue-500/30 transition-all duration-300 flex flex-col justify-between"
               >
-                <div className="w-8 h-8 mb-4 stroke-blue-400">
-                  <svg viewBox="0 0 32 32" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                    {item.icon === "syringe" && <><path d="M8 4 L8 14 C8 17 10 19 13 19 L13 28 M16 4 L16 14 C16 17 14 19 11 19 L11 28 M6 10 L18 10" /></>}
-                    {item.icon === "microscope" && <><path d="M16 4 L16 12 L12 16 L12 24 L20 24 L20 16 L16 12 M8 24 L24 24 M16 24 L16 28" /></>}
-                    {item.icon === "calendar" && <><rect x="4" y="6" width="24" height="20" rx="2" /><line x1="4" y1="12" x2="28" y2="12" /><line x1="12" y1="4" x2="12" y2="8" /><line x1="20" y1="4" x2="20" y2="8" /></>}
-                    {item.icon === "people" && <><path d="M12 12 C12 12 8 12 8 16 L8 24 L16 24 L16 16 C16 12 12 12 12 12Z" /><circle cx="12" cy="8" r="4" /><path d="M24 12 C24 12 20 12 20 16 L20 24 L28 24 L28 16 C28 12 24 12 24 12Z" /><circle cx="24" cy="8" r="4" /></>}
-                    {item.icon === "clock" && <><circle cx="16" cy="16" r="12" /><path d="M16 8 L16 16 L22 16" /></>}
-                    {item.icon === "badge" && <><path d="M16 4 L20 8 L24 4 L24 12 L28 16 L24 20 L24 28 L20 24 L16 28 L12 24 L8 28 L8 20 L4 16 L8 12 L8 4 L12 8 Z" /></>}
-                  </svg>
+                <div>
+                  <div className="w-8 h-8 mb-4 stroke-blue-400">
+                    <svg viewBox="0 0 32 32" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      {item.icon === "syringe" && <><path d="M8 4 L8 14 C8 17 10 19 13 19 L13 28 M16 4 L16 14 C16 17 14 19 11 19 L11 28 M6 10 L18 10" /></>}
+                      {item.icon === "microscope" && <><path d="M16 4 L16 12 L12 16 L12 24 L20 24 L20 16 L16 12 M8 24 L24 24 M16 24 L16 28" /></>}
+                      {item.icon === "calendar" && <><rect x="4" y="6" width="24" height="20" rx="2" /><line x1="4" y1="12" x2="28" y2="12" /><line x1="12" y1="4" x2="12" y2="8" /><line x1="20" y1="4" x2="20" y2="8" /></>}
+                      {item.icon === "people" && <><path d="M12 12 C12 12 8 12 8 16 L8 24 L16 24 L16 16 C16 12 12 12 12 12Z" /><circle cx="12" cy="8" r="4" /><path d="M24 12 C24 12 20 12 20 16 L20 24 L28 24 L28 16 C28 12 24 12 24 12Z" /><circle cx="24" cy="8" r="4" /></>}
+                      {item.icon === "clock" && <><circle cx="16" cy="16" r="12" /><path d="M16 8 L16 16 L22 16" /></>}
+                      {item.icon === "badge" && <><path d="M16 4 L20 8 L24 4 L24 12 L28 16 L24 20 L24 28 L20 24 L16 28 L12 24 L8 28 L8 20 L4 16 L8 12 L8 4 L12 8 Z" /></>}
+                      {item.icon === "xray" && <><rect x="6" y="6" width="20" height="20" rx="2" /><line x1="6" y1="13" x2="26" y2="13" /><line x1="6" y1="20" x2="26" y2="20" /><line x1="13" y1="6" x2="13" y2="26" /><path d="M16 10 L16 11 M16 22 L16 23 M10 16 L11 16 M22 16 L23 16" /></>}
+                      {item.icon === "shield" && <><path d="M16 4 L26 8 L26 16 C26 22 21 26 16 28 C11 26 6 22 6 16 L6 8 Z" /><path d="M11 16 L14 19 L21 12" /></>}
+                      {item.icon === "comfort" && <><path d="M12 14 C12 10 15 7 16 7 C17 7 20 10 20 14 C20 18 16 22 16 22 C16 22 12 18 12 14 Z" /><circle cx="16" cy="13" r="2" /><path d="M6 26 C6 21 10 19 16 19 C22 19 26 21 26 26" /></>}
+                    </svg>
+                  </div>
+                  <h3 className="font-cormorant text-xl font-semibold mb-2 group-hover:text-sky-400 transition-colors">{item.title}</h3>
+                  <p className="text-white/60 text-sm leading-relaxed">{item.desc}</p>
                 </div>
-                <h3 className="font-cormorant text-xl font-semibold">{item.title}</h3>
               </motion.div>
             ))}
           </div>

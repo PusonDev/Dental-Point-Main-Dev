@@ -33,7 +33,7 @@ function MagneticItem({ children, className }: { children: React.ReactNode; clas
 }
 
 export default function Header() {
-  const { t } = useLanguage();
+  const { t, tc } = useLanguage();
   const [mobileOpen, setMobileOpen] = useState(false);
   const links = [
     { name: t?.nav?.home ?? "Home", href: "/" },
@@ -44,9 +44,12 @@ export default function Header() {
   return (
     <header className="bg-[#050d1a]/90 backdrop-blur-xl shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
-        <Link href="/" className="flex items-center gap-2">
-          <Image src="/logo-new.png" alt="Prity Dental Logo" width={36} height={36} className="rounded-full" />
-          <span className="text-white font-bold text-lg hidden sm:block">{CLINIC_INFO.name}</span>
+        <Link href="/" className="flex items-center gap-3">
+          <Image src="/logo-new.png" alt="Prity Dental Logo" width={44} height={44} className="rounded-full" />
+          <div>
+            <p className="font-cormorant text-lg font-semibold">{CLINIC_INFO.name}</p>
+            <p className="text-[#38bdf8] text-sm">{tc("home.heroSubtitle", "Better Teeth · Better Health")}</p>
+          </div>
         </Link>
         {/* Desktop nav */}
         <nav className="hidden lg:flex items-center gap-6 text-white">

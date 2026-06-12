@@ -117,9 +117,27 @@ export default function BookAppointmentPage() {
 
   return (
     <div
-      className="min-h-screen text-white py-12 px-4 sm:px-6 lg:px-8"
+      className="min-h-screen text-white pt-28 pb-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
       style={{ backgroundColor: BACKGROUND_COLOR }}
     >
+      {/* Subtle Background Glow Elements */}
+      <motion.div
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.1, 0.2, 0.1],
+        }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] bg-blue-500/20 rounded-full blur-[150px] pointer-events-none z-0"
+      />
+      <motion.div
+        animate={{
+          scale: [1, 1.3, 1],
+          opacity: [0.1, 0.2, 0.1],
+        }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-sky-500/20 rounded-full blur-[150px] pointer-events-none z-0"
+      />
+
       <div className="max-w-7xl mx-auto rounded-3xl overflow-hidden shadow-2xl bg-white/5 backdrop-blur-lg border border-white/10">
         <div className="grid grid-cols-1 lg:grid-cols-5">
           {/* Left Panel */}

@@ -38,9 +38,14 @@ export default function Navigation() {
               width={44}
               height={44}
             />
-            <span className="font-cormorant text-xl font-semibold text-white hidden sm:block">
-              {"Dr. Jarin's Dental Point"}
-            </span>
+            <div className="hidden sm:block">
+              <span className="font-cormorant text-xl font-semibold text-white block leading-tight">
+                {"Dr. Jarin's Dental Point"}
+              </span>
+              <span className="text-[#38bdf8] text-sm block">
+                {tc("home.heroSubtitle", "Better Teeth · Better Health")}
+              </span>
+            </div>
           </Link>
 
           <div className="hidden md:flex items-center gap-8">

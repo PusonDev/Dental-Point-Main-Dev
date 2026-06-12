@@ -8,8 +8,8 @@ export default function Footer() {
   const { tc } = useLanguage();
 
   return (
-    <footer className="bg-[#0a1628] text-white mt-auto border-t border-blue-900/20 py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+    <footer className="bg-[#0a1628] text-white mt-auto border-t border-blue-900/20 py-3">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-center">
         {/* Left: Logo */}
         <div className="flex items-center gap-3">
           <motion.div
@@ -25,7 +25,7 @@ export default function Footer() {
         </div>
 
         {/* Center: Credit */}
-          <p className="text-white/60 text-center text-sm">
+        <p className="text-white/60 text-center text-sm">
           © {new Date().getFullYear()} Dr. Jarin&apos;s Dental Point. {tc("footer.rights", "All rights reserved")}. Built by{" "}
           <a
             href="https://puson.dev"

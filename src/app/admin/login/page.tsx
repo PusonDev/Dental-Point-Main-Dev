@@ -2,9 +2,11 @@
 
 import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { motion } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
 import BuiltBy from "@/components/layout/BuiltBy";
 import { CLINIC_INFO } from "@/lib/clinic-info";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 
 function AdminLoginForm() {
   const router = useRouter();
@@ -13,6 +15,7 @@ function AdminLoginForm() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -43,74 +46,138 @@ function AdminLoginForm() {
   }
 
   return (
-    <div className="min-h-screen bg-light-bg flex flex-col">
-      <header className="bg-primary py-6 px-4 text-center text-white">
-        <h1 className="font-bold text-lg">{CLINIC_INFO.name}</h1>
-        <p className="text-sm text-white/80 mt-1">Staff Portal</p>
+    <div className="min-h-screen bg-[#0f172a] relative overflow-hidden flex flex-col justify-between">
+      {/* Background Glow Effects */}
+      <motion.div
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.3, 0.5, 0.3],
+        }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-1/4 -left-1/4 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[120px] pointer-events-none"
+      />
+      <motion.div
+        animate={{
+          scale: [1, 1.3, 1],
+          opacity: [0.2, 0.4, 0.2],
+        }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-sky-500/10 rounded-full blur-[150px] pointer-events-none"
+      />
+
+      <header className="py-6 px-4 text-center text-white relative z-10">
+        <h1 className="font-bold text-2xl tracking-tight">{CLINIC_INFO.name}</h1>
+        <p className="text-sm text-blue-400 mt-1 font-medium">Secure Staff Portal</p>
       </header>
 
-      <div className="flex-1 flex items-center justify-center p-4">
-        <div className="w-full max-w-md">
-          <form onSubmit={handleSubmit} className="card space-y-4">
-            <div className="text-center mb-2">
-              <span className="text-4xl">🔐</span>
-              <h2 className="text-xl font-bold text-primary mt-2">Admin Login</h2>
-              <p className="text-sm text-gray-500 mt-1">
-                Sign in with your staff credentials
+      <div className="flex-1 flex items-center justify-center p-4 relative z-10 w-full">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="w-full max-w-sm"
+        >
+          <div className="bg-[#1e293b]/60 backdrop-blur-xl border border-white/10 shadow-[0_0_40px_rgba(59,130,246,0.15)] rounded-3xl p-6 sm:p-8">
+            <div className="text-center mb-8">
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                className="w-16 h-16 bg-blue-500/10 rounded-2xl mx-auto flex items-center justify-center mb-4 border border-blue-500/20 shadow-[0_0_15px_rgba(59,130,246,0.3)]"
+              >
+                <span className="text-3xl">🔐</span>
+              </motion.div>
+              <h2 className="text-2xl font-bold text-white tracking-tight">Admin Panel</h2>
+              <p className="text-sm text-slate-400 mt-1">
+                Enter your credentials to access the panel
               </p>
             </div>
 
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg px-4 py-3">
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                className="bg-red-500/10 border border-red-500/20 text-red-400 text-sm rounded-xl px-4 py-3 mb-6"
+              >
                 {error}
-              </div>
+              </motion.div>
             )}
 
-            <div>
-              <label className="block text-sm font-medium mb-1">Email *</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="input-field"
-                placeholder="admin@dentalpoint.com"
-                autoComplete="email"
-              />
-            </div>
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div>
+                <label className="block text-sm font-medium text-slate-300 mb-1.5">
+                  Email *
+                </label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="w-full bg-[#0f172a]/50 border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 transition-colors"
+                  placeholder="admin@dentalpoint.com"
+                  autoComplete="email"
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-1">Password *</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="input-field"
-                placeholder="••••••••"
-                autoComplete="current-password"
-              />
-            </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-300 mb-1.5">
+                  Password *
+                </label>
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="w-full bg-[#0f172a]/50 border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 transition-colors pr-12"
+                    placeholder="••••••••"
+                    autoComplete="current-password"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors p-1"
+                  >
+                    {showPassword ? (
+                      <EyeSlashIcon className="w-5 h-5" />
+                    ) : (
+                      <EyeIcon className="w-5 h-5" />
+                    )}
+                  </button>
+                </div>
+              </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="btn-primary w-full"
-            >
-              {loading ? "Signing in..." : "Sign In"}
-            </button>
+              <motion.button
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.99 }}
+                type="submit"
+                disabled={loading}
+                className="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-3 rounded-xl shadow-[0_0_20px_rgba(37,99,235,0.3)] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed mt-2"
+              >
+                {loading ? (
+                  <div className="flex items-center justify-center gap-2">
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <span>Authenticating...</span>
+                  </div>
+                ) : (
+                  "Secure Login"
+                )}
+              </motion.button>
+            </form>
 
-            <p className="text-xs text-center text-gray-500">
+            <p className="text-center text-sm mt-6 text-slate-400">
               Patient account?{" "}
-              <a href="/auth/login" className="text-primary underline">
+              <a href="/auth/login" className="text-blue-400 hover:text-blue-300 transition-colors font-medium">
                 Login here
               </a>
             </p>
-          </form>
-        </div>
+          </div>
+        </motion.div>
       </div>
 
-      <BuiltBy />
+      <div className="relative z-10 pb-6 text-slate-500">
+        <BuiltBy />
+      </div>
     </div>
   );
 }
@@ -119,8 +186,8 @@ export default function AdminLoginPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="h-10 w-10 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+        <div className="min-h-screen bg-[#0f172a] flex items-center justify-center">
+          <div className="h-10 w-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
         </div>
       }
     >

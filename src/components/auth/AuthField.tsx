@@ -81,7 +81,13 @@ export default function AuthField({
         <input
           type={isPasswordType && showPassword ? "text" : type}
           value={value}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={(e) => {
+            let val = e.target.value;
+            if (type === "tel" || phonePrefix) {
+              val = val.replace(/\D/g, "");
+            }
+            onChange(val);
+          }}
           placeholder={placeholder}
           required={required}
           minLength={minLength}

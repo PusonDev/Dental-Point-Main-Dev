@@ -55,7 +55,7 @@ export const CLINIC_INFO = {
 
 export const SERVICES = [
   { id: 1, name: "Root Canal Treatment (RCT)", nameBn: "RCT (রুট ক্যানেল ট্রিটমেন্ট)", description: "Treatment of infected tooth pulp to save the natural tooth.", icon: "🦷" },
-  { id: 2, name: "Crown, Cap & Bridge", nameBn: "ক্রাউন (ক্যাপ ও ব্রীজ)", description: "Restoration of damaged teeth with natural-looking crowns and bridges.", icon: "👑" },
+  { id: 2, name: "Crown & Bridge", nameBn: "ক্রাউন (ক্যাপ ও ব্রীজ)", description: "Restoration of damaged teeth with natural-looking crowns and bridges.", icon: "👑" },
   { id: 3, name: "Painless Tooth Extraction", nameBn: "ব্যাথামুক্ত দাঁত তোলা", description: "Safe and gentle removal of damaged, decayed, or wisdom teeth.", icon: "🔧" },
   { id: 4, name: "Orthodontics — Braces & High Palate Treatment", nameBn: "আঁকা-বাঁকা দাঁত ও উঁচু চোয়ালের চিকিৎসা", description: "Correction of crooked, misaligned teeth and jaw problems.", icon: "😁" },
   { id: 5, name: "Cosmetic Tooth Filling", nameBn: "কসমেটিক ফিলিং", description: "Aesthetic cavity filling with tooth-colored composite material.", icon: "✨" },
