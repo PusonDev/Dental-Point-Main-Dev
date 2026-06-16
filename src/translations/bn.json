@@ -67,7 +67,20 @@
     "verify": "OTP যাচাই",
     "sendOtp": "OTP পাঠান",
     "fullName": "পূর্ণ নাম",
-    "step": "ধাপ"
+    "step": "ধাপ",
+    "createAccount": "একাউন্ট তৈরি করুন",
+    "createAccountSub": "আপনার রোগীর একাউন্ট তৈরি করুন",
+    "confirmPassword": "পাসওয়ার্ড নিশ্চিত করুন",
+    "emailOptional": "ইমেইল (ঐচ্ছিক)",
+    "alreadyRegistered": "ইতিমধ্যে রেজিস্টার করেছেন?",
+    "creatingAccount": "একাউন্ট তৈরি হচ্ছে...",
+    "passwordMin": "কমপক্ষে ৬টি অক্ষর",
+    "repeatPassword": "পাসওয়ার্ড পুনরায় দিন",
+    "passwordsNoMatch": "পাসওয়ার্ড মিলছে না",
+    "passwordTooShort": "পাসওয়ার্ড কমপক্ষে ৬ অক্ষর হতে হবে",
+    "phoneRequired": "ফোন নম্বর আবশ্যক",
+    "phoneAlreadyRegistered": "এই ফোন নম্বর ইতিমধ্যে নিবন্ধিত। অনুগ্রহ করে লগইন করুন।",
+    "signupFailed": "সাইন আপ ব্যর্থ হয়েছে। আবার চেষ্টা করুন।"
   },
   "dashboard": {
     "welcome": "স্বাগতম",

@@ -67,7 +67,20 @@
     "verify": "Verify OTP",
     "sendOtp": "Send OTP",
     "fullName": "Full Name",
-    "step": "Step"
+    "step": "Step",
+    "createAccount": "Create Account",
+    "createAccountSub": "Create your patient account",
+    "confirmPassword": "Confirm Password",
+    "emailOptional": "Email (Optional)",
+    "alreadyRegistered": "Already registered?",
+    "creatingAccount": "Creating Account...",
+    "passwordMin": "Minimum 6 characters",
+    "repeatPassword": "Repeat your password",
+    "passwordsNoMatch": "Passwords do not match",
+    "passwordTooShort": "Password must be at least 6 characters",
+    "phoneRequired": "Phone number is required",
+    "phoneAlreadyRegistered": "Phone number already registered. Please login instead.",
+    "signupFailed": "Signup failed. Please try again."
   },
   "dashboard": {
     "welcome": "Welcome back",

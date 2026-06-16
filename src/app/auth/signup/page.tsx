@@ -28,15 +28,15 @@ export default function SignupPage() {
     setError("");
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      setError(t.auth.passwordsNoMatch);
       return;
     }
     if (password.length < 6) {
-      setError("Password must be at least 6 characters");
+      setError(t.auth.passwordTooShort);
       return;
     }
     if (!phone.trim()) {
-      setError("Phone number is required");
+      setError(t.auth.phoneRequired);
       return;
     }
 
@@ -58,7 +58,7 @@ export default function SignupPage() {
       setLoading(false);
       // If user already exists, try signing in and then profile create
       if (signErr.message.toLowerCase().includes("already registered")) {
-        setError("Phone number already registered. Please login instead.");
+        setError(t.auth.phoneAlreadyRegistered);
       } else {
         setError(signErr.message);
       }
@@ -68,7 +68,7 @@ export default function SignupPage() {
     const userId = data.user?.id;
     if (!userId) {
       setLoading(false);
-      setError("Signup failed. Please try again.");
+      setError(t.auth.signupFailed);
       return;
     }
 
@@ -141,10 +141,10 @@ export default function SignupPage() {
               </svg>
             </motion.div>
             <h1 className="text-3xl font-bold text-white mb-2 tracking-tight">
-              {t.auth.signup}
+              {t.auth.createAccount}
             </h1>
             <p className="text-sm text-slate-400">
-              Create your patient account
+              {t.auth.createAccountSub}
             </p>
           </div>
 
@@ -168,7 +168,7 @@ export default function SignupPage() {
                 onChange={(e) => setFullName(e.target.value)}
                 required
                 className="w-full bg-[#0f172a]/50 border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 transition-colors"
-                placeholder="Your full name"
+                placeholder={t.auth.fullName}
               />
             </div>
 
@@ -188,7 +188,7 @@ export default function SignupPage() {
 
             <div>
               <label className="block text-sm font-medium text-slate-300 mb-1.5">
-                Email (Optional)
+                {t.auth.emailOptional}
               </label>
               <input
                 value={email}
@@ -211,7 +211,7 @@ export default function SignupPage() {
                   required
                   minLength={6}
                   className="w-full bg-[#0f172a]/50 border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 transition-colors pr-12"
-                  placeholder="Minimum 6 characters"
+                  placeholder={t.auth.passwordMin}
                 />
                 <button
                   type="button"
@@ -229,7 +229,7 @@ export default function SignupPage() {
 
             <div>
               <label className="block text-sm font-medium text-slate-300 mb-1.5">
-                Confirm Password *
+                {t.auth.confirmPassword} *
               </label>
               <div className="relative">
                 <input
@@ -239,7 +239,7 @@ export default function SignupPage() {
                   required
                   minLength={6}
                   className="w-full bg-[#0f172a]/50 border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 transition-colors pr-12"
-                  placeholder="Repeat your password"
+                  placeholder={t.auth.repeatPassword}
                 />
                 <button
                   type="button"
@@ -265,16 +265,16 @@ export default function SignupPage() {
               {loading ? (
                 <div className="flex items-center justify-center gap-2">
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  <span>Creating Account...</span>
+                  <span>{t.auth.creatingAccount}</span>
                 </div>
               ) : (
-                "Create Account"
+                t.auth.createAccount
               )}
             </motion.button>
           </form>
 
           <p className="text-center text-sm mt-8 text-slate-400">
-            Already registered?{" "}
+            {t.auth.alreadyRegistered}{" "}
             <Link href="/auth/login" className="text-blue-400 hover:text-blue-300 font-medium transition-colors">
               {t.auth.login}
             </Link>
