@@ -26,6 +26,7 @@ const servicesList = [
   "Orthodontics / Braces",
   "Root Canal",
   "Teeth Cleaning",
+  "Dental Checkup",
   "Veneers",
   "Pediatric Dentistry",
   "Emergency Dental Care",
@@ -117,7 +118,7 @@ export default function BookAppointmentPage() {
 
   return (
     <div
-      className="min-h-screen text-white pt-28 pb-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+      className="min-h-screen text-white pt-20 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden flex items-center justify-center"
       style={{ backgroundColor: BACKGROUND_COLOR }}
     >
       {/* Subtle Background Glow Elements */}
@@ -452,9 +453,6 @@ export default function BookAppointmentPage() {
           </div>
         </div>
       </div>
-      <footer className="py-10 text-center text-[#94a3b8]">
-        <p>{tc("footer.builtBy", "Built by Puson · puson.dev")}</p>
-      </footer>
     </div>
   );
 }

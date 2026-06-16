@@ -629,20 +629,27 @@ export default function HomePage() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-20 bg-[#0f2040]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 bg-[#0f2040] relative overflow-hidden">
+        {/* Background glow accents */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="text-center mb-20"
           >
-            <h2 className="font-cormorant text-4xl md:text-5xl font-semibold mb-4">
-              Why Choose Us
+            <span className="text-blue-400 text-xs font-bold tracking-widest uppercase mb-3 block">
+              Our Patient-First Promise
+            </span>
+            <h2 className="font-cormorant text-4xl md:text-5xl font-light mb-4">
+              Why <span className="italic font-normal text-sky-400">Choose Us</span>
             </h2>
-            <p className="text-white/60 max-w-2xl mx-auto">
-              Experience the difference of patient-centered dental care
+            <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-sky-400 mx-auto rounded-full mb-4" />
+            <p className="text-white/60 max-w-2xl mx-auto text-base">
+              Experience the difference of patient-centered dental care with modern technology.
             </p>
           </motion.div>
 
@@ -702,70 +709,96 @@ export default function HomePage() {
                 whileHover="hover"
                 viewport={{ once: true }}
                 variants={{
-                  initial: { opacity: 0, y: 30 },
+                  initial: { opacity: 0, y: 40 },
                   animate: { 
                     opacity: 1, 
                     y: 0, 
-                    transition: { delay: index * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] } 
+                    transition: { delay: index * 0.06, duration: 0.8, ease: [0.16, 1, 0.3, 1] } 
                   },
                   hover: { 
-                    y: -10, 
-                    scale: 1.02,
-                    borderColor: item.highlighted ? "rgba(96, 165, 250, 0.6)" : "rgba(59, 130, 246, 0.3)",
-                    backgroundColor: item.highlighted ? "rgba(30, 58, 138, 0.25)" : "rgba(29, 78, 216, 0.08)",
-                    boxShadow: item.highlighted 
-                      ? "0 20px 40px rgba(59, 130, 246, 0.35)" 
-                      : "0 20px 30px rgba(0, 0, 0, 0.25)",
-                    transition: { duration: 0.3, ease: "easeOut" }
+                    y: -12, 
+                    scale: 1.03,
+                    borderColor: "rgba(96, 165, 250, 0.5)",
+                    backgroundColor: "rgba(30, 58, 138, 0.3)",
+                    boxShadow: "0 20px 45px rgba(59, 130, 246, 0.4)",
+                    transition: { duration: 0.35, ease: "easeOut" }
                   }
                 }}
-                className={`relative rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between overflow-hidden border ${
+                className={`relative rounded-2xl p-7 transition-all duration-300 flex flex-col justify-between overflow-hidden border bg-gradient-to-br from-blue-600/15 via-blue-500/8 to-sky-500/4 ${
                   item.highlighted 
-                    ? "bg-gradient-to-br from-blue-600/20 via-blue-500/10 to-sky-500/5 border-blue-500/40 shadow-[0_0_25px_rgba(59,130,246,0.2)]" 
-                    : "bg-white/3 border-white/8"
+                    ? "border-blue-500/60 shadow-[0_0_30px_rgba(59,130,246,0.3)]" 
+                    : "border-white/10 shadow-[0_0_15px_rgba(59,130,246,0.1)]"
                 }`}
               >
+                {/* Shine Sweep Animation */}
+                <motion.div
+                  variants={{
+                    initial: { x: "-150%", opacity: 0 },
+                    hover: { x: "250%", opacity: [0, 1, 1, 0], transition: { duration: 1.2, ease: "easeInOut" } }
+                  }}
+                  className="absolute inset-y-0 w-2/3 bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none -skew-x-12 z-0"
+                />
+
+                {/* Decorative corner accent glow */}
+                <div className={`absolute top-0 right-0 w-28 h-28 blur-2xl pointer-events-none transition-opacity duration-300 ${
+                  item.highlighted ? "bg-gradient-to-br from-blue-500/25 to-sky-400/20" : "bg-blue-500/5"
+                }`} />
+
                 {item.highlighted && (
-                  <span className="absolute top-4 right-4 bg-gradient-to-r from-blue-500 to-sky-500 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider text-white shadow-[0_2px_10px_rgba(59,130,246,0.5)] animate-pulse">
-                    Featured
+                  <span className="absolute top-5 right-5 bg-gradient-to-r from-blue-500 to-sky-500 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider text-white shadow-[0_2px_12px_rgba(59,130,246,0.6)] animate-pulse z-10">
+                    Featured Facility
                   </span>
                 )}
-                <div>
-                  <motion.div 
-                    variants={{
-                      initial: { scale: 1, rotate: 0 },
-                      hover: { 
-                        scale: 1.15, 
-                        rotate: [0, -10, 10, 0], 
-                        transition: { duration: 0.4, ease: "easeInOut" } 
-                      }
-                    }}
-                    className="w-8 h-8 mb-4 stroke-blue-400 flex items-center justify-center origin-center"
-                  >
-                    <svg viewBox="0 0 32 32" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full">
-                      {item.icon === "syringe" && <><path d="M8 4 L8 14 C8 17 10 19 13 19 L13 28 M16 4 L16 14 C16 17 14 19 11 19 L11 28 M6 10 L18 10" /></>}
-                      {item.icon === "microscope" && <><path d="M16 4 L16 12 L12 16 L12 24 L20 24 L20 16 L16 12 M8 24 L24 24 M16 24 L16 28" /></>}
-                      {item.icon === "calendar" && <><rect x="4" y="6" width="24" height="20" rx="2" /><line x1="4" y1="12" x2="28" y2="12" /><line x1="12" y1="4" x2="12" y2="8" /><line x1="20" y1="4" x2="20" y2="8" /></>}
-                      {item.icon === "people" && <><path d="M12 12 C12 12 8 12 8 16 L8 24 L16 24 L16 16 C16 12 12 12 12 12Z" /><circle cx="12" cy="8" r="4" /><path d="M24 12 C24 12 20 12 20 16 L20 24 L28 24 L28 16 C28 12 24 12 24 12Z" /><circle cx="24" cy="8" r="4" /></>}
-                      {item.icon === "clock" && <><circle cx="16" cy="16" r="12" /><path d="M16 8 L16 16 L22 16" /></>}
-                      {item.icon === "badge" && <><path d="M16 4 L20 8 L24 4 L24 12 L28 16 L24 20 L24 28 L20 24 L16 28 L12 24 L8 28 L8 20 L4 16 L8 12 L8 4 L12 8 Z" /></>}
-                      {item.icon === "xray" && <><rect x="6" y="6" width="20" height="20" rx="2" /><line x1="6" y1="13" x2="26" y2="13" /><line x1="6" y1="20" x2="26" y2="20" /><line x1="13" y1="6" x2="13" y2="26" /><path d="M16 10 L16 11 M16 22 L16 23 M10 16 L11 16 M22 16 L23 16" /></>}
-                      {item.icon === "shield" && <><path d="M16 4 L26 8 L26 16 C26 22 21 26 16 28 C11 26 6 22 6 16 L6 8 Z" /><path d="M11 16 L14 19 L21 12" /></>}
-                      {item.icon === "comfort" && <><path d="M12 14 C12 10 15 7 16 7 C17 7 20 10 20 14 C20 18 16 22 16 22 C16 22 12 18 12 14 Z" /><circle cx="16" cy="13" r="2" /><path d="M6 26 C6 21 10 19 16 19 C22 19 26 21 26 26" /></>}
-                    </svg>
-                  </motion.div>
+                
+                <div className="relative z-10">
+                  {/* Glowing Icon Container Wrapper */}
+                  <div className="relative w-12 h-12 mb-6">
+                    <motion.div
+                      variants={{
+                        initial: { scale: 0.8, opacity: 0.3 },
+                        hover: { scale: 1.25, opacity: 0.8, transition: { duration: 0.3 } }
+                      }}
+                      className="absolute inset-0 bg-blue-500/30 blur-md rounded-full"
+                    />
+                    <motion.div 
+                      variants={{
+                        initial: { scale: 1, rotate: 0, y: 0 },
+                        hover: { 
+                          scale: 1.1, 
+                          rotate: [0, -12, 12, 0], 
+                          y: -3, 
+                          transition: { duration: 0.5, ease: "easeInOut" } 
+                        }
+                      }}
+                      className="relative w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 stroke-blue-400"
+                    >
+                      <svg viewBox="0 0 32 32" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+                        {item.icon === "syringe" && <><path d="M8 4 L8 14 C8 17 10 19 13 19 L13 28 M16 4 L16 14 C16 17 14 19 11 19 L11 28 M6 10 L18 10" /></>}
+                        {item.icon === "microscope" && <><path d="M16 4 L16 12 L12 16 L12 24 L20 24 L20 16 L16 12 M8 24 L24 24 M16 24 L16 28" /></>}
+                        {item.icon === "calendar" && <><rect x="4" y="6" width="24" height="20" rx="2" /><line x1="4" y1="12" x2="28" y2="12" /><line x1="12" y1="4" x2="12" y2="8" /><line x1="20" y1="4" x2="20" y2="8" /></>}
+                        {item.icon === "people" && <><path d="M12 12 C12 12 8 12 8 16 L8 24 L16 24 L16 16 C16 12 12 12 12 12Z" /><circle cx="12" cy="8" r="4" /><path d="M24 12 C24 12 20 12 20 16 L20 24 L28 24 L28 16 C28 12 24 12 24 12Z" /><circle cx="24" cy="8" r="4" /></>}
+                        {item.icon === "clock" && <><circle cx="16" cy="16" r="12" /><path d="M16 8 L16 16 L22 16" /></>}
+                        {item.icon === "badge" && <><path d="M16 4 L20 8 L24 4 L24 12 L28 16 L24 20 L24 28 L20 24 L16 28 L12 24 L8 28 L8 20 L4 16 L8 12 L8 4 L12 8 Z" /></>}
+                        {item.icon === "xray" && <><rect x="6" y="6" width="20" height="20" rx="2" /><line x1="6" y1="13" x2="26" y2="13" /><line x1="6" y1="20" x2="26" y2="20" /><line x1="13" y1="6" x2="13" y2="26" /><path d="M16 10 L16 11 M16 22 L16 23 M10 16 L11 16 M22 16 L23 16" /></>}
+                        {item.icon === "shield" && <><path d="M16 4 L26 8 L26 16 C26 22 21 26 16 28 C11 26 6 22 6 16 L6 8 Z" /><path d="M11 16 L14 19 L21 12" /></>}
+                        {item.icon === "comfort" && <><path d="M12 14 C12 10 15 7 16 7 C17 7 20 10 20 14 C20 18 16 22 16 22 C16 22 12 18 12 14 Z" /><circle cx="16" cy="13" r="2" /><path d="M6 26 C6 21 10 19 16 19 C22 19 26 21 26 26" /></>}
+                      </svg>
+                    </motion.div>
+                  </div>
+
                   <motion.h3 
                     variants={{
                       initial: { x: 0 },
-                      hover: { x: 4, transition: { duration: 0.2 } }
+                      hover: { x: 5, transition: { duration: 0.25, ease: "easeOut" } }
                     }}
-                    className={`font-cormorant text-xl font-semibold mb-2 transition-colors ${
-                      item.highlighted ? "text-sky-300" : "text-white"
-                    }`}
+                    className="font-cormorant text-2xl font-semibold mb-3 text-sky-300 tracking-wide"
                   >
                     {item.title}
                   </motion.h3>
-                  <p className="text-white/60 text-sm leading-relaxed">{item.desc}</p>
+                  
+                  <p className="text-white/70 text-sm leading-relaxed font-light">
+                    {item.desc}
+                  </p>
                 </div>
               </motion.div>
             ))}
