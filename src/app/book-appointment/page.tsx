@@ -14,12 +14,6 @@ const ACCENT_COLOR = "#38bdf8"; // sky-400
 const TEXT_PRIMARY_COLOR = "#f0f9ff";
 const TEXT_MUTED_COLOR = "#94a3b8";
 
-const trustBadges = [
-  { icon: "🏆", text: "20+ Years Experience" },
-  { icon: "✨", text: "Painless Procedures" },
-  { icon: "⚡", text: "Same-Day Appointments" },
-];
-
 const servicesList = [
   "Teeth Whitening",
   "Dental Implants",
@@ -116,6 +110,12 @@ export default function BookAppointmentPage() {
     visible: { opacity: 1, y: 0 },
   };
 
+  const trustBadges = [
+    { icon: "🏆", text: tc("book.badge1", "20+ Years Experience") },
+    { icon: "✨", text: tc("book.badge2", "Painless Procedures") },
+    { icon: "⚡", text: tc("book.badge3", "Same-Day Appointments") },
+  ];
+
   return (
     <div
       className="min-h-screen text-white pt-20 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden flex items-center justify-center"
@@ -182,7 +182,7 @@ export default function BookAppointmentPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
               >
-                {tc("home.heroTitle", "Dental Point")}
+                {tc("home.heroTitle", "ডা: জেরীনের")}
               </motion.h2>
               <motion.p
                 className="text-xl text-[#94a3b8] mb-8"

@@ -37,6 +37,9 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     setLocale(locale === "en" ? "bn" : "en");
   }, [locale, setLocale]);
 
+  // Translation rule: add new user-facing copy to en.json first, then bn.json when available.
+  // Any future page/component/button can be localized by adding keys only; tc() will safely
+  // fall back to English whenever a Bengali key is missing, so UI changes never break.
   // tc: safe path-based lookup — falls back to EN if BN key is missing, then to fallback param
   const tc = useCallback(<T,>(path: string, fallback?: T) => {
     const current = getNestedValue(translations[locale], path);

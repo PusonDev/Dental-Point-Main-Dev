@@ -6,7 +6,7 @@ import { useLanguage } from "@/context/LanguageContext";
 export default function PatientLayoutClient({ children }: { children: React.ReactNode }) {
   const { t } = useLanguage();
   const nav: NavItem[] = [
-    { href: "/dashboard", label: "Home", icon: "🏠" },
+    { href: "/dashboard", label: t.dashboard.home, icon: "🏠" },
     { href: "/dashboard/history", label: t.dashboard.history, icon: "📋" },
     { href: "/dashboard/reports", label: t.dashboard.reports, icon: "📄" },
     { href: "/dashboard/appointments", label: t.dashboard.appointments, icon: "📅" },
@@ -15,7 +15,7 @@ export default function PatientLayoutClient({ children }: { children: React.Reac
   ];
 
   return (
-    <DashboardShell title="Patient Portal" nav={nav}>
+    <DashboardShell title={t.dashboard.patientPortal} nav={nav}>
       {children}
     </DashboardShell>
   );

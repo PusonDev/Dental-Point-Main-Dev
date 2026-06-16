@@ -4,8 +4,7 @@ import { CLINIC_INFO } from "@/lib/clinic-info";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function MiniMap() {
-  const { locale } = useLanguage();
-
+  const { locale, t } = useLanguage();
   const mapUrl = `https://www.google.com/maps?q=${CLINIC_INFO.address.coordinates.lat},${CLINIC_INFO.address.coordinates.lng}&z=17&output=embed`;
 
   return (
@@ -28,7 +27,7 @@ export default function MiniMap() {
             rel="noopener noreferrer"
             className="text-primary hover:underline text-sm"
           >
-            Open in Google Maps →
+            {t.home.openMaps}
           </a>
         </div>
       </div>

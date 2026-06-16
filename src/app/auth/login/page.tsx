@@ -41,7 +41,7 @@ function LoginForm() {
         err.message.toLowerCase().includes("invalid") ||
         err.message.toLowerCase().includes("credentials")
       ) {
-        setError("Invalid phone number or password. Please try again.");
+        setError(t.auth.invalidCredentials);
       } else {
         setError(err.message);
       }
@@ -94,7 +94,7 @@ function LoginForm() {
               {t.auth.login}
             </h1>
             <p className="text-sm text-slate-400">
-              Sign in to your patient account
+              {t.auth.loginPrompt}
             </p>
           </div>
 
@@ -134,7 +134,7 @@ function LoginForm() {
                   type={showPassword ? "text" : "password"}
                   required
                   className="w-full bg-[#0f172a]/50 border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 transition-colors pr-12"
-                  placeholder="Your password"
+                placeholder={t.auth.yourPassword}
                 />
                 <button
                   type="button"
@@ -160,7 +160,7 @@ function LoginForm() {
               {loading ? (
                 <div className="flex items-center justify-center gap-2">
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  <span>Signing in...</span>
+                  <span>{t.auth.signingIn}</span>
                 </div>
               ) : (
                 t.auth.login
@@ -169,7 +169,7 @@ function LoginForm() {
           </form>
 
           <p className="text-center text-sm mt-8 text-slate-400">
-            New patient?{" "}
+            {t.auth.newPatientPrompt}{" "}
             <Link href="/auth/signup" className="text-blue-400 hover:text-blue-300 font-medium transition-colors">
               {t.auth.signup}
             </Link>

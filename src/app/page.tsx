@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, useInView, useAnimation } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
+import WebsiteQR from "@/components/WebsiteQR";
 const services = [
   {
     title: "Root Canal Treatment",
@@ -501,40 +502,103 @@ export default function HomePage() {
       </section>
 
       {/* Services Section */}
-      <section className="py-20 bg-[#0f2040]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative py-24 bg-[#0f2040] overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-[-10%] left-[-10%] w-[32rem] h-[32rem] rounded-full bg-sky-500/10 blur-[140px]" />
+          <div className="absolute top-[15%] right-[-12%] w-[26rem] h-[26rem] rounded-full bg-blue-500/10 blur-[140px]" />
+          <div className="absolute bottom-[-12%] left-[20%] w-[24rem] h-[24rem] rounded-full bg-cyan-500/10 blur-[140px]" />
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.7 }}
             className="text-center mb-16"
           >
-            <h2 className="font-cormorant text-4xl md:text-5xl font-semibold mb-4">
-              Our Services
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1 text-xs font-semibold uppercase tracking-[0.26em] text-sky-300 backdrop-blur-md">
+              {t.services.title}
+            </span>
+            <h2 className="mt-5 font-cormorant text-4xl md:text-6xl font-semibold leading-tight">
+              {t.services.pageHeadline}
             </h2>
-            <p className="text-white/60 max-w-2xl mx-auto">
-              Comprehensive dental care tailored to your needs
+            <p className="mt-5 text-white/60 max-w-2xl mx-auto text-base md:text-lg">
+              {t.services.pageTagline}
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 perspective-[1200px]">
             {services.map((service, index) => (
-              <ServiceCard key={index} service={service} index={index} />
+              <motion.article
+                key={index}
+                initial={{ opacity: 0, y: 26, scale: 0.98 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ delay: index * 0.05, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -10, rotateX: 4, rotateY: -4 }}
+                className="group relative overflow-hidden rounded-[1.85rem] border border-white/10 bg-white/[0.035] p-6 shadow-[0_18px_50px_rgba(2,6,23,0.24)] backdrop-blur-xl"
+              >
+                <motion.div
+                  className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.18),transparent_45%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                  aria-hidden="true"
+                />
+                <motion.div
+                  animate={{ scale: [1, 1.12, 1], opacity: [0.3, 0.65, 0.3] }}
+                  transition={{ duration: 7.5, repeat: Infinity, ease: "easeInOut" }}
+                  className={`absolute -right-10 -top-10 h-36 w-36 rounded-full ${service.color === "blue" ? "bg-blue-400/15" : "bg-sky-400/15"} blur-3xl`}
+                  aria-hidden="true"
+                />
+                <div className="relative z-10">
+                  <motion.div
+                    whileHover={{ rotate: [0, -8, 8, 0], scale: 1.08 }}
+                    transition={{ duration: 0.45 }}
+                    className={`mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border ${
+                      service.color === "blue"
+                        ? "border-blue-400/20 bg-blue-400/10 text-blue-300"
+                        : "border-sky-400/20 bg-sky-400/10 text-sky-300"
+                    } shadow-[0_0_24px_rgba(56,189,248,0.12)]`}
+                  >
+                    <div className={`w-7 h-7 ${service.color === "blue" ? "stroke-blue-400" : "stroke-sky-400"}`}>
+                      {iconMap[service.icon]}
+                    </div>
+                  </motion.div>
+                  <h3 className="font-cormorant text-2xl font-semibold mb-3 text-sky-300 tracking-wide">
+                    {service.title}
+                  </h3>
+                  <p className="text-white/70 text-sm leading-relaxed font-light">
+                    {service.desc}
+                  </p>
+                </div>
+                <motion.div
+                  className="absolute bottom-4 right-4 h-10 w-10 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm opacity-0 group-hover:opacity-100"
+                  animate={{ y: [0, -4, 0] }}
+                  transition={{ duration: 4.2, repeat: Infinity, delay: index * 0.08 }}
+                />
+              </motion.article>
             ))}
           </div>
         </div>
       </section>
 
       {/* Doctor Section */}
-      <section className="py-20 bg-[#050d1a]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <section className="relative overflow-hidden py-20 bg-[#050d1a]">
+        <div className="absolute -left-20 top-10 h-56 w-56 rounded-full bg-cyan-500/10 blur-3xl" />
+        <div className="absolute right-0 top-1/3 h-72 w-72 rounded-full bg-violet-500/10 blur-3xl" />
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] items-center"
+          >
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
               className="relative"
             >
               <motion.div
@@ -546,233 +610,153 @@ export default function HomePage() {
                   ],
                 }}
                 transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-                className="relative bg-gradient-to-br from-[#0f2040] to-[#0a1628] rounded-3xl p-8 border border-blue-500/18 aspect-square flex items-center justify-center"
+                className="relative aspect-square rounded-[2.5rem] border border-blue-500/20 bg-gradient-to-br from-[#0f2040] to-[#0a1628] p-8 shadow-2xl shadow-slate-950/30"
               >
-                <div className="text-9xl">👩‍⚕️</div>
-
-                <motion.div
-                  animate={{
-                    translateY: [0, -6, 0],
-                  }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute bottom-6 right-6 bg-[#0a1628]/85 backdrop-blur-xl border border-blue-500/20 rounded-xl px-4 py-2 text-sm text-white/80"
-                >
-                  5+ Years Experience
-                </motion.div>
-
-                <motion.div
-                  animate={{
-                    translateY: [0, -6, 0],
-                  }}
-                  transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: -2 }}
-                  className="absolute top-6 left-6 bg-[#0a1628]/85 backdrop-blur-xl border border-blue-500/20 rounded-xl px-4 py-2 text-sm text-white/80"
-                >
-                  🏥 Bangladesh Bank Consultant
-                </motion.div>
+                <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-cyan-500/20 to-transparent rounded-b-[2.5rem]" />
+                <div className="absolute inset-0 rounded-[2.5rem] bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.18),transparent_40%)]" />
+                <div className="relative z-10 flex h-full flex-col items-center justify-center gap-10 text-center">
+                  <div className="flex h-24 w-24 items-center justify-center rounded-[2.25rem] bg-cyan-500/10 text-6xl shadow-inner shadow-cyan-500/10">
+                    👩‍⚕️
+                  </div>
+                  <motion.div
+                    animate={{ y: [0, -8, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    className="rounded-3xl bg-slate-950/80 px-5 py-3 text-sm text-white/80 shadow-lg shadow-slate-950/20"
+                  >
+                    5+ Years Experience
+                  </motion.div>
+                  <motion.div
+                    animate={{ y: [0, -8, 0] }}
+                    transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: -2 }}
+                    className="rounded-3xl bg-slate-950/80 px-5 py-3 text-sm text-white/80 shadow-lg shadow-slate-950/20"
+                  >
+                    🏥 Bangladesh Bank Consultant
+                  </motion.div>
+                </div>
               </motion.div>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <span className="text-sky-400 text-sm font-medium mb-2 block">
-                Meet Your Doctor
-              </span>
-              <h2 className="font-cormorant text-4xl md:text-5xl font-semibold mb-4">
-                Dr. Jarin Tasnim <span className="text-[#1d4ed8]">Rahman</span>
-              </h2>
-              <div className="w-10 h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent mb-6" />
+            <div className="space-y-8">
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+                className="rounded-[2rem] border border-white/10 bg-slate-950/95 p-10 shadow-2xl shadow-slate-950/30"
+              >
+                <span className="text-sky-400 text-sm font-medium uppercase tracking-[0.24em]">
+                  Meet Your Doctor
+                </span>
+                <h2 className="mt-4 text-4xl font-semibold text-white md:text-5xl">
+                  Dr. Jarin Tasnim <span className="text-cyan-400">Rahman</span>
+                </h2>
+                <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                  <div className="rounded-3xl border border-white/10 bg-white/5 p-5 text-slate-300 shadow-[0_20px_80px_rgba(14,116,144,0.12)]">
+                    <p className="text-sm uppercase tracking-[0.2em] text-cyan-300">Experience</p>
+                    <p className="mt-3 text-3xl font-semibold text-white">10+ Years</p>
+                  </div>
+                  <div className="rounded-3xl border border-white/10 bg-white/5 p-5 text-slate-300 shadow-[0_20px_80px_rgba(124,58,237,0.12)]">
+                    <p className="text-sm uppercase tracking-[0.2em] text-violet-300">Consultant</p>
+                    <p className="mt-3 text-3xl font-semibold text-white">Bangladesh Bank</p>
+                  </div>
+                </div>
+                <p className="mt-8 text-slate-300 leading-8">
+                  Dr. Jarin Tasnim Rahman is a dedicated dentist committed to providing exceptional dental care with a gentle touch. With expertise in various dental procedures, she ensures each patient receives personalized treatment in a comfortable environment.
+                </p>
+                <ul className="mt-8 grid gap-3 text-slate-300 text-sm sm:grid-cols-2">
+                  <li className="rounded-3xl border border-white/10 bg-white/5 px-4 py-3">BDS — University of Dhaka</li>
+                  <li className="rounded-3xl border border-white/10 bg-white/5 px-4 py-3">BMDC Registration No. 8291</li>
+                  <li className="rounded-3xl border border-white/10 bg-white/5 px-4 py-3">PGT — Conservative Dentistry, BSMMU</li>
+                  <li className="rounded-3xl border border-white/10 bg-white/5 px-4 py-3">OMS — Shaheed Suhrawardy Medical College & Hospital</li>
+                  <li className="rounded-3xl border border-white/10 bg-white/5 px-4 py-3">Consultant Dentist, Bangladesh Bank</li>
+                </ul>
+              </motion.div>
 
-              <p className="text-white/70 mb-6 leading-relaxed">
-                Dr. Jarin Tasnim Rahman is a dedicated dentist committed to providing
-                exceptional dental care with a gentle touch. With expertise in various
-                dental procedures, she ensures each patient receives personalized
-                treatment in a comfortable environment.
-              </p>
+              <motion.blockquote
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+                className="rounded-[2rem] border border-cyan-500/20 bg-cyan-500/10 p-8 text-slate-100 shadow-xl shadow-cyan-500/10"
+              >
+                <p className="text-xl font-semibold italic">
+                  “Every patient deserves a smile they&apos;re proud to share — that&apos;s my commitment to you.”
+                </p>
+              </motion.blockquote>
 
-              <ul className="space-y-3 mb-6">
-                <li className="flex items-start gap-3 text-white/80">
-                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2" />
-                  BDS — University of Dhaka
-                </li>
-                <li className="flex items-start gap-3 text-white/80">
-                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2" />
-                  BMDC Registration No. 8291
-                </li>
-                <li className="flex items-start gap-3 text-white/80">
-                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2" />
-                  PGT — Conservative Dentistry, BSMMU
-                </li>
-                <li className="flex items-start gap-3 text-white/80">
-                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2" />
-                  OMS — Shaheed Suhrawardy Medical College & Hospital
-                </li>
-                <li className="flex items-start gap-3 text-white/80">
-                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2" />
-                  Consultant Dentist, Bangladesh Bank
-                </li>
-              </ul>
-
-              <blockquote className="font-cormorant italic text-white/60 text-lg mb-6 border-l-2 border-blue-500/30 pl-4">
-                {"\"Every patient deserves a smile they're proud to share — that's my commitment to you.\""}
-              </blockquote>
-
-              <Link href="/book-appointment" className="btn-primary inline-block">
-                Book Appointment
-              </Link>
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-24 bg-[#0f2040] relative overflow-hidden">
-        {/* Background glow accents */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" />
+      <section className="relative py-24 bg-[#0f2040] overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-[-12%] left-[8%] w-[26rem] h-[26rem] rounded-full bg-blue-500/8 blur-[140px]" />
+          <div className="absolute bottom-[-10%] right-[10%] w-[28rem] h-[28rem] rounded-full bg-sky-500/8 blur-[140px]" />
+        </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="text-center mb-20"
+            transition={{ duration: 0.7 }}
+            className="text-center mb-16"
           >
-            <span className="text-blue-400 text-xs font-bold tracking-widest uppercase mb-3 block">
-              Our Patient-First Promise
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1 text-xs font-semibold uppercase tracking-[0.26em] text-sky-300 backdrop-blur-md">
+              {t.home.patientPromise}
             </span>
-            <h2 className="font-cormorant text-4xl md:text-5xl font-light mb-4">
-              Why <span className="italic font-normal text-sky-400">Choose Us</span>
+            <h2 className="mt-5 font-cormorant text-4xl md:text-6xl font-light">
+              {t.home.whyChooseUs}
             </h2>
-            <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-sky-400 mx-auto rounded-full mb-4" />
-            <p className="text-white/60 max-w-2xl mx-auto text-base">
-              Experience the difference of patient-centered dental care with modern technology.
+            <p className="mt-5 text-white/60 max-w-2xl mx-auto text-base md:text-lg">
+              {t.home.whyChooseUsSub}
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
-              {
-                title: "Dental X-Ray",
-                desc: "In-house single-tooth X-rays. For full-mouth scans, our partners offer identical standard prices.",
-                icon: "xray",
-                highlighted: true
-              },
-              {
-                title: "Pain-Free Care",
-                desc: "Gentle techniques and local anesthesia to ensure a highly comfortable, painless experience.",
-                icon: "syringe"
-              },
-              {
-                title: "Advanced Equipment",
-                desc: "State-of-the-art dental technology for highly precise, comfortable, and efficient treatments.",
-                icon: "microscope"
-              },
-              {
-                title: "Easy Online Booking",
-                desc: "Schedule, reschedule, or manage your dental appointments online instantly with ease.",
-                icon: "calendar"
-              },
-              {
-                title: "Family Friendly",
-                desc: "A warm, welcoming dental clinic environment designed for patients of all age groups.",
-                icon: "people"
-              },
-              {
-                title: "Flexible Hours",
-                desc: "Convenient morning and evening timings tailored to fit your busy daily schedule.",
-                icon: "clock"
-              },
-              {
-                title: "BMDC Certified",
-                desc: "Complete peace of mind with qualified professionals registered under the BMDC.",
-                icon: "badge"
-              },
-              {
-                title: "Strict Sterilization",
-                desc: "100% safe environment with multi-stage autoclave sterilization for all surgical tools.",
-                icon: "shield"
-              },
-              {
-                title: "Premium Comfort",
-                desc: "Soothing, modern setup designed to keep dental anxiety away and make you feel at home.",
-                icon: "comfort"
-              }
+              { title: "Dental X-Ray", desc: "In-house single-tooth X-rays. For full-mouth scans, our partners offer identical standard prices.", icon: "xray", highlighted: true },
+              { title: "Pain-Free Care", desc: "Gentle techniques and local anesthesia to ensure a highly comfortable, painless experience.", icon: "syringe" },
+              { title: "Advanced Equipment", desc: "State-of-the-art dental technology for highly precise, comfortable, and efficient treatments.", icon: "microscope" },
+              { title: "Easy Online Booking", desc: "Schedule, reschedule, or manage your dental appointments online instantly with ease.", icon: "calendar" },
+              { title: "Family Friendly", desc: "A warm, welcoming dental clinic environment designed for patients of all age groups.", icon: "people" },
+              { title: "Flexible Hours", desc: "Convenient morning and evening timings tailored to fit your busy daily schedule.", icon: "clock" },
+              { title: "BMDC Certified", desc: "Complete peace of mind with qualified professionals registered under the BMDC.", icon: "badge" },
+              { title: "Strict Sterilization", desc: "100% safe environment with multi-stage autoclave sterilization for all surgical tools.", icon: "shield" },
+              { title: "Premium Comfort", desc: "Soothing, modern setup designed to keep dental anxiety away and make you feel at home.", icon: "comfort" }
             ].map((item, index) => (
-              <motion.div
+              <motion.article
                 key={index}
-                initial="initial"
-                whileInView="animate"
-                whileHover="hover"
-                viewport={{ once: true }}
-                variants={{
-                  initial: { opacity: 0, y: 40 },
-                  animate: { 
-                    opacity: 1, 
-                    y: 0, 
-                    transition: { delay: index * 0.06, duration: 0.8, ease: [0.16, 1, 0.3, 1] } 
-                  },
-                  hover: { 
-                    y: -12, 
-                    scale: 1.03,
-                    borderColor: "rgba(96, 165, 250, 0.5)",
-                    backgroundColor: "rgba(30, 58, 138, 0.3)",
-                    boxShadow: "0 20px 45px rgba(59, 130, 246, 0.4)",
-                    transition: { duration: 0.35, ease: "easeOut" }
-                  }
-                }}
-                className={`relative rounded-2xl p-7 transition-all duration-300 flex flex-col justify-between overflow-hidden border bg-gradient-to-br from-blue-600/15 via-blue-500/8 to-sky-500/4 ${
-                  item.highlighted 
-                    ? "border-blue-500/60 shadow-[0_0_30px_rgba(59,130,246,0.3)]" 
-                    : "border-white/10 shadow-[0_0_15px_rgba(59,130,246,0.1)]"
+                initial={{ opacity: 0, y: 28, scale: 0.98 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ delay: index * 0.05, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -10, scale: 1.02 }}
+                className={`group relative overflow-hidden rounded-[1.85rem] border p-6 backdrop-blur-xl shadow-[0_18px_50px_rgba(2,6,23,0.24)] ${
+                  item.highlighted
+                    ? "border-blue-400/35 bg-gradient-to-br from-blue-500/18 to-sky-500/8"
+                    : "border-white/10 bg-white/[0.035]"
                 }`}
               >
-                {/* Shine Sweep Animation */}
                 <motion.div
-                  variants={{
-                    initial: { x: "-150%", opacity: 0 },
-                    hover: { x: "250%", opacity: [0, 1, 1, 0], transition: { duration: 1.2, ease: "easeInOut" } }
-                  }}
-                  className="absolute inset-y-0 w-2/3 bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none -skew-x-12 z-0"
+                  className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.16),transparent_45%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                  aria-hidden="true"
                 />
-
-                {/* Decorative corner accent glow */}
-                <div className={`absolute top-0 right-0 w-28 h-28 blur-2xl pointer-events-none transition-opacity duration-300 ${
-                  item.highlighted ? "bg-gradient-to-br from-blue-500/25 to-sky-400/20" : "bg-blue-500/5"
-                }`} />
-
-                {item.highlighted && (
-                  <span className="absolute top-5 right-5 bg-gradient-to-r from-blue-500 to-sky-500 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider text-white shadow-[0_2px_12px_rgba(59,130,246,0.6)] animate-pulse z-10">
-                    Featured Facility
-                  </span>
-                )}
-                
+                <motion.div
+                  animate={{ y: [0, -6, 0], opacity: [0.25, 0.7, 0.25] }}
+                  transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: index * 0.1 }}
+                  className="absolute -right-6 top-4 h-20 w-20 rounded-full bg-sky-400/10 blur-2xl"
+                />
                 <div className="relative z-10">
-                  {/* Glowing Icon Container Wrapper */}
-                  <div className="relative w-12 h-12 mb-6">
-                    <motion.div
-                      variants={{
-                        initial: { scale: 0.8, opacity: 0.3 },
-                        hover: { scale: 1.25, opacity: 0.8, transition: { duration: 0.3 } }
-                      }}
-                      className="absolute inset-0 bg-blue-500/30 blur-md rounded-full"
-                    />
-                    <motion.div 
-                      variants={{
-                        initial: { scale: 1, rotate: 0, y: 0 },
-                        hover: { 
-                          scale: 1.1, 
-                          rotate: [0, -12, 12, 0], 
-                          y: -3, 
-                          transition: { duration: 0.5, ease: "easeInOut" } 
-                        }
-                      }}
-                      className="relative w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 stroke-blue-400"
-                    >
-                      <svg viewBox="0 0 32 32" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+                  <motion.div
+                    whileHover={{ rotate: [0, -8, 8, 0], scale: 1.08 }}
+                    transition={{ duration: 0.45 }}
+                    className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border border-sky-400/20 bg-sky-400/10 text-sky-300 shadow-[0_0_24px_rgba(56,189,248,0.12)]"
+                  >
+                    <div className="w-7 h-7 stroke-blue-400">
+                      <svg viewBox="0 0 32 32" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
                         {item.icon === "syringe" && <><path d="M8 4 L8 14 C8 17 10 19 13 19 L13 28 M16 4 L16 14 C16 17 14 19 11 19 L11 28 M6 10 L18 10" /></>}
                         {item.icon === "microscope" && <><path d="M16 4 L16 12 L12 16 L12 24 L20 24 L20 16 L16 12 M8 24 L24 24 M16 24 L16 28" /></>}
                         {item.icon === "calendar" && <><rect x="4" y="6" width="24" height="20" rx="2" /><line x1="4" y1="12" x2="28" y2="12" /><line x1="12" y1="4" x2="12" y2="8" /><line x1="20" y1="4" x2="20" y2="8" /></>}
@@ -783,106 +767,48 @@ export default function HomePage() {
                         {item.icon === "shield" && <><path d="M16 4 L26 8 L26 16 C26 22 21 26 16 28 C11 26 6 22 6 16 L6 8 Z" /><path d="M11 16 L14 19 L21 12" /></>}
                         {item.icon === "comfort" && <><path d="M12 14 C12 10 15 7 16 7 C17 7 20 10 20 14 C20 18 16 22 16 22 C16 22 12 18 12 14 Z" /><circle cx="16" cy="13" r="2" /><path d="M6 26 C6 21 10 19 16 19 C22 19 26 21 26 26" /></>}
                       </svg>
-                    </motion.div>
-                  </div>
-
-                  <motion.h3 
-                    variants={{
-                      initial: { x: 0 },
-                      hover: { x: 5, transition: { duration: 0.25, ease: "easeOut" } }
-                    }}
-                    className="font-cormorant text-2xl font-semibold mb-3 text-sky-300 tracking-wide"
-                  >
+                    </div>
+                  </motion.div>
+                  <h3 className="font-cormorant text-2xl font-semibold mb-3 text-sky-300 tracking-wide">
                     {item.title}
-                  </motion.h3>
-                  
+                  </h3>
                   <p className="text-white/70 text-sm leading-relaxed font-light">
                     {item.desc}
                   </p>
                 </div>
-              </motion.div>
+                {item.highlighted && (
+                  <span className="absolute top-5 right-5 rounded-full bg-gradient-to-r from-blue-500 to-sky-500 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-[0_2px_12px_rgba(59,130,246,0.6)]">
+                    {t.home.featuredFacility}
+                  </span>
+                )}
+              </motion.article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-[#050d1a] relative overflow-hidden">
-        <div className="absolute inset-0 flex items-center justify-center">
-          {[1, 2, 3].map((i) => (
-            <motion.div
-              key={i}
-              animate={{
-                scale: [1, 1.5, 2],
-                opacity: [0.5, 0.3, 0],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                delay: i * 1,
-                ease: "easeOut",
-              }}
-              className="absolute border border-blue-500/12 rounded-full"
-              style={{
-                width: `${300 + i * 200}px`,
-                height: `${300 + i * 200}px`,
-              }}
-            />
-          ))}
-        </div>
-
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="font-cormorant text-4xl md:text-5xl font-semibold mb-4">
-              Ready to Love Your Smile?
-            </h2>
-            <p className="text-white/60 mb-8 max-w-2xl mx-auto">
-              Book your appointment today and take the first step towards a healthier,
-              brighter smile.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link
-                href="/book-appointment"
-                className="btn-primary px-8 py-3 text-lg"
-              >
-                📅 Book Your Appointment
-              </Link>
-              <a
-                href="tel:+8801616753364"
-                className="btn-secondary px-8 py-3 text-lg"
-              >
-                📞 01616 753364
-              </a>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Contact Section */}
-      <section id="contact" className="py-24 relative overflow-hidden scroll-mt-24">
+      <section id="contact" className="py-20 relative overflow-hidden scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              {t.home.contactTitle || "Contact Us"}
-            </h2>
-            <p className="text-white/60 max-w-2xl mx-auto">
-              {t.home.contactSub || "Get in touch with us for any queries or appointments"}
-            </p>
-          </motion.div>
+          <div className="mx-auto max-w-5xl">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-2xl md:text-3xl font-bold mb-2">
+                {t.home.contactTitle || "Contact Us"}
+              </h2>
+              <p className="text-white/70 max-w-2xl mx-auto text-sm leading-relaxed">
+                {t.home.contactSub || "Get in touch with us for any queries or appointments"}
+              </p>
+            </motion.div>
 
-          <div className="grid lg:grid-cols-2 gap-8">
-            <div className="space-y-4">
+            <div className="grid lg:grid-cols-3 gap-6 items-center">
+              {/* Left Column - Contact Information */}
+              <div className="lg:col-span-1 w-full max-w-md space-y-2">
               {[
                 { icon: "📍", text: t.home.address || "1/1, East Bashabo, Kodomtola, Shobujbag, Dhaka-1214" },
                 { icon: "📞", text: t.home.phone || "01616 753364" },
@@ -895,27 +821,33 @@ export default function HomePage() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1, duration: 0.5 }}
-                  className="bg-white/3 border border-white/8 rounded-xl p-5 hover:translate-x-1 transition-transform duration-300"
+                  className="bg-white/5 border border-white/10 rounded-lg p-3 hover:translate-x-1 transition-transform duration-300"
                 >
-                  <p className="text-white/80 flex items-center gap-3">
-                    <span className="text-xl">{item.icon}</span>
+                  <p className="text-white/80 flex items-center gap-2 text-sm">
+                    <span className="text-base">{item.icon}</span>
                     {item.text}
                   </p>
                 </motion.div>
               ))}
             </div>
 
+            {/* Middle Column - QR Code */}
+            <div className="lg:col-span-1 flex items-center justify-center w-full max-w-sm justify-self-center">
+              <WebsiteQR url="https://drjerin.vercel.app" />
+            </div>
+
+            {/* Right Column - Map */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="rounded-2xl overflow-hidden border border-blue-500/20"
+              className="lg:col-span-1 w-full rounded-2xl overflow-hidden border border-blue-500/20 max-w-[360px] justify-self-end"
             >
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3652.227581177651!2d90.431981!3d23.738361!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDQ0JzE4LjEiTiA5MMKwMjUnNTUuMSJF!5e0!3m2!1sbn!2sbd!4v1716320000000!5m2!1sbn!2sbd"
+                src="https://www.google.com/maps?q=23.73808699655296,90.435180474787&z=16&output=embed"
                 width="100%"
-                height="380"
+                height="220"
                 style={{ border: 0, filter: "brightness(0.85) saturate(1.2)" }}
                 allowFullScreen={true}
                 loading="lazy"
@@ -923,6 +855,48 @@ export default function HomePage() {
               />
             </motion.div>
           </div>
+        </div>
+      </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="relative py-6 bg-[#050d1a] overflow-hidden">
+        <div className="absolute inset-0 flex items-center justify-center">
+          {[1, 2, 3].map((i) => (
+            <motion.div
+              key={i}
+              animate={{ scale: [1, 1.45, 2], opacity: [0.35, 0.18, 0] }}
+              transition={{ duration: 3.5, repeat: Infinity, delay: i * 0.9, ease: "easeOut" }}
+              className="absolute border border-blue-500/12 rounded-full"
+              style={{ width: `${240 + i * 140}px`, height: `${240 + i * 140}px` }}
+            />
+          ))}
+        </div>
+        <div className="relative z-10 max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.65 }}
+            className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-5 sm:p-6 text-center backdrop-blur-xl shadow-[0_20px_50px_rgba(2,6,23,0.35)]"
+          >
+            <p className="text-sky-400 text-[10px] font-bold tracking-[0.28em] uppercase mb-2 block">
+              Ready to smile better?
+            </p>
+            <h2 className="font-cormorant text-3xl font-semibold mb-2">
+              Ready to Love Your Smile?
+            </h2>
+            <p className="text-white/60 mb-5 max-w-lg mx-auto text-sm leading-relaxed">
+              Book your appointment today and take the first step towards a healthier, brighter smile.
+            </p>
+            <div className="flex flex-wrap justify-center gap-2">
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <a href="tel:+8801616753364" className="btn-secondary px-5 py-2 text-sm">
+                  📞 01616 753364
+                </a>
+              </motion.div>
+            </div>
+          </motion.div>
         </div>
       </section>
     </>

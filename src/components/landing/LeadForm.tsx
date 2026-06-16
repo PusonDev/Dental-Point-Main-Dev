@@ -25,7 +25,7 @@ export default function LeadForm() {
     });
     setLoading(false);
     if (!res.ok) {
-      setError("Something went wrong. Please try again.");
+      setError(t.landing.somethingWrong);
       return;
     }
     setDone(true);
@@ -59,7 +59,7 @@ export default function LeadForm() {
       <button type="submit" disabled={loading} className="btn-primary w-full">
         {loading ? t.common.loading : `${t.landing.submit} →`}
       </button>
-      <p className="text-center text-xs text-gray-500">✓ 100% Free ✓ No Spam</p>
+      <p className="text-center text-xs text-gray-500">{t.landing.freeNoSpam}</p>
     </form>
   );
 }

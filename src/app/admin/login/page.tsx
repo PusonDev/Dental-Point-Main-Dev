@@ -4,7 +4,7 @@ import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
-import BuiltBy from "@/components/layout/BuiltBy";
+import { useLanguage } from "@/context/LanguageContext";
 import { CLINIC_INFO } from "@/lib/clinic-info";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 
@@ -18,6 +18,7 @@ function AdminLoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const { t } = useLanguage();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -46,7 +47,7 @@ function AdminLoginForm() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0f172a] relative overflow-hidden flex flex-col justify-between">
+    <div className="min-h-screen bg-[#0f172a] relative overflow-hidden flex flex-col justify-start pt-56 pb-10">
       {/* Background Glow Effects */}
       <motion.div
         animate={{
@@ -65,9 +66,9 @@ function AdminLoginForm() {
         className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-sky-500/10 rounded-full blur-[150px] pointer-events-none"
       />
 
-      <header className="py-6 px-4 text-center text-white relative z-10">
+      <header className="pb-6 px-4 text-center text-white relative z-10">
         <h1 className="font-bold text-2xl tracking-tight">{CLINIC_INFO.name}</h1>
-        <p className="text-sm text-blue-400 mt-1 font-medium">Secure Staff Portal</p>
+        <p className="text-sm text-blue-400 mt-3 font-medium">{t.auth.secureStaffPortal}</p>
       </header>
 
       <div className="flex-1 flex items-center justify-center p-4 relative z-10 w-full">
@@ -75,9 +76,9 @@ function AdminLoginForm() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="w-full max-w-sm"
+          className="w-full max-w-xs"
         >
-          <div className="bg-[#1e293b]/60 backdrop-blur-xl border border-white/10 shadow-[0_0_40px_rgba(59,130,246,0.15)] rounded-3xl p-6 sm:p-8">
+          <div className="bg-[#1e293b]/60 backdrop-blur-xl border border-white/10 shadow-[0_0_30px_rgba(59,130,246,0.15)] rounded-3xl p-5 sm:p-6">
             <div className="text-center mb-8">
               <motion.div
                 initial={{ scale: 0 }}
@@ -87,9 +88,9 @@ function AdminLoginForm() {
               >
                 <span className="text-3xl">🔐</span>
               </motion.div>
-              <h2 className="text-2xl font-bold text-white tracking-tight">Admin Panel</h2>
+              <h2 className="text-2xl font-bold text-white tracking-tight">{t.auth.adminPanel}</h2>
               <p className="text-sm text-slate-400 mt-1">
-                Enter your credentials to access the panel
+                {t.auth.adminPanelSub}
               </p>
             </div>
 
@@ -106,7 +107,7 @@ function AdminLoginForm() {
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-1.5">
-                  Email *
+                  {t.auth.emailLabel}
                 </label>
                 <input
                   type="email"
@@ -121,7 +122,7 @@ function AdminLoginForm() {
 
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-1.5">
-                  Password *
+                  {t.auth.passwordLabel}
                 </label>
                 <div className="relative">
                   <input
@@ -157,27 +158,24 @@ function AdminLoginForm() {
                 {loading ? (
                   <div className="flex items-center justify-center gap-2">
                     <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    <span>Authenticating...</span>
+                    <span>{t.auth.authenticating}</span>
                   </div>
                 ) : (
-                  "Secure Login"
+                  t.auth.secureLogin
                 )}
               </motion.button>
             </form>
 
             <p className="text-center text-sm mt-6 text-slate-400">
-              Patient account?{" "}
+              {t.auth.patientAccount}{" "}
               <a href="/auth/login" className="text-blue-400 hover:text-blue-300 transition-colors font-medium">
-                Login here
+                {t.auth.loginHere}
               </a>
             </p>
           </div>
         </motion.div>
       </div>
 
-      <div className="relative z-10 pb-6 text-slate-500">
-        <BuiltBy />
-      </div>
     </div>
   );
 }

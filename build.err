@@ -1,0 +1,15 @@
+Failed to compile.
+
+./src/context/LanguageContext.tsx:11:58
+Type error: Type '{ nav: { home: string; services: string; contact: string; book: string; login: string; signIn: string; signup: string; dashboard: string; logout: string; }; home: { heroTitle: string; heroSubtitle: string; ... 41 more ...; contactHelp: string; }; ... 6 more ...; common: { ...; }; }' is not assignable to type '{ nav: { home: string; services: string; contact: string; book: string; login: string; signIn: string; signup: string; dashboard: string; logout: string; }; home: { heroTitle: string; heroSubtitle: string; ... 41 more ...; contactHelp: string; }; ... 6 more ...; common: { ...; }; }'. Two different types with this name exist, but they are unrelated.
+  Types of property '"dashboard"' are incompatible.
+    Type '{ welcome: string; history: string; reports: string; appointments: string; payments: string; profile: string; bookNew: string; }' is missing the following properties from type '{ welcome: string; history: string; reports: string; appointments: string; payments: string; profile: string; bookNew: string; home: string; patientPortal: string; manageRecords: string; downloadPdf: string; }': "home", "patientPortal", "manageRecords", "downloadPdf"
+
+[0m [90m  9 |[39m type [33mTranslations[39m [33m=[39m [36mtypeof[39m en[33m;[39m[0m
+[0m [90m 10 |[39m[0m
+[0m[31m[1m>[22m[39m[90m 11 |[39m [36mconst[39m translations[33m:[39m [33mRecord[39m[33m<[39m[33mLocale[39m[33m,[39m [33mTranslations[39m[33m>[39m [33m=[39m { en[33m,[39m bn }[33m;[39m[0m
+[0m [90m    |[39m                                                          [31m[1m^[22m[39m[0m
+[0m [90m 12 |[39m[0m
+[0m [90m 13 |[39m [36minterface[39m [33mLanguageContextType[39m {[0m
+[0m [90m 14 |[39m   locale[33m:[39m [33mLocale[39m[33m;[39m[0m
+Next.js build worker exited with code: 1 and signal: null
