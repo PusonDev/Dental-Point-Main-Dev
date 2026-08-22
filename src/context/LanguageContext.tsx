@@ -8,7 +8,10 @@ import { getNestedValue } from "@/lib/i18n";
 type Locale = "en" | "bn";
 type Translations = typeof en;
 
-const translations: Record<Locale, Translations> = { en, bn };
+const translations: Record<Locale, Translations> = {
+  en,
+  bn: bn as unknown as Translations,
+};
 
 interface LanguageContextType {
   locale: Locale;
