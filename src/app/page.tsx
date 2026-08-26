@@ -6,79 +6,19 @@ import Image from "next/image";
 import { motion, useInView, useAnimation } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import WebsiteQR from "@/components/WebsiteQR";
-const services = [
-  {
-    title: "Root Canal Treatment",
-    desc: "Treatment of infected tooth pulp to save your natural tooth using modern, painless techniques.",
-    icon: "rct",
-    color: "blue",
-  },
-  {
-    title: "Crown & Bridge",
-    desc: "Restore damaged teeth with precision-crafted natural-looking crowns and bridges.",
-    icon: "crown",
-    color: "sky",
-  },
-  {
-    title: "Painless Extraction",
-    desc: "Safe, gentle removal of damaged, decayed, or wisdom teeth with minimal discomfort.",
-    icon: "extraction",
-    color: "blue",
-  },
-  {
-    title: "Orthodontics & Braces",
-    desc: "Correction of crooked, misaligned teeth and jaw problems for a confident smile.",
-    icon: "braces",
-    color: "sky",
-  },
-  {
-    title: "Cosmetic Filling",
-    desc: "Aesthetic cavity filling with tooth-colored composite — invisible and durable.",
-    icon: "filling",
-    color: "blue",
-  },
-  {
-    title: "Dental Implant",
-    desc: "Permanent titanium implants that look, feel, and function exactly like natural teeth.",
-    icon: "implant",
-    color: "sky",
-  },
-  {
-    title: "Scaling & Polishing",
-    desc: "Professional cleaning to remove plaque, tartar, and stains for fresh, healthy gums.",
-    icon: "scaling",
-    color: "blue",
-  },
-  {
-    title: "Dentures",
-    desc: "Full and partial dentures for complete or partial tooth loss restoration.",
-    icon: "denture",
-    color: "sky",
-  },
-  {
-    title: "Oral Surgery",
-    desc: "Surgical treatment for gum disease, oral cysts, and complex dental conditions.",
-    icon: "surgery",
-    color: "blue",
-  },
-  {
-    title: "Trauma & Fracture",
-    desc: "Emergency care for broken, chipped, or injured teeth — fast and effective.",
-    icon: "trauma",
-    color: "sky",
-  },
-  {
-    title: "Specialized Care",
-    desc: "Gentle dentistry for children, pregnant mothers, diabetic & heart patients.",
-    icon: "specialized",
-    color: "blue",
-  },
-  {
-    title: "Dental X-Ray",
-    desc: "Fast, accurate in-house X-ray with our own modern machine — no referral needed.",
-    icon: "xray",
-    color: "sky",
-  },
+const serviceKeys = [
+  { key: "rct", icon: "rct", color: "blue" },
+  { key: "crown", icon: "crown", color: "sky" },
+  { key: "extraction", icon: "extraction", color: "blue" },
+  { key: "braces", icon: "braces", color: "sky" },
+  { key: "filling", icon: "filling", color: "blue" },
+  { key: "implant", icon: "implant", color: "sky" },
+  { key: "scaling", icon: "scaling", color: "blue" },
+  { key: "denture", icon: "denture", color: "sky" },
+  { key: "surgery", icon: "surgery", color: "blue" },
+  { key: "trauma", icon: "trauma", color: "sky" },
+  { key: "specialized", icon: "specialized", color: "blue" },
+  { key: "xray", icon: "xray", color: "sky" },
 ];
 
 const iconMap: Record<string, JSX.Element> = {
@@ -208,7 +148,20 @@ function Counter({ target }: { target: number }) {
   return <span ref={ref}>{count}</span>;
 }
 
-function ServiceCard({ service, index }: { service: typeof services[0]; index: number }) {
+function ServiceCard({
+  serviceKey,
+  icon,
+  color,
+  index,
+}: {
+  serviceKey: string;
+  icon: string;
+  color: string;
+  index: number;
+}) {
+  const { tc } = useLanguage();
+  const title = tc(`services.items.${serviceKey}.title`, serviceKey);
+  const desc = tc(`services.items.${serviceKey}.desc`, "");
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -226,23 +179,23 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
       </div>
       <div
         className={`w-13 h-13 rounded-xl flex items-center justify-center mb-4 ${
-          service.color === "blue"
+          color === "blue"
             ? "bg-blue-500/15"
             : "bg-sky-500/15"
         }`}
       >
         <div
           className={`w-7 h-7 ${
-            service.color === "blue" ? "stroke-blue-400" : "stroke-sky-400"
+            color === "blue" ? "stroke-blue-400" : "stroke-sky-400"
           }`}
         >
-          {iconMap[service.icon]}
+          {iconMap[icon]}
         </div>
       </div>
       <h3 className="font-cormorant text-xl font-semibold mb-2 group-hover:text-sky-400 transition-colors">
-        {service.title}
+        {title}
       </h3>
-      <p className="text-white/60 text-sm leading-relaxed">{service.desc}</p>
+      <p className="text-white/60 text-sm leading-relaxed">{desc}</p>
       <div className="absolute bottom-4 right-4 w-8 h-8 rounded-full border border-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:translate-x-0 translate-x-2 transition-all duration-300">
         <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -377,7 +330,7 @@ export default function HomePage() {
               >
                 <span className="w-2 h-2 bg-sky-400 rounded-full animate-pulse" />
                 <span className="text-sm text-white/80">
-                  BMDC Reg: 8291 · Now Accepting Patients
+                  {t.home.nowAccepting}
                 </span>
               </motion.div>
 
@@ -387,9 +340,9 @@ export default function HomePage() {
                 transition={{ delay: 0.3, duration: 0.8 }}
                 className="font-cormorant text-5xl md:text-6xl font-light leading-tight mb-6"
               >
-                Where Smiles
+                {t.home.heroLine1}
                 <br />
-                <span className="italic text-[#1d4ed8]">Begin & Shine</span>
+                <span className="italic text-[#1d4ed8]">{t.home.heroLine2}</span>
               </motion.h1>
 
               <motion.p
@@ -398,8 +351,7 @@ export default function HomePage() {
                 transition={{ delay: 0.4, duration: 0.8 }}
                 className="text-white/70 text-lg mb-8 max-w-lg"
               >
-                Expert, gentle dental care in the heart of East Bashabo, Dhaka.
-                Modern techniques. Lasting results.
+                {t.home.heroBlurb}
               </motion.p>
 
               <motion.div
@@ -429,15 +381,15 @@ export default function HomePage() {
                 className="flex flex-wrap gap-6 text-white/60 text-sm"
               >
                 <div className="flex items-center gap-2">
-                  <Counter target={500} />+ · Happy Patients
+                  <Counter target={500} />+ · {t.home.happyPatients}
                 </div>
                 <div className="w-px h-4 bg-white/20" />
                 <div className="flex items-center gap-2">
-                  <Counter target={12} /> · Services Offered
+                  <Counter target={12} /> · {t.home.servicesOffered}
                 </div>
                 <div className="w-px h-4 bg-white/20" />
                 <div className="flex items-center gap-2">
-                  2x · Daily Sessions
+                  2x · {t.home.dailySessions}
                 </div>
               </motion.div>
             </motion.div>
@@ -472,7 +424,7 @@ export default function HomePage() {
                     transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
                     className="absolute -top-4 -right-4 bg-[#0a1628]/85 backdrop-blur-xl border border-blue-500/20 rounded-xl px-4 py-2 text-sm text-white/80"
                   >
-                    Painless Treatment ✓
+                    {t.home.painlessTreatment}
                   </motion.div>
 
                   <motion.div
@@ -482,7 +434,7 @@ export default function HomePage() {
                     transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: -2 }}
                     className="absolute -bottom-4 -left-4 bg-[#0a1628]/85 backdrop-blur-xl border border-blue-500/20 rounded-xl px-4 py-2 text-sm text-white/80"
                   >
-                    11 AM – 10 PM
+                    {t.home.hoursBadge}
                   </motion.div>
 
                   <motion.div
@@ -492,7 +444,7 @@ export default function HomePage() {
                     transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: -4 }}
                     className="absolute top-1/2 -right-8 bg-[#0a1628]/85 backdrop-blur-xl border border-blue-500/20 rounded-xl px-4 py-2 text-sm text-white/80"
                   >
-                    BMDC #8291 ✓
+                    {t.home.bmdcBadge}
                   </motion.div>
                 </div>
               </motion.div>
@@ -529,53 +481,14 @@ export default function HomePage() {
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 perspective-[1200px]">
-            {services.map((service, index) => (
-              <motion.article
-                key={index}
-                initial={{ opacity: 0, y: 26, scale: 0.98 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ delay: index * 0.05, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ y: -10, rotateX: 4, rotateY: -4 }}
-                className="group relative overflow-hidden rounded-[1.85rem] border border-white/10 bg-white/[0.035] p-6 shadow-[0_18px_50px_rgba(2,6,23,0.24)] backdrop-blur-xl"
-              >
-                <motion.div
-                  className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.18),transparent_45%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                  aria-hidden="true"
-                />
-                <motion.div
-                  animate={{ scale: [1, 1.12, 1], opacity: [0.3, 0.65, 0.3] }}
-                  transition={{ duration: 7.5, repeat: Infinity, ease: "easeInOut" }}
-                  className={`absolute -right-10 -top-10 h-36 w-36 rounded-full ${service.color === "blue" ? "bg-blue-400/15" : "bg-sky-400/15"} blur-3xl`}
-                  aria-hidden="true"
-                />
-                <div className="relative z-10">
-                  <motion.div
-                    whileHover={{ rotate: [0, -8, 8, 0], scale: 1.08 }}
-                    transition={{ duration: 0.45 }}
-                    className={`mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border ${
-                      service.color === "blue"
-                        ? "border-blue-400/20 bg-blue-400/10 text-blue-300"
-                        : "border-sky-400/20 bg-sky-400/10 text-sky-300"
-                    } shadow-[0_0_24px_rgba(56,189,248,0.12)]`}
-                  >
-                    <div className={`w-7 h-7 ${service.color === "blue" ? "stroke-blue-400" : "stroke-sky-400"}`}>
-                      {iconMap[service.icon]}
-                    </div>
-                  </motion.div>
-                  <h3 className="font-cormorant text-2xl font-semibold mb-3 text-sky-300 tracking-wide">
-                    {service.title}
-                  </h3>
-                  <p className="text-white/70 text-sm leading-relaxed font-light">
-                    {service.desc}
-                  </p>
-                </div>
-                <motion.div
-                  className="absolute bottom-4 right-4 h-10 w-10 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm opacity-0 group-hover:opacity-100"
-                  animate={{ y: [0, -4, 0] }}
-                  transition={{ duration: 4.2, repeat: Infinity, delay: index * 0.08 }}
-                />
-              </motion.article>
+            {serviceKeys.map((service, index) => (
+              <ServiceCard
+                key={service.key}
+                serviceKey={service.key}
+                icon={service.icon}
+                color={service.color}
+                index={index}
+              />
             ))}
           </div>
         </div>
@@ -623,14 +536,14 @@ export default function HomePage() {
                     transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                     className="rounded-3xl bg-slate-950/80 px-5 py-3 text-sm text-white/80 shadow-lg shadow-slate-950/20"
                   >
-                    5+ Years Experience
+                    {t.home.yearsExperience}
                   </motion.div>
                   <motion.div
                     animate={{ y: [0, -8, 0] }}
                     transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: -2 }}
                     className="rounded-3xl bg-slate-950/80 px-5 py-3 text-sm text-white/80 shadow-lg shadow-slate-950/20"
                   >
-                    🏥 Bangladesh Bank Consultant
+                    {t.home.consultantBadge}
                   </motion.div>
                 </div>
               </motion.div>
@@ -645,30 +558,30 @@ export default function HomePage() {
                 className="rounded-[2rem] border border-white/10 bg-slate-950/95 p-10 shadow-2xl shadow-slate-950/30"
               >
                 <span className="text-sky-400 text-sm font-medium uppercase tracking-[0.24em]">
-                  Meet Your Doctor
+                  {t.home.meetDoctor}
                 </span>
                 <h2 className="mt-4 text-4xl font-semibold text-white md:text-5xl">
-                  Dr. Jarin Tasnim <span className="text-cyan-400">Rahman</span>
+                  {t.home.doctorName}
                 </h2>
                 <div className="mt-6 grid gap-4 sm:grid-cols-2">
                   <div className="rounded-3xl border border-white/10 bg-white/5 p-5 text-slate-300 shadow-[0_20px_80px_rgba(14,116,144,0.12)]">
-                    <p className="text-sm uppercase tracking-[0.2em] text-cyan-300">Experience</p>
-                    <p className="mt-3 text-3xl font-semibold text-white">10+ Years</p>
+                    <p className="text-sm uppercase tracking-[0.2em] text-cyan-300">{t.home.experienceLabel}</p>
+                    <p className="mt-3 text-3xl font-semibold text-white">{t.home.tenPlusYearsExperience}</p>
                   </div>
                   <div className="rounded-3xl border border-white/10 bg-white/5 p-5 text-slate-300 shadow-[0_20px_80px_rgba(124,58,237,0.12)]">
-                    <p className="text-sm uppercase tracking-[0.2em] text-violet-300">Consultant</p>
-                    <p className="mt-3 text-3xl font-semibold text-white">Bangladesh Bank</p>
+                    <p className="text-sm uppercase tracking-[0.2em] text-violet-300">{t.home.consultantLabel}</p>
+                    <p className="mt-3 text-3xl font-semibold text-white">{t.home.bangladeshBankLabel}</p>
                   </div>
                 </div>
                 <p className="mt-8 text-slate-300 leading-8">
-                  Dr. Jarin Tasnim Rahman is a dedicated dentist committed to providing exceptional dental care with a gentle touch. With expertise in various dental procedures, she ensures each patient receives personalized treatment in a comfortable environment.
+                  {t.home.doctorBio}
                 </p>
                 <ul className="mt-8 grid gap-3 text-slate-300 text-sm sm:grid-cols-2">
-                  <li className="rounded-3xl border border-white/10 bg-white/5 px-4 py-3">BDS — University of Dhaka</li>
-                  <li className="rounded-3xl border border-white/10 bg-white/5 px-4 py-3">BMDC Registration No. 8291</li>
-                  <li className="rounded-3xl border border-white/10 bg-white/5 px-4 py-3">PGT — Conservative Dentistry, BSMMU</li>
-                  <li className="rounded-3xl border border-white/10 bg-white/5 px-4 py-3">OMS — Shaheed Suhrawardy Medical College & Hospital</li>
-                  <li className="rounded-3xl border border-white/10 bg-white/5 px-4 py-3">Consultant Dentist, Bangladesh Bank</li>
+                  <li className="rounded-3xl border border-white/10 bg-white/5 px-4 py-3">{t.home.degree1}</li>
+                  <li className="rounded-3xl border border-white/10 bg-white/5 px-4 py-3">{t.home.degree2}</li>
+                  <li className="rounded-3xl border border-white/10 bg-white/5 px-4 py-3">{t.home.degree3}</li>
+                  <li className="rounded-3xl border border-white/10 bg-white/5 px-4 py-3">{t.home.degree4}</li>
+                  <li className="rounded-3xl border border-white/10 bg-white/5 px-4 py-3">{t.home.degree5}</li>
                 </ul>
               </motion.div>
 
@@ -680,7 +593,7 @@ export default function HomePage() {
                 className="rounded-[2rem] border border-cyan-500/20 bg-cyan-500/10 p-8 text-slate-100 shadow-xl shadow-cyan-500/10"
               >
                 <p className="text-xl font-semibold italic">
-                  “Every patient deserves a smile they&apos;re proud to share — that&apos;s my commitment to you.”
+                  {t.home.doctorQuote}
                 </p>
               </motion.blockquote>
 
@@ -717,15 +630,15 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
-              { title: "Dental X-Ray", desc: "In-house single-tooth X-rays. For full-mouth scans, our partners offer identical standard prices.", icon: "xray", highlighted: true },
-              { title: "Pain-Free Care", desc: "Gentle techniques and local anesthesia to ensure a highly comfortable, painless experience.", icon: "syringe" },
-              { title: "Advanced Equipment", desc: "State-of-the-art dental technology for highly precise, comfortable, and efficient treatments.", icon: "microscope" },
-              { title: "Easy Online Booking", desc: "Schedule, reschedule, or manage your dental appointments online instantly with ease.", icon: "calendar" },
-              { title: "Family Friendly", desc: "A warm, welcoming dental clinic environment designed for patients of all age groups.", icon: "people" },
-              { title: "Flexible Hours", desc: "Convenient morning and evening timings tailored to fit your busy daily schedule.", icon: "clock" },
-              { title: "BMDC Certified", desc: "Complete peace of mind with qualified professionals registered under the BMDC.", icon: "badge" },
-              { title: "Strict Sterilization", desc: "100% safe environment with multi-stage autoclave sterilization for all surgical tools.", icon: "shield" },
-              { title: "Premium Comfort", desc: "Soothing, modern setup designed to keep dental anxiety away and make you feel at home.", icon: "comfort" }
+              { key: "xray", icon: "xray", highlighted: true },
+              { key: "syringe", icon: "syringe" },
+              { key: "microscope", icon: "microscope" },
+              { key: "calendar", icon: "calendar" },
+              { key: "people", icon: "people" },
+              { key: "clock", icon: "clock" },
+              { key: "badge", icon: "badge" },
+              { key: "shield", icon: "shield" },
+              { key: "comfort", icon: "comfort" },
             ].map((item, index) => (
               <motion.article
                 key={index}
@@ -770,10 +683,10 @@ export default function HomePage() {
                     </div>
                   </motion.div>
                   <h3 className="font-cormorant text-2xl font-semibold mb-3 text-sky-300 tracking-wide">
-                    {item.title}
+                    {t.home.whyItems?.[item.key as keyof typeof t.home.whyItems]?.title}
                   </h3>
                   <p className="text-white/70 text-sm leading-relaxed font-light">
-                    {item.desc}
+                    {t.home.whyItems?.[item.key as keyof typeof t.home.whyItems]?.desc}
                   </p>
                 </div>
                 {item.highlighted && (
@@ -881,18 +794,18 @@ export default function HomePage() {
             className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-5 sm:p-6 text-center backdrop-blur-xl shadow-[0_20px_50px_rgba(2,6,23,0.35)]"
           >
             <p className="text-sky-400 text-[10px] font-bold tracking-[0.28em] uppercase mb-2 block">
-              Ready to smile better?
+              {t.home.readyTitle}
             </p>
             <h2 className="font-cormorant text-3xl font-semibold mb-2">
-              Ready to Love Your Smile?
+              {t.home.readySmile}
             </h2>
             <p className="text-white/60 mb-5 max-w-lg mx-auto text-sm leading-relaxed">
-              Book your appointment today and take the first step towards a healthier, brighter smile.
+              {t.home.readySmileSub}
             </p>
             <div className="flex flex-wrap justify-center gap-2">
               <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <a href="tel:+8801616753364" className="btn-secondary px-5 py-2 text-sm">
-                  📞 01616 753364
+                  📞 {t.home.phone}
                 </a>
               </motion.div>
             </div>

@@ -34,13 +34,23 @@
     "servicesOffered": "Services Offered",
     "dailySessions": "Daily Sessions",
     "painlessTreatment": "Painless Treatment ✓",
-    "hoursBadge": "11 AM - 10 PM",
+    "hoursBadge": "11 AM – 10 PM",
     "bmdcBadge": "BMDC #8291 ✓",
     "meetDoctor": "Meet Your Doctor",
+    "doctorName": "Dr. Jarin Tasnim Rahman",
     "yearsExperience": "5+ Years Experience",
-    "consultantBadge": "Bangladesh Bank Consultant",
+    "tenPlusYearsExperience": "10+ Years",
+    "experienceLabel": "Experience",
+    "consultantLabel": "Consultant",
+    "bangladeshBankLabel": "Bangladesh Bank",
+    "consultantBadge": "🏥 Bangladesh Bank Consultant",
+    "degree1": "BDS — University of Dhaka",
+    "degree2": "BMDC Registration No. 8291",
+    "degree3": "PGT — Conservative Dentistry, BSMMU",
+    "degree4": "OMS — Shaheed Suhrawardy Medical College & Hospital",
+    "degree5": "Consultant Dentist, Bangladesh Bank",
     "doctorBio": "Dr. Jarin Tasnim Rahman is a dedicated dentist committed to providing exceptional dental care with a gentle touch. With expertise in various dental procedures, she ensures each patient receives personalized treatment in a comfortable environment.",
-    "doctorQuote": "Every patient deserves a smile they're proud to share - that's my commitment to you.",
+    "doctorQuote": "“Every patient deserves a smile they're proud to share — that's my commitment to you.”",
     "patientPromise": "Our Patient-First Promise",
     "whyChooseUs": "Why Choose Us",
     "whyChooseUsSub": "Experience the difference of patient-centered dental care with modern technology.",
@@ -54,7 +64,45 @@
     "contactEmailTitle": "Email",
     "contactHoursTitle": "Hours",
     "contactUs": "Contact Us",
-    "contactHelp": "Get in touch with us for any queries or appointments"
+    "contactHelp": "Get in touch with us for any queries or appointments",
+    "whyItems": {
+      "xray": {
+        "title": "Dental X-Ray",
+        "desc": "In-house single-tooth X-rays. For full-mouth scans, our partners offer identical standard prices."
+      },
+      "syringe": {
+        "title": "Pain-Free Care",
+        "desc": "Gentle techniques and local anesthesia to ensure a highly comfortable, painless experience."
+      },
+      "microscope": {
+        "title": "Advanced Equipment",
+        "desc": "State-of-the-art dental technology for highly precise, comfortable, and efficient treatments."
+      },
+      "calendar": {
+        "title": "Easy Online Booking",
+        "desc": "Schedule, reschedule, or manage your dental appointments online instantly with ease."
+      },
+      "people": {
+        "title": "Family Friendly",
+        "desc": "A warm, welcoming dental clinic environment designed for patients of all age groups."
+      },
+      "clock": {
+        "title": "Flexible Hours",
+        "desc": "Convenient morning and evening timings tailored to fit your busy daily schedule."
+      },
+      "badge": {
+        "title": "BMDC Certified",
+        "desc": "Complete peace of mind with qualified professionals registered under the BMDC."
+      },
+      "shield": {
+        "title": "Strict Sterilization",
+        "desc": "100% safe environment with multi-stage autoclave sterilization for all surgical tools."
+      },
+      "comfort": {
+        "title": "Premium Comfort",
+        "desc": "Soothing, modern setup designed to keep dental anxiety away and make you feel at home."
+      }
+    }
   },
   "services": {
     "title": "Our Services",
@@ -67,7 +115,57 @@
     "needHelp": "Need help choosing?",
     "guideText": "We'll guide you to the right treatment, without the pressure.",
     "guideDesc": "Book a consultation and let the clinic help you decide the safest, fastest, and most effective path forward.",
-    "bookAppointment": "Book an Appointment"
+    "bookAppointment": "Book an Appointment",
+    "items": {
+      "rct": {
+        "title": "Root Canal Treatment",
+        "desc": "Treatment of infected tooth pulp to save your natural tooth using modern, painless techniques."
+      },
+      "crown": {
+        "title": "Crown & Bridge",
+        "desc": "Restore damaged teeth with precision-crafted natural-looking crowns and bridges."
+      },
+      "extraction": {
+        "title": "Painless Extraction",
+        "desc": "Safe, gentle removal of damaged, decayed, or wisdom teeth with minimal discomfort."
+      },
+      "braces": {
+        "title": "Orthodontics & Braces",
+        "desc": "Correction of crooked, misaligned teeth and jaw problems for a confident smile."
+      },
+      "filling": {
+        "title": "Cosmetic Filling",
+        "desc": "Aesthetic cavity filling with tooth-colored composite — invisible and durable."
+      },
+      "implant": {
+        "title": "Dental Implant",
+        "desc": "Permanent titanium implants that look, feel, and function exactly like natural teeth."
+      },
+      "scaling": {
+        "title": "Scaling & Polishing",
+        "desc": "Professional cleaning to remove plaque, tartar, and stains for fresh, healthy gums."
+      },
+      "denture": {
+        "title": "Dentures",
+        "desc": "Full and partial dentures for complete or partial tooth loss restoration."
+      },
+      "surgery": {
+        "title": "Oral Surgery",
+        "desc": "Surgical treatment for gum disease, oral cysts, and complex dental conditions."
+      },
+      "trauma": {
+        "title": "Trauma & Fracture",
+        "desc": "Emergency care for broken, chipped, or injured teeth — fast and effective."
+      },
+      "specialized": {
+        "title": "Specialized Care",
+        "desc": "Gentle dentistry for children, pregnant mothers, diabetic & heart patients."
+      },
+      "xray": {
+        "title": "Dental X-Ray",
+        "desc": "Fast, accurate in-house X-ray with our own modern machine — no referral needed."
+      }
+    }
   },
   "landing": {
     "headline": "Permanent solution for your dental problems",

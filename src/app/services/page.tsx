@@ -6,27 +6,26 @@ import { motion } from "framer-motion";
 import PublicLayout from "@/components/shared/PublicLayout";
 import { useLanguage } from "@/context/LanguageContext";
 
-type ServiceItem = {
-  title: string;
-  description: string;
+type ServiceKeyItem = {
+  key: string;
   icon: ReactNode;
   accent: string;
   glow: string;
 };
 
-const services: ServiceItem[] = [
-  { title: "Root Canal Treatment", description: "Treatment of infected tooth pulp to save your natural tooth using modern, painless techniques.", icon: <path d="M12 2C9 2 7 4.2 7 7c0 2.2 1.2 4 2.5 5.2V18l2.5 2 2.5-2v-5.8C14.8 11 16 9.2 16 7c0-2.8-2-5-4-5Z" />, accent: "from-sky-500/20 via-cyan-400/10 to-transparent", glow: "bg-sky-400/20" },
-  { title: "Crown & Bridge", description: "Restore damaged teeth with precision-crafted natural-looking crowns and bridges.", icon: <path d="M4 20 L4 10 L9 15 L14 6 L19 15 L24 10 L24 20 Z" />, accent: "from-blue-500/20 via-sky-400/10 to-transparent", glow: "bg-blue-400/20" },
-  { title: "Painless Extraction", description: "Safe, gentle removal of damaged, decayed, or wisdom teeth with minimal discomfort.", icon: <path d="M8 4 L8 14 C8 17 10 19 13 19" />, accent: "from-cyan-500/20 via-blue-400/10 to-transparent", glow: "bg-cyan-400/20" },
-  { title: "Orthodontics & Braces", description: "Correction of crooked, misaligned teeth and jaw problems for a confident smile.", icon: <rect x="4" y="10" width="6" height="8" rx="2" />, accent: "from-sky-500/20 via-blue-400/10 to-transparent", glow: "bg-sky-400/20" },
-  { title: "Cosmetic Filling", description: "Aesthetic cavity filling with tooth-colored composite — invisible and durable.", icon: <path d="M14 4 C10 4 7 7 7 11 C7 15 8 19 10 23 C11 25.5 12 27 14 27 C16 27 17 25.5 18 23 C20 19 21 15 21 11 C21 7 18 4 14 4Z" />, accent: "from-blue-500/20 via-cyan-400/10 to-transparent", glow: "bg-blue-400/20" },
-  { title: "Dental Implant", description: "Permanent titanium implants that look, feel, and function exactly like natural teeth.", icon: <path d="M10 14 L18 14 L17 24 L14 26 L11 24 Z" />, accent: "from-sky-500/20 via-blue-400/10 to-transparent", glow: "bg-sky-400/20" },
-  { title: "Scaling & Polishing", description: "Professional cleaning to remove plaque, tartar, and stains for fresh, healthy gums.", icon: <path d="M6 22 L14 14" />, accent: "from-cyan-500/20 via-sky-400/10 to-transparent", glow: "bg-cyan-400/20" },
-  { title: "Dentures", description: "Full and partial dentures for complete or partial tooth loss restoration.", icon: <path d="M6 20 C6 12 9 6 14 6 C19 6 22 12 22 20" />, accent: "from-blue-500/20 via-sky-400/10 to-transparent", glow: "bg-blue-400/20" },
-  { title: "Oral Surgery", description: "Surgical treatment for gum disease, oral cysts, and complex dental conditions.", icon: <path d="M4 24 L16 8" />, accent: "from-sky-500/20 via-cyan-400/10 to-transparent", glow: "bg-sky-400/20" },
-  { title: "Trauma & Fracture", description: "Emergency care for broken, chipped, or injured teeth — fast and effective.", icon: <path d="M10 4 C7 4 5 7 5 11 C5 15 7 20 9 24" />, accent: "from-cyan-500/20 via-blue-400/10 to-transparent", glow: "bg-cyan-400/20" },
-  { title: "Specialized Care", description: "Gentle dentistry for children, pregnant mothers, diabetic & heart patients.", icon: <path d="M14 24 C14 24 6 18 6 12 C6 9 8 7 11 7 C12.5 7 13.5 8 14 9 C14.5 8 15.5 7 17 7 C20 7 22 9 22 12 C22 18 14 24 14 24Z" />, accent: "from-blue-500/20 via-cyan-400/10 to-transparent", glow: "bg-blue-400/20" },
-  { title: "Dental X-Ray", description: "Fast, accurate in-house X-ray with our own modern machine — no referral needed.", icon: <rect x="5" y="5" width="18" height="18" rx="2" />, accent: "from-sky-500/20 via-blue-400/10 to-transparent", glow: "bg-sky-400/20" },
+const serviceItems: ServiceKeyItem[] = [
+  { key: "rct", icon: <path d="M12 2C9 2 7 4.2 7 7c0 2.2 1.2 4 2.5 5.2V18l2.5 2 2.5-2v-5.8C14.8 11 16 9.2 16 7c0-2.8-2-5-4-5Z" />, accent: "from-sky-500/20 via-cyan-400/10 to-transparent", glow: "bg-sky-400/20" },
+  { key: "crown", icon: <path d="M4 20 L4 10 L9 15 L14 6 L19 15 L24 10 L24 20 Z" />, accent: "from-blue-500/20 via-sky-400/10 to-transparent", glow: "bg-blue-400/20" },
+  { key: "extraction", icon: <path d="M8 4 L8 14 C8 17 10 19 13 19" />, accent: "from-cyan-500/20 via-blue-400/10 to-transparent", glow: "bg-cyan-400/20" },
+  { key: "braces", icon: <rect x="4" y="10" width="6" height="8" rx="2" />, accent: "from-sky-500/20 via-blue-400/10 to-transparent", glow: "bg-sky-400/20" },
+  { key: "filling", icon: <path d="M14 4 C10 4 7 7 7 11 C7 15 8 19 10 23 C11 25.5 12 27 14 27 C16 27 17 25.5 18 23 C20 19 21 15 21 11 C21 7 18 4 14 4Z" />, accent: "from-blue-500/20 via-cyan-400/10 to-transparent", glow: "bg-blue-400/20" },
+  { key: "implant", icon: <path d="M10 14 L18 14 L17 24 L14 26 L11 24 Z" />, accent: "from-sky-500/20 via-blue-400/10 to-transparent", glow: "bg-sky-400/20" },
+  { key: "scaling", icon: <path d="M6 22 L14 14" />, accent: "from-cyan-500/20 via-sky-400/10 to-transparent", glow: "bg-cyan-400/20" },
+  { key: "denture", icon: <path d="M6 20 C6 12 9 6 14 6 C19 6 22 12 22 20" />, accent: "from-blue-500/20 via-sky-400/10 to-transparent", glow: "bg-blue-400/20" },
+  { key: "surgery", icon: <path d="M4 24 L16 8" />, accent: "from-sky-500/20 via-cyan-400/10 to-transparent", glow: "bg-sky-400/20" },
+  { key: "trauma", icon: <path d="M10 4 C7 4 5 7 5 11 C5 15 7 20 9 24" />, accent: "from-cyan-500/20 via-blue-400/10 to-transparent", glow: "bg-cyan-400/20" },
+  { key: "specialized", icon: <path d="M14 24 C14 24 6 18 6 12 C6 9 8 7 11 7 C12.5 7 13.5 8 14 9 C14.5 8 15.5 7 17 7 C20 7 22 9 22 12 C22 18 14 24 14 24Z" />, accent: "from-blue-500/20 via-cyan-400/10 to-transparent", glow: "bg-blue-400/20" },
+  { key: "xray", icon: <rect x="5" y="5" width="18" height="18" rx="2" />, accent: "from-sky-500/20 via-blue-400/10 to-transparent", glow: "bg-sky-400/20" },
 ];
 
 const itemVariants = {
@@ -43,7 +42,11 @@ const itemVariants = {
   }),
 };
 
-function ServiceCard({ service, index }: { service: ServiceItem; index: number }) {
+function ServiceCard({ item, index }: { item: ServiceKeyItem; index: number }) {
+  const { tc } = useLanguage();
+  const title = tc(`services.items.${item.key}.title`, item.key);
+  const description = tc(`services.items.${item.key}.desc`, "");
+
   return (
     <motion.article
       custom={index}
@@ -54,11 +57,11 @@ function ServiceCard({ service, index }: { service: ServiceItem; index: number }
       whileHover={{ y: -10, rotateX: 4 }}
       className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.035] p-5 shadow-[0_18px_50px_rgba(2,6,23,0.28)] backdrop-blur-xl"
     >
-      <div className={`absolute inset-0 bg-gradient-to-br ${service.accent} opacity-0 transition-opacity duration-300 group-hover:opacity-100`} />
+      <div className={`absolute inset-0 bg-gradient-to-br ${item.accent} opacity-0 transition-opacity duration-300 group-hover:opacity-100`} />
       <motion.div
         animate={{ scale: [1, 1.14, 1], opacity: [0.35, 0.7, 0.35] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className={`absolute -right-10 -top-10 h-36 w-36 rounded-full ${service.glow} blur-3xl`}
+        className={`absolute -right-10 -top-10 h-36 w-36 rounded-full ${item.glow} blur-3xl`}
         aria-hidden="true"
       />
       <div className="relative z-10">
@@ -68,11 +71,11 @@ function ServiceCard({ service, index }: { service: ServiceItem; index: number }
           className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border border-sky-400/20 bg-sky-400/10 text-sky-300 shadow-[0_0_30px_rgba(56,189,248,0.14)]"
         >
           <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
-            {service.icon}
+            {item.icon}
           </svg>
         </motion.div>
-        <h2 className="text-lg font-semibold text-[#f0f9ff]">{service.title}</h2>
-        <p className="mt-2 text-sm leading-6 text-[#94a3b8]">{service.description}</p>
+        <h2 className="text-lg font-semibold text-[#f0f9ff]">{title}</h2>
+        <p className="mt-2 text-sm leading-6 text-[#94a3b8]">{description}</p>
       </div>
       <motion.div
         className="absolute bottom-4 right-4 h-10 w-10 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm"
@@ -175,8 +178,8 @@ export default function ServicesPage() {
               whileInView="show"
               viewport={{ once: true, margin: "-120px" }}
             >
-              {services.map((service, index) => (
-                <ServiceCard key={service.title} service={service} index={index} />
+              {serviceItems.map((item, index) => (
+                <ServiceCard key={item.key} item={item} index={index} />
               ))}
             </motion.div>
 
