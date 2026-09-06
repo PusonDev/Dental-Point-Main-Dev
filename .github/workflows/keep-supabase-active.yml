@@ -1,0 +1,16 @@
+﻿name: Keep Supabase Active
+
+on:
+  schedule:
+    # Runs every 3 days to prevent Supabase 7-day pause
+    - cron: '0 0 */3 * *'
+  workflow_dispatch:
+
+jobs:
+  ping-supabase:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase & Vercel
+        run: |
+          curl -s -f -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBxd3ZxeHd2eHhmdGxycnB5cWdkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg4Mzk0NDUsImV4cCI6MjA5NDQxNTQ0NX0.mskKW5zwQmzfKcrHgz_2GgHsCWhtm2SljvsrpKptmy4" "https://pqwvqxwvxxftlrrpyqgd.supabase.co/rest/v1/" || true
+          curl -s "https://drjerin.vercel.app/api/cron/whatsapp-send?secret=dental-setup-2025" || true
